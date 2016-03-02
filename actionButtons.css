@@ -1,0 +1,32 @@
+#actionButtons{
+	position: relative;
+	float: left;
+	
+	border-width: 5px;
+	border-radius: 10px;
+	border-style: ridge;
+}
+
+#abBackground{
+	position:relative;
+	background-image: url("./Data/Graphics/Interface/aged paper.jpg");
+
+	overflow: auto; /* Required to allow for floated child actionButtons. */
+}
+
+.actionButton{
+	float: left;
+	margin: 6px;
+	height: 100px;
+	width: 100px;
+	background-color: rgba(163, 155, 138, 0.8);
+	border-style: ridge;
+	border-radius: 8px;
+	border-width: 6px;
+	
+	transition: background-color 0.2s linear;
+}
+
+.actionButton:hover{
+	background-color: yellow;
+}

@@ -1,0 +1,67 @@
+=============================================================================================
+TO DO
+=============================================================================================
+
+-	line of sight overlay for attack range
+-	active agent overlay updates to include:
+		current health
+		current mind
+		current weapon (damage)
+		current armor equiped (total defence)
+-	nice graphical layout for actions
+-	merge the search into two functions, a general search for treasure/secret doors and a
+	search for traps?
+-	custom cursors to reflect desired action
+-	visual map boundary (important for some rare instances like walk through walls, etc)
+-	update graphics for agents:
+		Barbarian
+		Elf
+		Dwarf
+		Wizard
+		Goblin
+		Orc
+		Zombie
+		Skeleton
+		Gargoyle
+		Witch Lord
+		Fimir
+		Chaos Warrior
+		Mummy
+-	A* search algorithm
+		General AStar search that does not predicate an agent
+		Maybe add options for what should/should not block the search path and write a
+		'can move' function that does not rely on the use of the agent 'canMove'
+		fix last move check in A* search to include scenario when creatures are in a row more
+		two deep, thus preventing movement form further away than originally predicted
+-	start integrating AI
+		Attack a player
+		Determine best player to attack
+-	integrate items
+-	implement actions
+		Attack
+		Search (treasure, secrets, traps)
+-	fix focus when mouse no longer over item in a different cell
+-	include tile rotation
+-	fix error in getline when in a 0 y cell (must be in the vision raycasting algorithms?)
+-	include an unarmed base attack value for all agents?
+-	may need to include a map max x and y values to determine whether or not movement remains
+	in the map even if a cell has not been initialized.
+-	implement an attack/defence dice splash screen display
+-	introduce delay for visuals in agent movement
+-	change the pathing to include a check for weapon range
+-	add a ray cast check for weapon line of sight
+-	update the gh.Agent.getDefenceDice to include armour checks in the total value
+=============================================================================================
+COMPLETED
+=============================================================================================
+
+-	add weapon to character
+-	fix ratio in sprite display
+-	set AI creature to active when viewed
+-	change image states on end turn
+-	space to center on active agent
+-	include a path finding algorithm
+		AStar functionality for an agent
+-	start integrating AI
+		Move toward player
+

@@ -1,0 +1,166 @@
+<!doctype HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="ge.css">
+	<link rel="stylesheet" type="text/css" href="hud.css">
+	<link rel="stylesheet" type="text/css" href="diceSplashScreen.css">
+	<link rel="stylesheet" type="text/css" href="gameSpace.css">
+	<link rel="stylesheet" type="text/css" href="activeAgent.css">
+	<link rel="stylesheet" type="text/css" href="actionButtons.css">
+	<link rel="stylesheet" type="text/css" href="moveDice.css">
+	<link rel="stylesheet" type="text/css" href="endTurnButton.css">
+	<title>Game Engine</title>
+</head>
+
+<body>
+	<!-- 
+	The active agent hud display component 
+	-->
+	<div id="hud">
+		<div id="activeAgent">
+			<div id="aaBorder">
+				<div id="aaBackgroundImage">
+					<h2 id="aaName">Barbarian</h2>
+					
+					<div id="aaDetails">
+						<p id="aaDescription"></p>
+						<canvas id="aaImage"></canvas>
+						<table id="aaTable" border="1">
+							<tr >
+								<td rowspan="2">Attack Dice</td>
+								<td rowspan="2">Defend Dice</td>
+								<td colspan="2" style="text-align: center;">Starting Points</td>
+							</tr>
+							<tr>
+								<td>Body</td>
+								<td>Mind</td>
+							</tr>
+							<tr>
+								<td id="aaBody">dummytext</td>
+								<td id="aaMind">dummytext</td>
+								<td>dummytext</td>
+								<td>dummytext</td>
+							</tr>
+						</table>
+						<p id="aaMove">Movement</p>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div id="lowerHud">
+			<div id="actionButtons">
+				<div id="abBackground">
+					<div class="actionButton" id="attack">
+						<p id="attackState">ATTACK</p>
+					</div>
+					<div class="actionButton" id="search">
+						<p id="searchDoors">SEARCH</p>
+					</div>
+					<div class="actionButton" id="item">
+						<p id="useItem">USE AN ITEM</p>
+					</div>
+
+					<div class="actionButton" id="traps">
+						<p id="searchTraps">SEARCH FOR TRAPS</p>
+					</div>
+					<div class="actionButton" id="spell">
+						<p id="useSpell">SPELL</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="diceContainer">
+				<canvas class="dice" id="d1" width="100" height="100"></canvas>
+				<canvas class="dice" id="d2" width="100" height="100"></canvas>
+			</div>
+
+			<div id="endTurnContainer">
+				<!-- <button id="endTurn"><p>END TURN</p></button> -->
+				<div id="endTurnButton">
+					<p id="endTurnText">End Turn</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 
+	-The Game Board display which sits beneath all other visual components
+	-->
+	<div id="gameSpace">
+		<p id="performance">PERFORMANCE</p>
+		<canvas class="display" id="board">Your browser does not support canvas. Please upgrade your browser.</canvas>
+	</div>
+
+	<div id="diceSplashScreen">
+	</div>
+
+	<!-- Load StdLib files -->
+	<script type="text/javascript" src="./Scripts/StdLib/stdlib.js"></script>	
+	<script type="text/javascript" src="./Scripts/StdLib/vanilla.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/ajax.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/math.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/vec2.js"></script>
+
+	<script type="text/javascript" src="./Scripts/StdLib/mouse.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/keyboard.js"></script>
+
+	<script type="text/javascript" src="./Scripts/StdLib/fps.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/canvas2d.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/display.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/pixel.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/sprite.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/spriteStrip.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/animation.js"></script>
+
+
+	<!-- Load Grid Hack files -->
+
+	<!-- Load UI files -->
+	<script type="text/javascript" src="./Scripts/GH/assets.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/board.js"></script>
+
+	<!-- Load HUD files -->
+	<script type="text/javascript" src="./Scripts/GH/Interface/hud.js"></script>
+
+	<!-- Load API files -->
+	<script type="text/javascript" src="./Scripts/GH/dice.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/wall.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/door.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/cell.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/map.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/entryTrigger.js"></script>
+
+	<script type="text/javascript" src="./Scripts/GH/weapon.js"></script>
+
+	<script type="text/javascript" src="./Scripts/GH/animation.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/agent.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/player.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/manager.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/json.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/campaign.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/level.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/stateSetup.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/stateGame.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/gh.js"></script>
+
+	<script type="text/javascript">
+	console.log("scripts loaded, initiate game...");
+
+	(function(){
+		gh.setup("gameSpace", "hud", "board");
+		gh.buildImageData();
+
+	})();
+
+	</script>
+</body>
+
+
+
+</html>

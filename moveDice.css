@@ -1,0 +1,23 @@
+#diceContainer{
+	position: relative;
+	float: left;
+
+	border-radius: 10px;
+	border-style: ridge;
+	border-width: 5px;
+
+	background-image: url("./Data/Graphics/Interface/Ashy Sandstone.jpg");
+
+	z-index: 100;
+}
+
+.dice{
+	margin: 6px;
+
+	border-radius: 10px;
+	border-style: ridge;
+	border-width: 5px;
+
+	background-color: black;
+
+}

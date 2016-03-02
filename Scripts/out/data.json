@@ -1,0 +1,1819 @@
+{
+    "project": {},
+    "files": {
+        "GH\\agent.js": {
+            "name": "GH\\agent.js",
+            "modules": {
+                "gh": 1
+            },
+            "classes": {
+                "Agent": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\assets.js": {
+            "name": "GH\\assets.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\board.js": {
+            "name": "GH\\board.js",
+            "modules": {},
+            "classes": {
+                "Board": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\campaign.js": {
+            "name": "GH\\campaign.js",
+            "modules": {},
+            "classes": {
+                "Campaign": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\cell.js": {
+            "name": "GH\\cell.js",
+            "modules": {},
+            "classes": {
+                "Cell": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\door.js": {
+            "name": "GH\\door.js",
+            "modules": {},
+            "classes": {
+                "Door": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\entryTrigger.js": {
+            "name": "GH\\entryTrigger.js",
+            "modules": {},
+            "classes": {
+                "EntryTrigger": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\gh.js": {
+            "name": "GH\\gh.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\json.js": {
+            "name": "GH\\json.js",
+            "modules": {},
+            "classes": {
+                "json": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\level.js": {
+            "name": "GH\\level.js",
+            "modules": {},
+            "classes": {
+                "Level": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\manager.js": {
+            "name": "GH\\manager.js",
+            "modules": {},
+            "classes": {
+                "Mlayer": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\map.js": {
+            "name": "GH\\map.js",
+            "modules": {},
+            "classes": {
+                "Map": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\player.js": {
+            "name": "GH\\player.js",
+            "modules": {},
+            "classes": {
+                "Player": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\stateSetup.js": {
+            "name": "GH\\stateSetup.js",
+            "modules": {},
+            "classes": {
+                "stateSetup": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\wall.js": {
+            "name": "GH\\wall.js",
+            "modules": {},
+            "classes": {
+                "gh": 1,
+                "Wall": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\ajax.js": {
+            "name": "StdLib\\ajax.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\animation.js": {
+            "name": "StdLib\\animation.js",
+            "modules": {},
+            "classes": {
+                "Animation": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\canvas2d.js": {
+            "name": "StdLib\\canvas2d.js",
+            "modules": {},
+            "classes": {
+                "Canvas2D": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\display.js": {
+            "name": "StdLib\\display.js",
+            "modules": {},
+            "classes": {
+                "grahpics": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\keyboard.js": {
+            "name": "StdLib\\keyboard.js",
+            "modules": {
+                "input": 1
+            },
+            "classes": {
+                "input": 1,
+                "keyboard": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\math.js": {
+            "name": "StdLib\\math.js",
+            "modules": {
+                "StdLib": 1
+            },
+            "classes": {
+                "math": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "StdLib\\sprite.js": {
+            "name": "StdLib\\sprite.js",
+            "modules": {
+                "graphics": 1
+            },
+            "classes": {
+                "graphics": 1,
+                "Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "gh": {
+            "name": "gh",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "gh": 1,
+                "Agent": 1,
+                "Board": 1,
+                "Campaign": 1,
+                "Cell": 1,
+                "Door": 1,
+                "EntryTrigger": 1,
+                "json": 1,
+                "Level": 1,
+                "Mlayer": 1,
+                "Map": 1,
+                "Player": 1,
+                "stateSetup": 1,
+                "Wall": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "GH\\wall.js",
+            "line": 13
+        },
+        "graphics": {
+            "name": "graphics",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "graphics": 1,
+                "Animation": 1,
+                "Canvas2D": 1,
+                "grahpics": 1,
+                "Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "StdLib\\sprite.js",
+            "line": 27
+        },
+        "input": {
+            "name": "input",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "input": 1,
+                "keyboard": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "StdLib\\keyboard.js",
+            "line": 13
+        },
+        "StdLib": {
+            "name": "StdLib",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "math": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "StdLib\\math.js",
+            "line": 7
+        }
+    },
+    "classes": {
+        "gh": {
+            "name": "gh",
+            "shortname": "gh",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\wall.js",
+            "line": 7,
+            "description": "The board class is responsible for drawing all aspects of the game state with exception of the user\ninterface which is the perview of the hud.",
+            "params": [
+                {
+                    "name": "gh",
+                    "description": "The Grid Hack namespace"
+                }
+            ],
+            "return": {
+                "description": ""
+            }
+        },
+        "Agent": {
+            "name": "Agent",
+            "shortname": "Agent",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\agent.js",
+            "line": 21,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "templateID",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "uniqueID",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "description",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "team",
+                    "description": ""
+                },
+                {
+                    "name": "body",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "mind",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "baseDefence",
+                    "description": ""
+                },
+                {
+                    "name": "mainHand",
+                    "description": ""
+                },
+                {
+                    "name": "offHand",
+                    "description": ""
+                },
+                {
+                    "name": "chest",
+                    "description": ""
+                },
+                {
+                    "name": "head",
+                    "description": ""
+                },
+                {
+                    "name": "moveDice",
+                    "description": ""
+                },
+                {
+                    "name": "baseMove",
+                    "description": ""
+                },
+                {
+                    "name": "spellList",
+                    "description": ""
+                },
+                {
+                    "name": "inventory",
+                    "description": ""
+                }
+            ]
+        },
+        "Board": {
+            "name": "Board",
+            "shortname": "Board",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\board.js",
+            "line": 17,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "canvasId",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "height",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "return": {
+                "description": ""
+            }
+        },
+        "Campaign": {
+            "name": "Campaign",
+            "shortname": "Campaign",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\campaign.js",
+            "line": 10,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "introText",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "levels",
+                    "description": "",
+                    "type": "[Level]"
+                }
+            ]
+        },
+        "Cell": {
+            "name": "Cell",
+            "shortname": "Cell",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\cell.js",
+            "line": 12,
+            "description": "Description\nborder {\n\ttop: {\n\t\t\t\"passable\" : true/false,\n\t\t\t\"transparent\" : true/false,\n\t\t\t\"door\" : true/false,\n\t\t\t\"open\" : true/false,\n\t\t\t\"locked\" : true/false,\n\t\t\t\"imageStates\" : {\n\t\t\t}\n\t\t }\n\tleft: {}\n}",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The location of the cell on the x axis.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The location of the cell on the y axis.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "border",
+                    "description": ""
+                },
+                {
+                    "name": "agents",
+                    "description": "A list of agents occupying the cell.",
+                    "type": "[Agent]"
+                },
+                {
+                    "name": "items",
+                    "description": "A list of items on the cell.",
+                    "type": "[Item]"
+                },
+                {
+                    "name": "triggers",
+                    "description": "A list of triggers on the cell.",
+                    "type": "[Trigger]"
+                },
+                {
+                    "name": "ptrSprite",
+                    "description": "The name of the floor sprite which should be drawn.",
+                    "type": "graphics.Sprite"
+                }
+            ],
+            "return": {
+                "description": ""
+            }
+        },
+        "Door": {
+            "name": "Door",
+            "shortname": "Door",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\door.js",
+            "line": 13,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "side",
+                    "description": "Values can include \"top\" \"left\" \"right\" \"bottom\".",
+                    "type": "String"
+                },
+                {
+                    "name": "open",
+                    "description": "",
+                    "type": "Bool"
+                }
+            ]
+        },
+        "EntryTrigger": {
+            "name": "EntryTrigger",
+            "shortname": "EntryTrigger",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\entryTrigger.js",
+            "line": 6,
+            "description": "Entry triggers are by default active and only become in-active after the setup game state has\nbeen completed.",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "json": {
+            "name": "json",
+            "shortname": "json",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\json.js",
+            "line": 15
+        },
+        "Level": {
+            "name": "Level",
+            "shortname": "Level",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\level.js",
+            "line": 13,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "introText",
+                    "description": "",
+                    "type": "String"
+                }
+            ]
+        },
+        "Mlayer": {
+            "name": "Mlayer",
+            "shortname": "Mlayer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\manager.js",
+            "line": 13,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "players",
+                    "description": "",
+                    "type": "[Player]"
+                }
+            ]
+        },
+        "Map": {
+            "name": "Map",
+            "shortname": "Map",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\map.js",
+            "line": 13,
+            "is_constructor": 1
+        },
+        "Player": {
+            "name": "Player",
+            "shortname": "Player",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\player.js",
+            "line": 17,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "AI",
+                    "description": "",
+                    "type": "Bool"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "[Agent]"
+                }
+            ]
+        },
+        "stateSetup": {
+            "name": "stateSetup",
+            "shortname": "stateSetup",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\stateSetup.js",
+            "line": 13,
+            "description": "The role of the stateSetup class is to provide the mechanics for setting up the game board prior to\nrunning the actual game.  This includes player placement of heroes on the board if there are entry\ntriggers.  Note that entry/exit doors opperated in a different manner and utilized as part of the \nactual game.",
+            "is_constructor": 1,
+            "return": {
+                "description": ""
+            }
+        },
+        "Wall": {
+            "name": "Wall",
+            "shortname": "Wall",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\wall.js",
+            "line": 13,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "passable",
+                    "description": "",
+                    "type": "Bool"
+                },
+                {
+                    "name": "transparent",
+                    "description": "",
+                    "type": "Bool"
+                }
+            ]
+        },
+        "graphics": {
+            "name": "graphics",
+            "shortname": "graphics",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "graphics",
+            "namespace": "",
+            "file": "StdLib\\sprite.js",
+            "line": 7
+        },
+        "Animation": {
+            "name": "Animation",
+            "shortname": "Animation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "graphics",
+            "namespace": "",
+            "file": "StdLib\\animation.js",
+            "line": 13
+        },
+        "Canvas2D": {
+            "name": "Canvas2D",
+            "shortname": "Canvas2D",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "graphics",
+            "namespace": "",
+            "file": "StdLib\\canvas2d.js",
+            "line": 14,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "canvasId",
+                    "description": "The Id of the canvas DOM object.",
+                    "type": "String"
+                },
+                {
+                    "name": "top",
+                    "description": "The top pixel coordinate of the canvas DOM object.",
+                    "type": "String"
+                },
+                {
+                    "name": "left",
+                    "description": "The left pixel coordiante of the canvas DOM object.",
+                    "type": "String"
+                },
+                {
+                    "name": "width",
+                    "description": "The pixel width of the canvas DOM object.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "height",
+                    "description": "The pixel height of the canvas DOM object.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "zindex",
+                    "description": "The depth of the canvas DOM object.",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "grahpics": {
+            "name": "grahpics",
+            "shortname": "grahpics",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "graphics",
+            "namespace": "",
+            "file": "StdLib\\display.js",
+            "line": 8,
+            "is_constructor": 1
+        },
+        "input": {
+            "name": "input",
+            "shortname": "input",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "input",
+            "namespace": "",
+            "file": "StdLib\\keyboard.js",
+            "line": 7
+        },
+        "keyboard": {
+            "name": "keyboard",
+            "shortname": "keyboard",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "input",
+            "namespace": "",
+            "file": "StdLib\\keyboard.js",
+            "line": 13
+        },
+        "math": {
+            "name": "math",
+            "shortname": "math",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "StdLib",
+            "namespace": "",
+            "file": "StdLib\\math.js",
+            "line": 7,
+            "params": [
+                {
+                    "name": "math",
+                    "description": ""
+                }
+            ]
+        },
+        "Sprite": {
+            "name": "Sprite",
+            "shortname": "Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "graphics",
+            "namespace": "",
+            "file": "StdLib\\sprite.js",
+            "line": 27,
+            "description": "Description",
+            "itemtype": "method",
+            "return": {
+                "description": ""
+            }
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "GH\\board.js",
+            "line": 31,
+            "description": "Draw the board to the canvas.  The drawing order is as follows:\n1) the floor tiles\n2) the borders (walls, doors, etc)\n3) items and other objects\n4) agents\n5) other visual effects\nNote that triggers can change what is to be drawn at any level by changing the sate of a\nparticular object.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "team",
+                    "description": "The team which is viewing the board.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Board",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\cell.js",
+            "line": 2,
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\cell.js",
+            "line": 52,
+            "itemtype": "method",
+            "name": "drawFloor",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Cell",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\cell.js",
+            "line": 78,
+            "itemtype": "method",
+            "name": "drawBorder",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                },
+                {
+                    "name": "tileSize",
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "scale",
+                    "description": "",
+                    "type": "Float"
+                }
+            ],
+            "class": "Cell",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\door.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "tileSize",
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "scale",
+                    "description": "",
+                    "type": "Float"
+                }
+            ],
+            "class": "Door",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 9,
+            "description": "Public globals",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 19,
+            "description": "Public methods",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 23,
+            "description": "Prior to running the game the following aspects must be initialized/setup:\no The display\no The input\no The graphics\no Load the campaign/level data",
+            "itemtype": "method",
+            "name": "setup",
+            "params": [
+                {
+                    "name": "divDisplay",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "canvasHud",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "canvasBoard",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 56,
+            "description": "This it a 'test' function which preloads a player with agents for use in the game.",
+            "itemtype": "method",
+            "name": "setupPlayer",
+            "return": {
+                "description": ""
+            },
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 160,
+            "description": "Initialize the games display.  This includes creating canvas objects for both the hud and the\ngame board.",
+            "itemtype": "method",
+            "name": "setupDisplay",
+            "params": [
+                {
+                    "name": "divDisplay",
+                    "description": "Id of the containing div DOM object.",
+                    "type": "String"
+                },
+                {
+                    "name": "canvasHud",
+                    "description": "Id of the hud canvas DOM object.",
+                    "type": "String"
+                },
+                {
+                    "name": "canvasBoard",
+                    "description": "Id of the board canvas DOM object.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 200,
+            "description": "Setup the mouse and keyboard input for processing.",
+            "itemtype": "method",
+            "name": "setupInput",
+            "return": {
+                "description": ""
+            },
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\gh.js",
+            "line": 215,
+            "itemtype": "method",
+            "name": "start",
+            "return": {
+                "description": ""
+            },
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 20,
+            "description": "Private globals",
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 25,
+            "itemtype": "method",
+            "name": "loadCampaign",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the current campaign",
+                    "type": "String"
+                }
+            ],
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 51,
+            "itemtype": "method",
+            "name": "getData",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 63,
+            "itemtype": "method",
+            "name": "loadLevel",
+            "params": [
+                {
+                    "name": "campaignName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "levelName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "jsonAgentTemplates",
+                    "description": ""
+                }
+            ],
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 87,
+            "itemtype": "method",
+            "name": "getHeroes",
+            "params": [
+                {
+                    "name": "jsonData",
+                    "description": "An array of available hero template IDs.",
+                    "type": "[string]"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 102,
+            "itemtype": "method",
+            "name": "getPlayers",
+            "params": [
+                {
+                    "name": "jsonPlayers",
+                    "description": "",
+                    "type": "[Player]"
+                },
+                {
+                    "name": "jsonAgentTemplates",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 132,
+            "itemtype": "method",
+            "name": "getRoster",
+            "params": [
+                {
+                    "name": "jsonRoster",
+                    "description": "",
+                    "type": "[Agent]"
+                },
+                {
+                    "name": "jsonAgentTemplates",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 168,
+            "itemtype": "method",
+            "name": "getMapData",
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 210,
+            "itemtype": "method",
+            "name": "getTriggers",
+            "params": [
+                {
+                    "name": "jsonTriggers",
+                    "description": "",
+                    "type": "JSON"
+                }
+            ],
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 232,
+            "itemtype": "method",
+            "name": "findTrigger",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 250,
+            "itemtype": "method",
+            "name": "getBorder",
+            "params": [],
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 282,
+            "itemtype": "method",
+            "name": "loadAssets",
+            "params": [
+                {
+                    "name": "assets",
+                    "description": ""
+                },
+                {
+                    "name": "campaignName",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "levelName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 300,
+            "itemtype": "method",
+            "name": "getMapSpriteList",
+            "params": [
+                {
+                    "name": "jsonMap",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 319,
+            "itemtype": "method",
+            "name": "getBorderSprites",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The folder in which the border sprites are located.",
+                    "type": "String"
+                },
+                {
+                    "name": "jsonBorderSprites",
+                    "description": "The JSON data which includes the border sprite information.",
+                    "type": "JSON"
+                },
+                {
+                    "name": "sprites",
+                    "description": "The asset sprite object which is to be updated with the new sprites.",
+                    "type": "gh.assets.sprites"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\level.js",
+            "line": 29,
+            "itemtype": "method",
+            "name": "drawTriggers",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                },
+                {
+                    "name": "tileSize",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "scale",
+                    "description": "",
+                    "type": "Float"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Level",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\manager.js",
+            "line": 23,
+            "itemtype": "method",
+            "name": "addPlayer",
+            "params": [
+                {
+                    "name": "player",
+                    "description": "",
+                    "type": "Player"
+                }
+            ],
+            "class": "Mlayer",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\manager.js",
+            "line": 31,
+            "itemtype": "method",
+            "name": "getActivePlayer",
+            "return": {
+                "description": ""
+            },
+            "class": "Mlayer",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\manager.js",
+            "line": 43,
+            "itemtype": "method",
+            "name": "setNextTurn",
+            "return": {
+                "description": ""
+            },
+            "class": "Mlayer",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\map.js",
+            "line": 21,
+            "itemtype": "method",
+            "name": "drawFloor",
+            "return": {
+                "description": ""
+            },
+            "class": "Map",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\map.js",
+            "line": 34,
+            "itemtype": "method",
+            "name": "drawBorders",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Map",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\map.js",
+            "line": 48,
+            "itemtype": "method",
+            "name": "drawItems",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Map",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\map.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "drawAgents",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Map",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\map.js",
+            "line": 66,
+            "itemtype": "method",
+            "name": "drawTriggers",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Map",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\player.js",
+            "line": 32,
+            "description": "This method sets the players currently active agent to the next agent in the roster.\nIf the last agent in the roster has completed its turn, return false.\nIf the last agent in the roster has not completed its turn return true.",
+            "itemtype": "method",
+            "name": "setNextTurn",
+            "return": {
+                "description": ""
+            },
+            "class": "Player",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\player.js",
+            "line": 49,
+            "itemtype": "method",
+            "name": "getActiveAgent",
+            "return": {
+                "description": ""
+            },
+            "class": "Player",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\player.js",
+            "line": 61,
+            "itemtype": "method",
+            "name": "update",
+            "return": {
+                "description": ""
+            },
+            "class": "Player",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\stateSetup.js",
+            "line": 24,
+            "itemtype": "method",
+            "name": "update",
+            "return": {
+                "description": ""
+            },
+            "class": "stateSetup",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\stateSetup.js",
+            "line": 49,
+            "itemtype": "method",
+            "name": "render",
+            "return": {
+                "description": ""
+            },
+            "class": "stateSetup",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\wall.js",
+            "line": 25,
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "tileSize",
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "Scale"
+                }
+            ],
+            "class": "Wall",
+            "module": "gh"
+        },
+        {
+            "file": "StdLib\\ajax.js",
+            "line": 5,
+            "description": "Description",
+            "itemtype": "method",
+            "name": "getAJAX",
+            "params": [
+                {
+                    "name": "path",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "Literal"
+            },
+            "class": "graphics",
+            "module": "gh"
+        },
+        {
+            "file": "StdLib\\canvas2d.js",
+            "line": 37,
+            "itemtype": "method",
+            "name": "resize",
+            "params": [
+                {
+                    "name": "top",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "left",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "height",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Canvas2D",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\canvas2d.js",
+            "line": 51,
+            "itemtype": "method",
+            "name": "onClick",
+            "return": {
+                "description": ""
+            },
+            "class": "Canvas2D",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\display.js",
+            "line": 15,
+            "description": "Class Display",
+            "class": "grahpics",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\display.js",
+            "line": 23,
+            "description": "Public methods",
+            "class": "grahpics",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\keyboard.js",
+            "line": 18,
+            "description": "global constants",
+            "class": "keyboard",
+            "module": "input"
+        },
+        {
+            "file": "StdLib\\keyboard.js",
+            "line": 36,
+            "itemtype": "method",
+            "name": "keyDown",
+            "class": "keyboard",
+            "module": "input"
+        },
+        {
+            "file": "StdLib\\keyboard.js",
+            "line": 43,
+            "itemtype": "method",
+            "name": "keyUp",
+            "class": "keyboard",
+            "module": "input"
+        },
+        {
+            "file": "StdLib\\math.js",
+            "line": 14,
+            "description": "This function converts degrees to radians.",
+            "itemtype": "method",
+            "name": "degToRadians",
+            "params": [
+                {
+                    "name": "deg",
+                    "description": "",
+                    "type": "Floast"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "math",
+            "module": "StdLib"
+        },
+        {
+            "file": "StdLib\\sprite.js",
+            "line": 13,
+            "description": "Private Globals",
+            "class": "graphics",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\sprite.js",
+            "line": 23,
+            "description": "Public methods",
+            "class": "graphics",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\sprite.js",
+            "line": 45,
+            "description": "Description",
+            "itemtype": "method",
+            "name": "buildImageData",
+            "return": {
+                "description": ""
+            },
+            "class": "Sprite",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\sprite.js",
+            "line": 60,
+            "description": "Description",
+            "itemtype": "method",
+            "name": "getPixelColor",
+            "params": [
+                {
+                    "name": "x",
+                    "description": ""
+                },
+                {
+                    "name": "y",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "pixel"
+            },
+            "class": "Sprite",
+            "module": "graphics"
+        },
+        {
+            "file": "StdLib\\sprite.js",
+            "line": 84,
+            "description": "Description",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "x",
+                    "description": ""
+                },
+                {
+                    "name": "y",
+                    "description": ""
+                },
+                {
+                    "name": "w",
+                    "description": ""
+                },
+                {
+                    "name": "h",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Sprite",
+            "module": "graphics"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "param name/type/descript missing",
+            "line": " GH\\json.js:250"
+        },
+        {
+            "message": "param name missing: {[Agent]}",
+            "line": " GH\\player.js:17"
+        },
+        {
+            "message": "param name missing: {scale}",
+            "line": " GH\\wall.js:25"
+        },
+        {
+            "message": "Missing item type",
+            "line": " GH\\cell.js:2"
+        },
+        {
+            "message": "Missing item type\nPublic globals",
+            "line": " GH\\gh.js:9"
+        },
+        {
+            "message": "Missing item type\nPublic methods",
+            "line": " GH\\gh.js:19"
+        },
+        {
+            "message": "Missing item type\nPrivate globals",
+            "line": " GH\\json.js:20"
+        },
+        {
+            "message": "Missing item type\nClass Display",
+            "line": " StdLib\\display.js:15"
+        },
+        {
+            "message": "Missing item type\nPublic methods",
+            "line": " StdLib\\display.js:23"
+        },
+        {
+            "message": "Missing item type\nglobal constants",
+            "line": " StdLib\\keyboard.js:18"
+        },
+        {
+            "message": "Missing item type\nPrivate Globals",
+            "line": " StdLib\\sprite.js:13"
+        },
+        {
+            "message": "Missing item type\nPublic methods",
+            "line": " StdLib\\sprite.js:23"
+        }
+    ]
+}
