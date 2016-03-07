@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>StdLib\display.js</title>
+    <title>StdLib\vec2.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,69 +105,37 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: StdLib\display.js</h1>
+<h1 class="file-heading">File: StdLib\vec2.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;
 
 /**
- * @module graphics
+ * @module StdLib
  */
-
 
 /**
- * @class grahpics
- * @constructor
+ * @class math
  */
-var graphics = (function(graphics){
-	console.log(&quot;display.js loaded&quot;);
+var math = (function(math){
+	console.log(&quot;vec2.js loaded&quot;);
 
-	/**
-	 * Class Display
+	/** 
+	 * @class Vec2
+	 * @constructor
+	 * @param {float} x
+	 * @param {float} y
 	 */
-	function Display(divDisplay){
-		this.layers = [];
-		this.divDisplay = document.getElementById(divDisplay);
+	function Vec2(x, y){
+		this.x = x;
+		this.y = y;
 	}
 
-	/**
-	 * Public methods
-	 */
+	math.Vec2 = Vec2;
 
-
-	Display.prototype.addCanvas = function(canvas){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].zindex &lt; canvas.zindex; it++){
-
-		}
-		this.layers.splice(it, 0, canvas);
-	};
-
-	Display.prototype.onResize = function(e){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(&quot;0px&quot;, &quot;0px&quot;, this.divDisplay.clientWidth, this.divDisplay.clientHeight);
-		}
-	}
-
-	Display.prototype.resize = function(top, left, width, height){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(top, left, width, height);
-		}
-	};
-
-	Display.prototype.onClick = function(){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].onClick().focus === false; it++){
-
-		}
-		console.log(it);
-
-	};
-
-
-	graphics.Display = Display;
-	return graphics;
-})(graphics || {});
-
+	return math;
+})(math || {});
     </pre>
 </div>
                     </div>

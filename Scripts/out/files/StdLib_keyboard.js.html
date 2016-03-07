@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -125,8 +129,7 @@ var input = (function(input){
 		/**
 		 * global constants
 		 */
-		keyboard.PLUS 		= 187;
-		keyboard.MINUS		= 189;
+		keyboard.SPACE		= 32;
 
 		keyboard.LEFT		= 37;
 		keyboard.UP 		= 38;
@@ -138,20 +141,55 @@ var input = (function(input){
 		keyboard.S 			= 83;
 		keyboard.W			= 87;
 
+		keyboard.PLUS 		= 187;
+		keyboard.MINUS		= 189;
+
 		keyboard.key = {};
 
 		/**
-		 * @method keyDown
+		 * @event keyDown
+		 * @param {} evt
 		 */
 		keyboard.keyDown = function(evt){
-			keyboard.key[evt.keyCode] = true;
+			keyboard.key[evt.keyCode] = keyboard.key[evt.keyCode] || {};
+			if(keyboard.key[evt.keyCode].pressed === true){
+				keyboard.key[evt.keyCode].repeat = true;
+			}
+			keyboard.key[evt.keyCode].pressed = true;
 		};
 
 		/**
-		 * @method keyUp
+		 * @event keyUp
+		 * @param {} evt
 		 */
 		keyboard.keyUp = function(evt){
-			keyboard.key[evt.keyCode] = false;
+			keyboard.key[evt.keyCode] = keyboard.key[evt.keyCode] || {};
+			keyboard.key[evt.keyCode].pressed = false;
+			keyboard.key[evt.keyCode].repeat = false;
+		}
+
+		/**
+		 * @method isPressed
+		 * @param {integer} key ASCII key stroke value
+		 */
+		keyboard.isPressed = function(key){
+			if(keyboard.key[key] &amp;&amp; keyboard.key[key].pressed){
+				return true;
+			} 
+
+			return false;
+		};
+
+		/**
+		 * @method isRepeat
+		 * @param {integer} key ASCII key stroke value
+		 */
+		keyboard.isRepeat = function(key){
+			if(keyboard.key[key] &amp;&amp; keyboard.key[key].repeat){
+				return true;
+			} 
+
+			return false;			
 		}
 
 		return keyboard;

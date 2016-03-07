@@ -100,6 +100,25 @@ var gh = (function(gh){
 		return as;
 	};
 
+	/**
+	 * @method getCurrentHealth
+	 */
+	Agent.prototype.getCurrentHealth = function(){
+		return this.health.max - this.health.damage;
+	};
+
+	/**
+	 * @method getCurrentMind
+	 */
+	Agent.prototype.getCurrentMind = function(){
+		return this.mind.max - this.mind.damage;
+	}
+
+	/**
+	 * @method getOpponents
+	 * @param {} teamIndex
+	 * @param {} allAgents
+	 */
 	Agent.prototype.getOpponents = function(teamIndex, allAgents){
 		var hostile = teamIndex[this.team].hostile;
 		var opponents = [];
@@ -401,18 +420,38 @@ var gh = (function(gh){
 	};
 
 	/**
+	 * @method canAttack
+	 * @param {Agent} target
+	 * @return
+	 */
+	Agent.prototype.canAttack = function(target){
+		if(this.actionPoints >= 1) return false;
+		if(!this.isHostile(target, gh.ptrActiveLevel.teams)) return false;
+		if(this.mainHand.diagonal){
+			if(gh.isDiagonal(this.x, this.y, target.x, target.y)){
+				return true;
+			}
+		}
+		if(gh.getMapDist(this.x, this.y, target.x, target.y) > this.mainHand.range) return false;
+
+		return true;
+	};
+
+	/**
 	 * @method attack
 	 * @param {gh.Agent} target
 	 * @return
 	 */
 	Agent.prototype.attack = function(target){
-		if(this.actionPoints < 1 && this.isHostile(target, gh.ptrActiveLevel.teams)){
-			this.actionPoints++;
-
-			var hits = this.mainHand.attack();
-			var defence = target.getDefence();
-			return {"damage" : hits - defence, "hits" : hits, "defence" : defence};
+		if(!this.canAttack(target)){
+			return null;
 		}
+
+		this.actionPoints++;
+
+		var hits = this.mainHand.attack();
+		var defence = target.getDefence();
+		return {"damage" : hits - defence, "hits" : hits, "defence" : defence};
 	};
 
 	/**

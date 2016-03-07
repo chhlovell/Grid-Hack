@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>StdLib\display.js</title>
+    <title>GH\stateGame.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,69 +105,223 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: StdLib\display.js</h1>
+<h1 class="file-heading">File: GH\stateGame.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;
 
 /**
- * @module graphics
+ * @module gh
  */
-
 
 /**
- * @class grahpics
- * @constructor
+ * @class gh
  */
-var graphics = (function(graphics){
-	console.log(&quot;display.js loaded&quot;);
+var gh = (function(gh){
 
 	/**
-	 * Class Display
+	 * @class stateGame
+	 * @constructor
+	 * @method stateGame
 	 */
-	function Display(divDisplay){
-		this.layers = [];
-		this.divDisplay = document.getElementById(divDisplay);
-	}
+	var stateGame = (function(stateGame){
 
-	/**
-	 * Public methods
-	 */
+		var timeStamp;
+		var dt;
+		var ptrFocus;
 
-
-	Display.prototype.addCanvas = function(canvas){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].zindex &lt; canvas.zindex; it++){
-
+		function endTurn(){
+			gh.ptrActiveLevel.manager.setNextTurn();
+			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
+			gh.board.centerOn(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
+			if(gh.ptrActiveLevel.manager.getActivePlayer().AI){
+				timeStamp = Date.now();
+				dt = 0;
+			}
 		}
-		this.layers.splice(it, 0, canvas);
-	};
 
-	Display.prototype.onResize = function(e){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(&quot;0px&quot;, &quot;0px&quot;, this.divDisplay.clientWidth, this.divDisplay.clientHeight);
-		}
-	}
+		/**
+		 * @method update
+		 */
+		stateGame.update = function(){
+			gh.board.handleInput();
 
-	Display.prototype.resize = function(top, left, width, height){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(top, left, width, height);
-		}
-	};
+			var manager = gh.ptrActiveLevel.manager;
+			var activePlayer = manager.getActivePlayer();
+			var activeAgent = activePlayer.getActiveAgent();
 
-	Display.prototype.onClick = function(){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].onClick().focus === false; it++){
+			if(activePlayer.AI){
+				if(activeAgent.active){
+					console.log(activeAgent);
 
-		}
-		console.log(it);
+					/**
+					 * The AI
+					 *
+					 * MOVE THIS TO EITHER AGENT OR AN INDEPENDENT CLASS/OBJECT STRUCTURE
+					 *
+					 * Attack the target if in range
+					 * Determine the most suitable target
+					 * Move to within range of target
+					 *
+					 */
 
-	};
+					var opponents = activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
+					var target = activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
+					var path = gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
 
+					if(path.length &gt; 2 &amp;&amp; activeAgent.moved &gt; 1){
+						dt = Date.now() - timeStamp;
+						if(dt &gt; 500){
+							activeAgent.move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
+							timeStamp = Date.now();
+						}
+					} else if(path.length &gt; 1 || activeAgent.moved === 1){
+						if(!(path[0].cell.agents &amp;&amp; path[0].cell.agents.length &gt; 0)){
+							console.log(dt);
+							dt = Date.now() - timeStamp;
+							if(dt &gt; 500){
+								activeAgent.move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
+								timeStamp = Date.now();
+							}
+						} else {
+							endTurn();
+						}
+					} else {
+						endTurn();
+					}
+				} else {
+					endTurn();
+				}
+			} else {
+				/**
+				 * handle agent input
+				 */
+				var key = input.keyboard.key;
 
-	graphics.Display = Display;
-	return graphics;
-})(graphics || {});
+				/**
+				 * Spacebar to center on active agent
+				 */
+				if(key[input.keyboard.SPACE] &amp;&amp; key[input.keyboard.SPACE].pressed){
+					var agent = activePlayer.getActiveAgent();
+					gh.board.centerOn(agent);
+				}
 
+				/**
+				 * Handle agent movement 
+				 */
+				if(input.keyboard.isPressed(input.keyboard.A) &amp;&amp; !input.keyboard.isRepeat(input.keyboard.A)){
+					activeAgent.move(&quot;left&quot;, gh.ptrActiveLevel.mapData.map.board);
+					input.keyboard.key[input.keyboard.A].pressed = false;
+					input.keyboard.key[input.keyboard.A].repeat = false;
+				}
+				if(input.keyboard.isPressed(input.keyboard.D) &amp;&amp; !input.keyboard.isRepeat(input.keyboard.D)){
+					activeAgent.move(&quot;right&quot;, gh.ptrActiveLevel.mapData.map.board);
+					input.keyboard.key[input.keyboard.D].pressed = false;
+					input.keyboard.key[input.keyboard.D].repeat = false;
+				}
+				if(input.keyboard.isPressed(input.keyboard.W) &amp;&amp; !input.keyboard.isRepeat(input.keyboard.W)){
+					activeAgent.move(&quot;up&quot;, gh.ptrActiveLevel.mapData.map.board);
+					input.keyboard.key[input.keyboard.W].pressed = false;
+					input.keyboard.key[input.keyboard.W].repeat = false;
+				}
+				if(input.keyboard.isPressed(input.keyboard.S) &amp;&amp; !input.keyboard.isRepeat(input.keyboard.S)){
+					activeAgent.move(&quot;down&quot;, gh.ptrActiveLevel.mapData.map.board);
+					input.keyboard.key[input.keyboard.S].pressed = false;
+					input.keyboard.key[input.keyboard.S].repeat = false;
+				}
+
+			}
+
+			// Handle mouse input.
+
+			var pt = gh.board.mouseToCell();
+			var map = gh.ptrActiveLevel.mapData.map.board;
+
+			// Clear the current mouse focus.
+			if(ptrFocus){
+				ptrFocus.focus = false;
+			}
+			// Update mouse focus.
+			if(map[pt.y]){
+				if(map[pt.y][pt.x]){
+					var cell = map[pt.y][pt.x];
+					if(cell.visible){
+						ptrFocus = cell.setMouseFocus(
+							input.mouse.x,
+							input.mouse.y,
+							gh.board.tileSize,
+							gh.board.scale,
+							gh.board.offset,
+							gh.assets.sprites
+						);	
+					}
+				}
+			}
+
+			// Handle mouse click events.
+			if(input.mouse.clicked){
+				input.mouse.clicked = false;
+
+				if(map[pt.y]){
+					if(map[pt.y][pt.x]){
+						var cell = map[pt.y][pt.x];
+						if(cell.visible){
+							cell.onClick(
+								input.mouse.x,
+								input.mouse.y,
+								gh.board.tileSize,
+								gh.board.scale,
+								gh.board.offset,
+								gh.assets.sprites,
+								activePlayer.getActiveAgent()
+							);
+						}
+					}
+				}
+			}
+
+			gh.hud.update();
+
+			return &quot;stateGame&quot;;
+		};
+
+		/**
+		 * @method render
+		 */
+		stateGame.render = function(){
+			//gh.board.draw(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().team);
+			gh.board.draw(&quot;Empire&quot;);
+			var fps = document.getElementById(&quot;performance&quot;);
+			fps.innerHTML = &quot;FPS: &quot; + graphics.fps.getFPS();
+
+			/**
+			 * Draw the dice
+			 * Should probably move this to the hud js file
+			 */
+			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
+			if(moved &gt; 6){
+				var diff = moved - 6;
+				gh.hud.d2.draw(diff - 1, 0, 0, 100, 100);
+				moved = moved - diff;
+			} else {
+				gh.hud.d2.clear();
+			}
+			if(moved &gt; 0){
+				gh.hud.d1.draw(moved - 1, 0, 0, 100, 100)
+			} else {
+				gh.hud.d1.clear();
+			}
+
+			return true;
+		};
+
+		return stateGame;
+	})(stateGame || {});
+
+	gh.stateGame = stateGame;
+	return gh;
+})(gh || {});
     </pre>
 </div>
                     </div>

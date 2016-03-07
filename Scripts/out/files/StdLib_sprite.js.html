@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -130,6 +134,9 @@ var graphics = (function(graphics){
 	/**
 	 * Public methods
 	 */
+	graphics.getLoaded = function(){
+		return loaded;
+	};
 
 	/**
 	 * Description
@@ -201,8 +208,20 @@ var graphics = (function(graphics){
 	Sprite.prototype.draw = function(context, x, y, w, h){
 		context.save();
 
+		var ratiow = w/this.img.width;
+		var ratioh = h/this.img.height;
+
+		var ratio = ratiow;
+		if(ratioh &lt; ratiow){
+			ratio = ratioh;
+		}
+
 		try{
-			context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x, y, w, h);
+			//context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x, y, w, h);
+			var offx = (w - (this.img.width * ratio)) * .5;
+			var offy = (h - (this.img.height * ratio)) * .5;
+			//context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x + offx, y + offy, this.img.width * ratio, this.img.height * ratio);
+			context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x + offx, y + offy, this.img.width * ratio, this.img.height * ratio);
 		} catch (e) {
 			console.log(e);
 		}

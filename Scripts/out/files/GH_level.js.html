@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -140,14 +144,53 @@ var gh = (function(gh){
 	 * @param {float} scale
 	 * @return
 	 */
-	Level.prototype.drawTriggers = function(context, tileSize, scale){
+	Level.prototype.drawTriggers = function(context, tileSize, scale, offset, team){
 		var triggers = this.mapData.triggers;
 
 		for(var it = 0; it &lt; triggers.length; it++){
-			triggers[it].draw(context, tileSize, scale);			
+			triggers[it].draw(context, tileSize, scale, offset);			
 		}
 
 		return true;
+	};
+
+	/**
+	 * @method setupVisibility
+	 * @return
+	 */
+	Level.prototype.setupVisibility = function(){
+		this.mapData.map.clearVisibility(false);
+
+		var triggers = this.mapData.triggers;
+		var map = this.mapData.map.board;
+
+		// Set the maps initial visibility via the entry triggers.
+		for(var it = 0; it &lt; triggers.length; it++){
+			if(triggers[it] instanceof gh.EntryTrigger){
+				map[triggers[it].y][triggers[it].x].visible[&quot;Empire&quot;] = true;
+				for(var y = 0; y &lt; map.length; y++){
+					for(var x = 0; x &lt; map[y].length;){
+						var ray = this.mapData.map.getLine(triggers[it].x, triggers[it].y, x, y);
+						this.mapData.map.setRayVisibility(ray, &quot;Empire&quot;, true);
+
+						if(y === 0 || y === map.length-1){
+							x++;
+						} else {
+							if(x === 0){
+								x = map[y].length-1;	
+							} else {
+								x = map[y].length;								
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Center the display on the first entry trigger.
+		for(var it = 0; it &lt; triggers.length &amp;&amp; !(triggers[it] instanceof gh.EntryTrigger); it++){
+		}
+		gh.board.centerOn(triggers[it]);
 	};
 
 	gh.Level = Level;

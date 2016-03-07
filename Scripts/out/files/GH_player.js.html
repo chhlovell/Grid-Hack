@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -133,6 +137,11 @@ var gh = (function(gh){
 		this.AI = AI || false;
 		this.roster = roster || [];
 
+		// Update the roster such that the agents have knowlege of their &#x27;owning&#x27; player
+		for(var it = 0; it &lt; this.roster.length; it++){
+			this.roster[it].ptrOwner = this;
+		}
+
 		this.ptrActiveAgent = 0;
 	}
 
@@ -163,6 +172,14 @@ var gh = (function(gh){
 		}
 
 		return null;
+	};
+
+	Player.prototype.removeAgent = function(agent){
+		for(var it = 0; it &lt; this.roster.length &amp;&amp; this.roster[it] !== agent; it++){
+		}
+		if(it &lt; this.roster.length){
+			this.roster.splice(it, 1);
+		}
 	};
 
 	/**

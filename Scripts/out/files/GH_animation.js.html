@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>StdLib\display.js</title>
+    <title>GH\animation.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,69 +105,77 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: StdLib\display.js</h1>
+<h1 class="file-heading">File: GH\animation.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;
 
-/**
- * @module graphics
- */
+var gh = (function(gh){
+	console.log(&quot;animation.js loaded&quot;);
 
+	function Animation(id, numFrames, frameWidth, repeat, speed, index){
+		this.id 			= id;
+		this.numFrames		= numFrames;
+		this.frameWidth		= frameWidth;
+		this.repeat			= repeat;
+		this.speed			= speed;
+		this.index			= index;  // Optional
 
-/**
- * @class grahpics
- * @constructor
- */
-var graphics = (function(graphics){
-	console.log(&quot;display.js loaded&quot;);
-
-	/**
-	 * Class Display
-	 */
-	function Display(divDisplay){
-		this.layers = [];
-		this.divDisplay = document.getElementById(divDisplay);
+		this.currentFrame	= 0;
+		this.start			= -1;
+		this.dt				= 0;
 	}
 
+	Animation.prototype.draw = function(imageAssets, context, x, y, w, h){
+		if(this.start === -1){
+			this.start = Date.now();
+		}
+
+		this.dt = Date.now();
+
+		if((this.dt - this.start) &gt; this.speed){
+			this.currentFrame++;
+			this.start = Date.now();
+			if(this.currentFrame &gt;= this.numFrames){
+				if(this.repeat){
+					this.currentFrame = 0;
+				} else {
+					this.currentFrame = this.numFrames -1;
+				}
+			}
+		}
+
+		imageAssets[this.id].draw(this.currentFrame, context, x, y, w, h);
+	};
+
 	/**
-	 * Public methods
+	 * @method getPixelAt
+	 * @param {float} x The relative position of the mouse x coordinate with respect to a cell&#x27;s boundaries.
+	 * @param {float} y The relative position of the mouse y coordinate with respect to a cell&#x27;s boundaries.
+	 * @param {float} tileSize The size of each cell in the display at a scale of 1.
 	 */
+	Animation.prototype.getPixelAt = function(x, y, tileSize, sprites){
+		var sprite = sprites[this.id];
+		var ratioX = tileSize / this.frameWidth;
+		var ratioY = tileSize / sprite.img.height;
 
+		// account for the differnece between the tile size and actual image dimensions
+		x = x / ratioX;
+		y = y / ratioY;
 
-	Display.prototype.addCanvas = function(canvas){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].zindex &lt; canvas.zindex; it++){
+		// account for the frame which is active
+		x = x + (this.currentFrame * this.frameWidth);
 
-		}
-		this.layers.splice(it, 0, canvas);
+		var pixel = sprite.getPixelColor(x, y);
+
+		return pixel;
 	};
 
-	Display.prototype.onResize = function(e){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(&quot;0px&quot;, &quot;0px&quot;, this.divDisplay.clientWidth, this.divDisplay.clientHeight);
-		}
-	}
+	gh.Animation = Animation;
 
-	Display.prototype.resize = function(top, left, width, height){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(top, left, width, height);
-		}
-	};
-
-	Display.prototype.onClick = function(){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].onClick().focus === false; it++){
-
-		}
-		console.log(it);
-
-	};
-
-
-	graphics.Display = Display;
-	return graphics;
-})(graphics || {});
-
+	return gh;
+})(gh || {});
     </pre>
 </div>
                     </div>

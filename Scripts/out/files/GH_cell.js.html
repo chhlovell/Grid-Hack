@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -159,26 +163,30 @@ var gh = (function(gh){
 	/**
 	 * @method drawFloor
 	 * @param {Canvas.context} context
+	 * @param {integer} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {string} team
 	 * @return
 	 */
-	Cell.prototype.drawFloor = function(context, tileSize, scale, team){
-		context.save();
-
+	Cell.prototype.drawFloor = function(context, tileSize, scale, offset, team){
 
 		if(this.visible &amp;&amp; this.visible[team] === true){
-			console.log(this.visible[team]);
+			context.save();
+	
 			if(this.spriteId){
 				gh.assets.sprites[this.spriteId].draw(
 					context, 
-					this.x * tileSize * scale,
-					this.y * tileSize * scale,
+					this.x * tileSize * scale + offset.x,
+					this.y * tileSize * scale + offset.y,
 					tileSize * scale,
 					tileSize * scale
 				);
 			}
+
+			context.restore();
 		}
 
-		context.restore();
 		return true;
 	};
 
@@ -187,18 +195,204 @@ var gh = (function(gh){
 	 * @param {Canvas.context} context
 	 * @param {float} tileSize
 	 * @param {float} scale
+	 * @param {} offset
+	 * @param {string} team
 	 */
-	Cell.prototype.drawBorders = function(context, tileSize, scale){
+	Cell.prototype.drawBorders = function(context, tileSize, scale, offset, team){
 		if(this.border){
 
-			context.save();
+			if(this.visible &amp;&amp; this.visible[team] === true){
+				context.save();
 
-			for(var key in this.border){
-				this.border[key].draw(context, this.x, this.y, tileSize, scale);
+				for(var key in this.border){
+					this.border[key].draw(context, tileSize, scale, offset);
+				}
+
+				context.restore();
 			}
-
-			context.restore();
 		}
+
+		return true;
+	};
+
+	/**
+	 * @method drawAgents
+	 */
+	Cell.prototype.drawAgents = function(context, tileSize, scale, offset, team){
+		if(this.agents === undefined) return;
+		if(this.agents.length &lt;= 0) return;
+
+		if(this.visible &amp;&amp; this.visible[team] === true){
+				context.save();
+
+				// Only draw the last agent in the list
+				this.agents[this.agents.length-1].draw(
+					gh.assets.sprites, 
+					context, 
+					tileSize, 
+					scale, 
+					offset
+				);
+
+				context.restore();
+		}
+	};
+
+	/**
+	 * @method setMouseFocus
+	 * @param {integer} mouseX
+	 * @param {integer} mouseY
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {} sprites
+	 * @return
+	 */
+	Cell.prototype.setMouseFocus = function(mouseX, mouseY, tileSize, scale, offset, sprites){
+		var focus = null;
+
+		var relx = (mouseX - offset.x) - (this.x * tileSize * scale);
+		var rely = (mouseY - offset.y) - (this.y * tileSize * scale);
+
+		relx = relx / scale;
+		rely = rely / scale;
+
+		if(this.agents){
+			var agent = this.agents[this.agents.length -1];
+		}
+
+
+		if(this.border){
+			for(var key in this.border){
+				if(this.border[key].isMouseOver(relx, rely, key, tileSize, sprites)){
+					this.border[key].focus = true;
+					return this.border[key];
+				} else {
+					this.border[key].focus = false;
+				}
+			} 
+		}
+
+		return focus;
+	}
+
+	/**
+	 * @method removeAgent
+	 * @param {gh.Agent} agent
+	 */
+	Cell.prototype.removeAgent = function(agent){
+		for(var it = 0; it &lt; this.agents.length &amp;&amp; this.agents[it] !== agent; it++){
+
+		}
+		if(it &lt; this.agents.length){
+			this.agents.splice(it, 1);
+			console.log(this.agents);
+		}
+	};
+
+	/**
+	 * @method onClick
+	 */
+	Cell.prototype.onClick = function(mouseX, mouseY, tileSize, scale, offset, sprites, activeAgent){
+
+		var obj = this.getClicked(mouseX, mouseY, tileSize, scale, offset, sprites);
+
+		if(obj !== activeAgent){
+			switch(activeAgent.actionState){
+				case &quot;attack&quot;:
+					if(obj instanceof gh.Agent){
+						if(activeAgent.isHostile(obj, gh.ptrActiveLevel.teams)){
+							var attack = activeAgent.attack(obj);
+
+							if(attack !== null){
+								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence);
+
+								if(obj.damageHealth(attack.damage) === &quot;dead&quot;){
+									this.removeAgent(obj);
+								}
+							}
+						} else {
+							console.log(&quot;invalid target&quot;);
+						}
+					}
+					break;
+				case &quot;search&quot;:
+					break;
+				case &quot;item&quot;:
+					break;
+				case &quot;traps&quot;:
+					break;
+				case &quot;spell&quot;:
+					break;
+				default:
+					break;
+			};
+		}
+
+
+		if(obj instanceof gh.Door){
+			if(gh.getMapDist(activeAgent.x, activeAgent.y, this.x, this.y) &lt;= 1){
+				if(obj.open === false){
+					obj.open = true;
+				} else {
+					obj.open = false;
+				}
+
+				if(obj.open === true){
+					//update the map visibility for the currently active agent
+					gh.ptrActiveLevel.mapData.map.updateAgentVisibility(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
+				}
+			}
+		}
+
+		if(obj instanceof gh.Wall){
+			console.log(&quot;wall click&quot;);
+		}
+	}
+
+	/**
+	 * @method getClicked
+	 * @param {integer} mouseX
+	 * @param {integer} mouseY
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {} sprites
+	 * @return
+	 */
+	Cell.prototype.getClicked = function(mouseX, mouseY, tileSize, scale, offset, sprites){
+		// 1st get the relative position of the mouse coordinates with respect to the cell
+		// Account for the image scale
+		var relx = (mouseX - offset.x) - (this.x * tileSize * scale);
+		var rely = (mouseY - offset.y) - (this.y * tileSize * scale);
+
+		relx = relx / scale;
+		rely = rely / scale;
+
+		if(this.triggers &amp;&amp; this.triggers.length &gt; 0){
+			for(var it = 0; it &lt; this.triggers.length; it++){
+				if(this.triggers[it] instanceof gh.EntryTrigger &amp;&amp; this.triggers[it].active === true){
+					return this.triggers[it];
+				}				
+			}
+		}
+
+		if(this.agents &amp;&amp; this.agents.length &gt; 0){
+			var agent = this.agents[this.agents.length-1];
+			if(agent.isClicked(relx, rely, tileSize, sprites)){
+				return agent;
+			}
+		}
+
+		if(this.border){
+			for(var key in this.border){
+				if(this.border[key].isClicked(relx, rely, key, tileSize, sprites)){
+					return this.border[key];
+				}
+			}
+		}
+
+		return null;
 	};
 
 	gh.Cell = Cell;

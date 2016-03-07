@@ -10,3 +10,18 @@
 
 	visibility: hidden;
 }
+
+.diceBox{
+	position: relative;
+	display: inline-block;
+
+	background-color: green;
+}
+
+#attackDice{
+
+}
+
+#defendDice{
+
+}

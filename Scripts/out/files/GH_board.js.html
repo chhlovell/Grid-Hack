@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -133,7 +137,43 @@ var gh = (function(gh){
 		this.canvas2d 	= new graphics.Canvas2D(canvasId, &quot;0px&quot;, &quot;0px&quot;, width, height);
 		this.scale		= .8;
 		this.tileSize	= 64;
+		this.offset 	= {	&quot;x&quot; : 0, &quot;y&quot; : 0 };
 	}
+
+	Board.prototype.handleInput = function(){
+		var key = input.keyboard.key;
+
+		if(key[input.keyboard.PLUS] &amp;&amp; key[input.keyboard.PLUS].pressed){
+			gh.board.scale += 0.05;
+		}
+		if(key[input.keyboard.MINUS] &amp;&amp; key[input.keyboard.MINUS].pressed){
+			gh.board.scale -= 0.05;
+			if(gh.board.scale &lt; 0.2){
+				gh.board.scale = 0.2;
+			}
+		}
+
+		if(key[input.keyboard.LEFT] &amp;&amp; key[input.keyboard.LEFT].pressed){
+			this.offset.x -= 5;
+		}
+		if(key[input.keyboard.RIGHT] &amp;&amp; key[input.keyboard.RIGHT].pressed){
+			this.offset.x += 5;
+		}
+		if(key[input.keyboard.UP] &amp;&amp; key[input.keyboard.UP].pressed){
+			this.offset.y -= 5;
+		}
+		if(key[input.keyboard.DOWN] &amp;&amp; key[input.keyboard.DOWN].pressed){
+			this.offset.y += 5;
+		}
+
+	};
+
+	Board.prototype.mouseToCell = function(){
+		var x = Math.floor((input.mouse.x - this.offset.x) / (this.tileSize * this.scale));
+		var y = Math.floor((input.mouse.y - this.offset.y) / (this.tileSize * this.scale));
+
+		return new math.Vec2(x, y);
+	};
 
 	/**
 	 * Draw the board to the canvas.  The drawing order is as follows:
@@ -149,7 +189,6 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Board.prototype.draw = function(team){
-		console.log(team);
 		var canvas = this.canvas2d.canvas;
 		var context = this.canvas2d.context;
 
@@ -160,17 +199,27 @@ var gh = (function(gh){
 
 		context.restore();
 
-		gh.ptrActiveLevel.mapData.map.drawFloor(context, this.tileSize, this.scale, team);
-		gh.ptrActiveLevel.mapData.map.drawBorders(context, this.tileSize, this.scale, team);
+		gh.ptrActiveLevel.mapData.map.drawFloor(context, this.tileSize, this.scale, this.offset, team);
+		gh.ptrActiveLevel.mapData.map.drawBorders(context, this.tileSize, this.scale, this.offset, team);
 		/*
 		gh.ptrActiveLevel.mapData.map.drawItems(context);
-		gh.ptrActiveLevel.mapData.map.drawAgents(context);
 		*/
-		gh.ptrActiveLevel.drawTriggers(context, this.tileSize, this.scale, team);
+		gh.ptrActiveLevel.mapData.map.drawAgents(context, this.tileSize, this.scale, this.offset, team);
+		gh.ptrActiveLevel.drawTriggers(context, this.tileSize, this.scale, this.offset, team);
 
 
 		return true;
 	};
+
+	/**
+	 * @method centerOn
+	 */
+	Board.prototype.centerOn = function(obj){
+		var posx = obj.x * this.tileSize * this.scale;
+		var posy = obj.y * this.tileSize * this.scale;
+		this.offset.x = 0 - posx + (this.canvas2d.canvas.width * 0.5) - (this.tileSize * this.scale * 0.5);
+		this.offset.y = 0 - posy + (this.canvas2d.canvas.height * 0.5) - (this.tileSize * this.scale * 0.5);
+	}
 
 	gh.Board = Board;
 

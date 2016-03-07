@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -118,6 +122,25 @@ var gh = (function(gh){
 	console.log(&quot;map.js loaded&quot;);
 
 	/**
+	 * @method getMapDist
+	 * @param {integer} x1
+	 * @param {integer} y1
+	 * @param {integer} x2
+	 * @param {integer} y2
+	 */
+	gh.getMapDist = function(x1, y1, x2, y2){
+		return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+	};
+
+	gh.isDiagonal = function(x1, y1, x2, y2){
+		if((gh.getMapDist(x1, y1, x2, y1) === 1) &amp;&amp; (gh.getMapDist(x1, y1, x1, y2) === 1)){
+			return true;
+		}
+
+		return false;
+	};
+
+	/**
 	 * @class Map
 	 * @constructor
 	 */
@@ -127,12 +150,17 @@ var gh = (function(gh){
 
 	/**
 	 * @method drawFloor
+	 * @param {Canvas.context} context
+	 * @param {integer} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {string} team
 	 * @return
 	 */
-	Map.prototype.drawFloor = function(context, tileSize, scale, team){
+	Map.prototype.drawFloor = function(context, tileSize, scale, offset, team){
 		for(var y = 0; y &lt; this.board.length; y++){
 			for(var x = 0; x &lt; this.board[y].length; x++){
-				this.board[y][x].drawFloor(context, tileSize, scale, team);
+				this.board[y][x].drawFloor(context, tileSize, scale, offset, team);
 			}
 		}
 		return true;
@@ -140,13 +168,17 @@ var gh = (function(gh){
 
 	/**
 	 * @method drawBorders
-	 * @param {} context
+	 * @param {Canvas.context} context
+	 * @param {integer} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {string} team
 	 * @return
 	 */
-	Map.prototype.drawBorders = function(context, tileSize, scale){
+	Map.prototype.drawBorders = function(context, tileSize, scale, offset, team){
 		for(var y = 0; y &lt; this.board.length; y++){
 			for(var x =0; x &lt; this.board[y].length; x++){
-				this.board[y][x].drawBorders(context, tileSize, scale);
+				this.board[y][x].drawBorders(context, tileSize, scale, offset, team);
 			}
 		}
 		return true;
@@ -166,7 +198,12 @@ var gh = (function(gh){
 	 * @param {} context
 	 * @return
 	 */
-	Map.prototype.drawAgents = function(context){
+	Map.prototype.drawAgents = function(context, tileSize, scale, offset, team){
+		for(var y = 0; y &lt; this.board.length; y++){
+			for(var x = 0; x &lt; this.board[y].length; x++){
+				this.board[y][x].drawAgents(context, tileSize, scale, offset, team);
+			}
+		}
 		return true;
 	};
 
@@ -180,6 +217,454 @@ var gh = (function(gh){
 
 		return true;
 	};
+
+	/**
+	 * Set the map visibility for all cells to the given visibility for all factions.
+	 * @method clearVisibility
+	 * @param {bool} visibility
+	 * @return
+	 */
+	Map.prototype.clearVisibility = function(visibility){
+		for(var y = 0; y &lt; this.board.length; y++){
+			for(var x = 0; x &lt; this.board[y].length; x++){
+				this.board[y][x].visible = this.board[y][x].visible || {};
+				for(var key in this.board[y][x].visibile){
+					this.board[y][x].visible[key] = visibility;
+				}
+			}
+		}
+	};
+
+	/**
+	 * @method updateAgentVisibility
+	 * @parma {gh.Agent} agent
+	 */
+	Map.prototype.updateAgentVisibility = function(agent){
+		for(var y = 0; y &lt; this.board.length; y++){
+			for(var x = 0; x &lt; this.board[y].length;){
+				var ray = this.getLine(agent.x, agent.y, x, y);
+				this.setRayVisibility(ray, agent.team, true);
+
+				if(y === 0 || y === this.board.length-1){
+					x++;
+				} else {
+					if(x === 0){
+						x = this.board[y].length-1;	
+					} else {
+						x = this.board[y].length;								
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	 * @method setRayVisibility
+	 * @param {} ray
+	 * @param {string} faction
+	 * @param {bool} visibility
+	 * @return
+	 */
+	Map.prototype.setRayVisibility = function(ray, faction, visibility){
+		for(var it = 0; it &lt; ray.length; it++){
+			ray[it].visible[faction] = visibility;
+
+			// Set the visible agents to &#x27;active&#x27; regardless of faction orientation.
+			if(ray[it].agents){
+				for(var n = 0; n &lt; ray[it].agents.length; n++){
+					ray[it].agents[n].active = true;
+				}
+			}
+
+			var next = ray[it+1];
+			if(next){
+				var border;
+
+				if(next.x &gt; ray[it].x){
+					// check right
+					border = ray[it].border.right;
+				} else if(next.x &lt; ray[it].x){
+					// check left
+					border = ray[it].border.left;
+				} else if(next.y &lt; ray[it].y){
+					// check top
+					border = ray[it].border.top;
+				} else {
+					// check bottom
+					border = ray[it].border.bottom;
+				}
+
+				if(border){
+					if(border instanceof gh.Wall &amp;&amp; border.passable === false){
+						return;
+					} else if (border instanceof gh.Door &amp;&amp; border.open === false){
+						return;
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	 * @method getLine
+	 * @param {integer} x0
+	 * @param {integer} y0
+	 * @param {integer} x1
+	 * @param {integer} y1
+	 * @return
+	 */
+	Map.prototype.getLine = function(x0, y0, x1, y1){
+		console.log(&quot;getLine&quot;);
+
+		var dy 			= y1-y0;						// change in y
+		var dx 			= x1-x0;						// change in x
+		var m 			= dy/dx;						// slope
+		var itx;										// x-axis direction iterator
+		var ity;										// y-axis direction iterator
+		var x, y;										// for loop iterators per x and y axes
+		var b			= (y0+0.5)-(m*(x0+0.5));		// y-axis intercept
+		var yint;										// y-intercept
+		var blocked 	= false;						// indicates whether line to object is obstructed
+
+		var path 		= [];
+
+		if(x0 === x1 &amp;&amp; y0 === y1){
+			return path;
+		}
+
+		// Get the direction of the line.
+		x1 &lt; x0 ? itx = -1 : itx = 1;
+		y1 &lt; y0 ? ity = -1 : ity = 1;
+
+		if(dx == 0){ // vertical line
+			var ylim = y1;	// The y-axis constraint.
+			y1 &gt; y0 ? ylim += 1 : ylim -= 1;
+			for(x = x0, y = y0; y != ylim; y += ity){
+				if(this.board[y] &amp;&amp; this.board[y][x]){
+					path.push(this.board[y][x]);
+				}
+			}
+		} else {
+			x = x0;
+			y = y0;
+
+			for(;x != (x1+itx) &amp;&amp; y != (y1+ity);){
+				path.push(this.board[y][x]);
+
+				if(itx &gt; 0){
+					yint = m*(x+1)+b;
+				} else {
+					yint = m*x+b;
+				}
+
+				if(ity &lt; 0){
+					if(yint &gt; y){
+						x+=itx;
+					} else {
+						y+=ity;
+					}
+				} else {
+					if(yint &lt; (y+1)){
+						x+=itx;
+					} else {
+						y+=ity;
+					}
+				}
+			}
+		}
+
+		return path;
+	};
+
+	/**
+	 * This method is depreciated albeit it may be of some future use.
+	 * This method returns the cells adjacent to a point on the map, or if given
+	 * an agent, those adjacent cells which an agen can move into (not accounting for
+	 * how much remaining movement an agent currently has).
+	 * @method getAdjacentCells
+	 */
+	Map.prototype.getAdjacentCells = function(x, y, agent){
+		var cells = [];
+
+		if(this.board[y][x+1]){
+			if(agent){
+				if(agent.canMove(&quot;right&quot;, this.board, {&quot;x&quot; : x, &quot;y&quot; : y})){
+					cells.push({&quot;cell&quot; : this.board[y][x+1], &quot;direction&quot; : &quot;right&quot;});
+				}
+			} else {
+				cells.push(this.board[y][x+1]);
+			}
+		}
+		if(this.board[y][x-1]){
+			if(agent){
+				if(agent.canMove(&quot;left&quot;, this.board, {&quot;x&quot; : x, &quot;y&quot; : y})){
+					cells.push({&quot;cell&quot; : this.board[y][x-1], &quot;direction&quot; : &quot;left&quot;});
+				}
+			} else {
+				cells.push(this.board[y][x-1]);	
+			}
+		}
+		if(this.board[y+1] &amp;&amp; this.board[y+1][x]){
+			if(agent){
+				if(agent.canMove(&quot;down&quot;, this.board, {&quot;x&quot; : x, &quot;y&quot; : y})){
+					cells.push({&quot;cell&quot; : this.board[y+1][x], &quot;direction&quot; : &quot;down&quot;});
+				}
+			} else {
+				cells.push(this.board[y+1][x]);
+			}
+		}
+		if(this.board[y-1] &amp;&amp; this.board[y-1][x]){
+			if(agent){
+				if(agent.canMove(&quot;up&quot;, this.board, {&quot;x&quot; : x, &quot;y&quot; : y})){
+					cells.push({&quot;cell&quot; : this.board[y-1][x], &quot;direction&quot; : &quot;up&quot;});
+				}
+			} else {
+				cells.push(this.board[y-1][x]);
+			}
+		}
+
+		return cells;
+	};
+
+	/**
+	 * A* algorithm as sourced from http://web.mit.edu/eranki/www/tutorials/search/, albeit
+	 * modified slighly to suit the needs of this application.
+	 * Not necessarily optimized and differs from a prior implementation of mine.
+	 * Eg. building a path list once the destination has been reached is a minor weakness
+	 * in optimality as the application is intersted in the &#x27;first&#x27; move, not the last.
+
+		initialize the open list
+		initialize the closed list
+		put the starting node on the open list (you can leave its f at zero)
+
+		while the open list is not empty
+		    find the node with the least f on the open list, call it &quot;q&quot;
+		    pop q off the open list
+		    generate q&#x27;s 8 successors and set their parents to q
+		    for each successor
+		    	if successor is the goal, stop the search
+		        successor.g = q.g + distance between successor and q
+		        successor.h = distance from goal to successor
+		        successor.f = successor.g + successor.h
+
+		        if a node with the same position as successor is in the OPEN list \
+		            which has a lower f than successor, skip this successor
+		        if a node with the same position as successor is in the CLOSED list \ 
+		            which has a lower f than successor, skip this successor
+		        otherwise, add the node to the open list
+		    end
+		    push q on the closed list
+		end
+
+	 * @method aStar
+	 * @param {} origin
+	 * @param {} destination
+	 */
+	Map.prototype.aStar = function(origin, destination){
+		var map = gh.ptrActiveLevel.mapData.map.board;
+		var open = [];
+		var closed = [];
+		var finish = false;
+
+		open.push(new AStarNode(map[origin.y][origin.x], null, null, 0, gh.getMapDist(origin.x, origin.y, destination.x, destination.y), origin));
+
+		while(open.length &gt; 0 ){
+			var q = open[0];
+			var n = 0;
+			for(var it = 0; it &lt; open.length; it++){
+				if(open[it].h &lt; q.h){
+					q = open[it];
+					n = it;
+				}
+			}
+			open.splice(n, 1);
+
+			var successors = q.getChildren(destination);
+			for(var it = 0; it &lt; successors.length; it++){
+				if(successors[it].cell.x === destination.x &amp;&amp; successors[it].cell.y === destination.y){
+					var path = [];
+					var node = successors[it];
+					while(node.parent !== null){
+						path.unshift(node);
+						node = node.parent;
+					}
+					return path;
+				} else {
+					if(!isVisited(successors[it], open) &amp;&amp; !isVisited(successors[it], closed)){
+						open.push(successors[it]);
+					} 
+				}
+			}
+		}
+
+		return open;	
+	};
+
+	/**
+	 * @method canMove
+	 * @param {gh.Agent} agent
+	 * @param {gh.Cell} from
+	 * @param {string} direction
+	 * @param {} map
+	 * @param {gh.Agent} target
+	 */
+	function canMove(agent, from, direction, map, target){
+		var d = direction;
+		if(d === &quot;up&quot;){ d = &quot;top&quot;; }
+		if(d === &quot;down&quot;){ d = &quot;bottom&quot;; }
+
+		// Does a border block the direction of movement?
+		var c = map[from.y][from.x];
+		if(!c){ 
+			return false; 
+		}
+		if(c.border){
+			var border = c.border[d];
+			if(border instanceof gh.Wall){
+				if(!border.passable){
+					return false;
+				}
+			}
+			if(border instanceof gh.Door){
+				if(!border.open){
+					return false;
+				}
+			}
+		}
+
+		// Get the destination cell
+		var destination;
+		switch(direction){
+			case &quot;left&quot;:
+				destination = map[from.y][from.x-1];
+				break;
+			case &quot;right&quot;:
+				destination = map[from.y][from.x+1];
+				break;
+			case &quot;up&quot;:
+				destination = map[from.y-1][from.x];
+				break;
+			case &quot;down&quot;:
+				if(map[from.y+1] &amp;&amp; map[from.y+1][from.x]){
+					destination = map[from.y+1][from.x];
+				}
+				break;
+			default:
+				break;
+		}
+
+		// Are we within the map boundary?
+		if(!destination){
+			return false;
+		}
+
+		// Is the a potentially obstructive agent in the cell?
+		if(destination.agents &amp;&amp; destination.agents.length &gt; 0){
+			// Is the target in the destination square?
+			for(var it = 0; it &lt; destination.agents.length; it++){
+				if(target === destination.agents[it]){
+					return true;
+				}
+			}
+
+			// Can we pass through the agent in the next cell
+			var a = destination.agents[destination.agents.length-1];
+			if(agent.isHostile(a, gh.ptrActiveLevel.teams)){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	function isVisited(node, list){
+		for(var it = 0; it &lt; list.length; it++){
+			if(node.cell === list[it].cell &amp;&amp; list[it].h &lt;= node.h){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function AStarNode(cell, parent, direction, f, g, agent){
+		this.cell = cell;
+		this.parent = parent || null;
+		this.direction = direction;
+		this.f = f;	// distance from origin
+		this.g = g; // distance to goal
+		this.h = f + g; // heuristic (distance from origin + distance from goal)
+		if(agent instanceof gh.Agent){
+			this.agent = agent;
+		} else {
+			this.agent = null;
+		}
+
+	}
+
+	AStarNode.prototype.getChildren = function(destination){
+		var children = [];
+		var map = gh.ptrActiveLevel.mapData.map.board;
+		var from = {&quot;x&quot; : this.cell.x, &quot;y&quot; : this.cell.y};
+
+		if(this.agent){
+			//if(this.agent.canMove(&quot;up&quot;, map, {&quot;x&quot; : this.cell.x, &quot;y&quot; : this.cell.y})){
+			if(canMove(this.agent, from, &quot;up&quot;, map, destination)){
+				children.push(
+					new AStarNode(
+						map[this.cell.y-1][this.cell.x], 
+						this, 
+						&quot;up&quot;, 
+						this.f + 1, 
+						gh.getMapDist(this.cell.x, this.cell.y-1, destination.x, destination.y), 
+						this.agent
+					)
+				);
+			}
+			//if(this.agent.canMove(&quot;down&quot;, map, {&quot;x&quot; : this.cell.x, &quot;y&quot; : this.cell.y})){
+			if(canMove(this.agent, from, &quot;down&quot;, map, destination)){
+				children.push(
+					new AStarNode(
+						map[this.cell.y+1][this.cell.x], 
+						this, 
+						&quot;down&quot;, 
+						this.f + 1, 
+						gh.getMapDist(this.cell.x, this.cell.y+1, destination.x, destination.y), 
+						this.agent
+					)
+				);
+			}
+			//if(this.agent.canMove(&quot;left&quot;, map, {&quot;x&quot; : this.cell.x, &quot;y&quot; : this.cell.y})){
+			if(canMove(this.agent, from, &quot;left&quot;, map, destination)){
+				children.push(
+					new AStarNode(
+						map[this.cell.y][this.cell.x-1], 
+						this, 
+						&quot;left&quot;, 
+						this.f + 1, 
+						gh.getMapDist(this.cell.x-1, this.cell.y, destination.x, destination.y), 
+						this.agent
+					)
+				);
+			}
+			//if(this.agent.canMove(&quot;right&quot;, map, {&quot;x&quot; : this.cell.x, &quot;y&quot; : this.cell.y})){
+			if(canMove(this.agent, from, &quot;right&quot;, map, destination)){
+				children.push(
+					new AStarNode(
+						map[this.cell.y][this.cell.x+1], 
+						this, 
+						&quot;right&quot;, 
+						this.f + 1, 
+						gh.getMapDist(this.cell.x+1, this.cell.y, destination.x, destination.y), 
+						this.agent
+					)
+				);
+			}
+		} else {
+
+		}
+
+		return children;
+	}
 
 	gh.Map = Map;
 

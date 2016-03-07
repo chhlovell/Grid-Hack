@@ -138,6 +138,8 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Cell.prototype.setMouseFocus = function(mouseX, mouseY, tileSize, scale, offset, sprites){
+		var focus = null;
+
 		var relx = (mouseX - offset.x) - (this.x * tileSize * scale);
 		var rely = (mouseY - offset.y) - (this.y * tileSize * scale);
 
@@ -153,14 +155,14 @@ var gh = (function(gh){
 			for(var key in this.border){
 				if(this.border[key].isMouseOver(relx, rely, key, tileSize, sprites)){
 					this.border[key].focus = true;
-					return;
+					return this.border[key];
 				} else {
 					this.border[key].focus = false;
 				}
 			} 
 		}
 
-		return null;
+		return focus;
 	}
 
 	/**
@@ -191,10 +193,12 @@ var gh = (function(gh){
 						if(activeAgent.isHostile(obj, gh.ptrActiveLevel.teams)){
 							var attack = activeAgent.attack(obj);
 
-							gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence);
+							if(attack !== null){
+								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence);
 
-							if(obj.damageHealth(attack.damage) === "dead"){
-								this.removeAgent(obj);
+								if(obj.damageHealth(attack.damage) === "dead"){
+									this.removeAgent(obj);
+								}
 							}
 						} else {
 							console.log("invalid target");

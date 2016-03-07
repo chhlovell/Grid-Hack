@@ -18,8 +18,16 @@ var gh = (function(gh){
 	 * @param {integer} y2
 	 */
 	gh.getMapDist = function(x1, y1, x2, y2){
-		return Math.abs((x2 - x1) + (y2 - y1));
-	}
+		return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+	};
+
+	gh.isDiagonal = function(x1, y1, x2, y2){
+		if((gh.getMapDist(x1, y1, x2, y1) === 1) && (gh.getMapDist(x1, y1, x1, y2) === 1)){
+			return true;
+		}
+
+		return false;
+	};
 
 	/**
 	 * @class Map
@@ -195,6 +203,7 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Map.prototype.getLine = function(x0, y0, x1, y1){
+		console.log("getLine");
 
 		var dy 			= y1-y0;						// change in y
 		var dx 			= x1-x0;						// change in x
@@ -208,6 +217,10 @@ var gh = (function(gh){
 
 		var path 		= [];
 
+		if(x0 === x1 && y0 === y1){
+			return path;
+		}
+
 		// Get the direction of the line.
 		x1 < x0 ? itx = -1 : itx = 1;
 		y1 < y0 ? ity = -1 : ity = 1;
@@ -216,7 +229,9 @@ var gh = (function(gh){
 			var ylim = y1;	// The y-axis constraint.
 			y1 > y0 ? ylim += 1 : ylim -= 1;
 			for(x = x0, y = y0; y != ylim; y += ity){
-				path.push(this.board[y][x]);
+				if(this.board[y] && this.board[y][x]){
+					path.push(this.board[y][x]);
+				}
 			}
 		} else {
 			x = x0;

@@ -8,11 +8,18 @@ var gh = (function(gh){
 		/**
 		 * Private constants
 		 */
-		var DICE1 = "d1";
-		var DICE2 = "d2";
-		var END_TURN_BUTTTON = "endTurnButton";
-		var HUD = "hud";
-		var LOWER_HUD = "lowerHud";
+		var HUD 				= "hud";
+		var LOWER_HUD 			= "lowerHud";
+
+		var DICE1 				= "d1";
+		var DICE2 				= "d2";
+
+		var END_TURN_BUTTTON 	= "endTurnButton";
+
+		var AAD_ATTACK_DICE 	= "aadAttackDice";
+		var AAD_DEFEND_DICE 	= "aadDefendDice";
+		var AAD_BODY			= "aaBody";
+		var AAD_MIND			= "aaMind";
 
 		/**
 		 */
@@ -70,6 +77,8 @@ var gh = (function(gh){
 		 */
 		hud.update = function(){
 			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+
+			// Update the Active Agent display
 			document.getElementById("aaName").innerHTML = agent.uniqueID;
 			document.getElementById("aaDescription").innerHTML = agent.description;
 
@@ -78,9 +87,18 @@ var gh = (function(gh){
 			aaImage.width = aaImage.clientWidth;
 			aaImage.height = aaImage.clientHeight;
 
+			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
+			aadAtkDice.innerHTML = agent.mainHand.attackDice;
+
+			var aadDefDice = document.getElementById(AAD_DEFEND_DICE);
+			aadDefDice.innerHTML = agent.getDefenceDice();
+
+			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
+			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
+
+			// Draw the image of the current agent
 			context.save();
 
-			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
 			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
 
 			context.restore();
@@ -174,14 +192,14 @@ var gh = (function(gh){
 		 * @param {} attack
 		 */
 		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence){
-			document.getElementById("diceSplashScreen").style.visibility = "visible";
+			gh.dss.setVisible(true);
+			gh.dss.update(numHitDice, hits, numDefenceDice, defence);
 			setTimeout(
 				function(){
-					document.getElementById("diceSplashScreen").style.visibility = "hidden";
+					gh.dss.setVisible(false);
 				},
 				500
 			);
-			
 		};
 
 

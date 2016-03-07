@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>GH\door.js</title>
+    <title>GH\Interface\hud.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,231 +105,216 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: GH\door.js</h1>
+<h1 class="file-heading">File: GH\Interface\hud.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;
 
-/**
- * @module gh
- */
-
-/**
- * @class gh
- */
 var gh = (function(gh){
-	console.log(&quot;door.js loaded&quot;);
+	console.log(&quot;hud.js loaded&quot;);
 
-	/**
-	 * @class Door
-	 * @constructor
-	 * @param {integer} x
-	 * @param {integer} y
-	 * @param {string} side Values can include &quot;top&quot; &quot;left&quot; &quot;right&quot; &quot;bottom&quot;.
-	 * @param {bool} open
-	 */
-	function Door(x, y, side, open, imageStates){
-		this.x				= x;
-		this.y				= y;
-		this.side 			= side;
-		this.open 			= open || false;
+	var hud = (function(hud){
 
-		this.focus 			= false; // Is mouse currently over the door.
-		this.imageStates	= imageStates;
-	}
-
-	/**
-	 * @method draw
-	 * @param {Canvas.context} context
-	 * @param {integer} x
-	 * @param {integer} y
-	 * @param {float} tileSize
-	 * @param {float} scale
-	 * @param {} offset
-	 */
-	Door.prototype.draw = function(context, tileSize, scale, offset){
-		var img;
-
-		// Determine which image for display based on the door&#x27;s state.
-		if(this.open){
-			if(this.focus){
-				img = this.imageStates.openDoorHighlight;
-			} else {
-				img = this.imageStates.open;
-			}
-		} else {
-			if(this.focus){
-				img = this.imageStates.closedHighlight;
-			} else {
-				img = this.imageStates.closed;
-			}
-		}
-
-		context.save();
-
-		switch(this.side){
-			case &quot;top&quot;:
-				gh.assets.sprites[img].draw(
-					context,
-					this.x * tileSize * scale + offset.x,
-					this.y * tileSize * scale - (0.5 * scale * gh.assets.sprites[img].img.height) + offset.y,
-					tileSize * scale,
-					gh.assets.sprites[img].img.height * scale
-				);
-				break;
-			case &quot;left&quot;:
-				context.translate(this.x * tileSize * scale + offset.x, this.y * tileSize * scale + offset.y);
-				context.rotate(math.degToRadians(90));
-				gh.assets.sprites[img].draw(
-					context,
-					0,
-					0 - (0.5 * scale * gh.assets.sprites[img].img.height),
-					tileSize * scale,
-					gh.assets.sprites[img].img.height * scale
-				);
-				break;
-			default:
-				break;
-		}
-
-		context.restore();
-
-		return;
-	};
-
-	/**
-	 * @method isMouseOver
-	 * @param {float} relx
-	 * @param {float} rely
-	 * @param {string} side
-	 * @param {float} tileSize
-	 * @param {} sprites
-	 * @return
-	 */
-	Door.prototype.isMouseOver = function(relx, rely, side, tileSize, sprites){
-		var img;
-		if(this.open){
-			if(this.focus){
-				img = this.imageStates.openDoorHighlight;
-			} else {
-				img = this.imageStates.open;
-			}
-		} else {
-			if(this.focus){
-				img = this.imageStates.closedHighlight;
-			} else {
-				img = this.imageStates.closed;
-			}
-		}
-
-		var imgHeight = sprites[img].img.height;
-		var imgWidth = sprites[img].img.width;
-
-		var dx;
-		var dy;
-
-		var x;
-		var y;
-
-		switch(side){
-			case &quot;top&quot;:
-				y = rely + (0.5 * imgHeight);
-				x = relx;
-				break;
-			case &quot;bottom&quot;:
-				dy = tileSize - (0.5 * imgHeight);
-				y = rely - dy;
-				x = relx;
-				break;
-			case &quot;left&quot;:
-				x = rely;
-				y = relx + (0.5 * imgHeight);
-				break;
-			case &quot;right&quot;:
-				x = rely;
-				dx = tileSize - (0.5 * imgHeight);
-				y = relx - dx;
-				break;
-			default:
-				break;
-		}
-
-		var pixel = sprites[img].getPixelColor(x, y);
-
-		if(pixel.isTransparent()){
-			return false;
-		} else {
-			return true;
-		}
-	};
-
-	/**
-	 * @method isClicked
-	 * @return
-	 */
-	Door.prototype.isClicked = function(relx, rely, side, tileSize, sprites){
 		/**
-		 * Determine which image should be checked
-		 * This code is a bit brute force.
-		 * May need to consider including a door state variable which points to the relevant
-		 * image in the imageState variable.
+		 * Private constants
 		 */
-		
-		var img;
-		if(this.open){
-			if(this.focus){
-				img = this.imageStates.openDoorHighlight;
-			} else {
-				img = this.imageStates.open;
-			}
-		} else {
-			if(this.focus){
-				img = this.imageStates.closedHighlight;
-			} else {
-				img = this.imageStates.closed;
+		var HUD 				= &quot;hud&quot;;
+		var LOWER_HUD 			= &quot;lowerHud&quot;;
+
+		var DICE1 				= &quot;d1&quot;;
+		var DICE2 				= &quot;d2&quot;;
+
+		var END_TURN_BUTTTON 	= &quot;endTurnButton&quot;;
+
+		var AAD_ATTACK_DICE 	= &quot;aadAttackDice&quot;;
+		var AAD_DEFEND_DICE 	= &quot;aadDefendDice&quot;;
+		var AAD_BODY			= &quot;aaBody&quot;;
+		var AAD_MIND			= &quot;aaMind&quot;;
+
+		/**
+		 */
+		function setVisibility(node, visible){
+			node.style.visibility = visible;
+			for(var it = 0; it &lt; node.children.length; it++){
+				setVisibility(node.children[it], visible);
 			}
 		}
 
-		var imgHeight = sprites[img].img.height;
-		var imgWidth = sprites[img].img.width;
+		/**
+		 * Private globals
+		 */
+		hud.d1 = undefined;
+		hud.d2 = undefined;
 
-		var dx;
-		var dy;
+		/**
+		 * @method setup
+		 */
+		hud.setup = function(){
+			setVisibility(document.getElementById(HUD), &quot;visible&quot;);
+			
+			//Create the dice
+			hud.d1 = new gh.Dice(
+				6, 
+				new graphics.SpriteStrip(&quot;./Data/Graphics/dice1.png&quot;, 6, 100, {&quot;1&quot; : 0, &quot;2&quot; : 1, &quot;3&quot; : 2, &quot;4&quot; : 3, &quot;5&quot; : 4, &quot;6&quot; : 5}),
+				document.getElementById(DICE1),
+				document.getElementById(DICE1).getContext(&quot;2d&quot;)
+			);
 
-		var x;
-		var y;
+			hud.d2 = new gh.Dice(
+				6, 
+				new graphics.SpriteStrip(&quot;./Data/Graphics/dice1.png&quot;, 6, 100, {&quot;1&quot; : 0, &quot;2&quot; : 1, &quot;3&quot; : 2, &quot;4&quot; : 3, &quot;5&quot; : 4, &quot;6&quot; : 5}),
+				document.getElementById(DICE2),
+				document.getElementById(DICE2).getContext(&quot;2d&quot;)
+			);
 
-		switch(side){
-			case &quot;top&quot;:
-				y = rely + (0.5 * imgHeight);
-				x = relx;
-				break;
-			case &quot;bottom&quot;:
-				dy = tileSize - (0.5 * imgHeight);
-				y = rely - dy;
-				x = relx;
-				break;
-			case &quot;left&quot;:
-				x = rely;
-				y = relx + (0.5 * imgHeight);
-				break;
-			case &quot;right&quot;:
-				x = rely;
-				dx = tileSize - (0.5 * imgHeight);
-				y = relx - dx;
-				break;
-			default:
-				break;
+			// Setup the active agent display
+			document.getElementById(&quot;aaName&quot;).onclick = hud.aaButton;
+
+			hud.setupInput();
+			
 		}
 
-		var pixel = sprites[img].getPixelColor(x, y);
+		hud.aaButton = function(){
+			if(document.getElementById(&quot;aaDetails&quot;).style.maxHeight === &quot;0px&quot; || document.getElementById(&quot;aaDetails&quot;).style.maxHeight === &quot;&quot;){
+				document.getElementById(&quot;aaDetails&quot;).style.maxHeight = &quot;500px&quot;;
+			} else {
+				document.getElementById(&quot;aaDetails&quot;).style.maxHeight = &quot;0px&quot;;
+			}
+		};
 
-		return !pixel.isTransparent();
-	}
+		/**
+		 * @method update
+		 */
+		hud.update = function(){
+			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
 
-	gh.Door = Door;
+			// Update the Active Agent display
+			document.getElementById(&quot;aaName&quot;).innerHTML = agent.uniqueID;
+			document.getElementById(&quot;aaDescription&quot;).innerHTML = agent.description;
 
+			var aaImage = document.getElementById(&quot;aaImage&quot;);
+			var context = aaImage.getContext(&quot;2d&quot;);
+			aaImage.width = aaImage.clientWidth;
+			aaImage.height = aaImage.clientHeight;
+
+			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
+			aadAtkDice.innerHTML = agent.mainHand.attackDice;
+
+			var aadDefDice = document.getElementById(AAD_DEFEND_DICE);
+			aadDefDice.innerHTML = agent.getDefenceDice();
+
+			// Draw the image of the current agent
+			context.save();
+
+			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
+
+			context.restore();
+
+		}
+
+		/**
+		 * @method setupInput
+		 */
+		hud.setupInput = function(){
+			document.getElementById(END_TURN_BUTTTON).onclick = hud.onEndTurn;
+			var actionButtons = document.getElementsByClassName(&quot;actionButton&quot;);
+			for(var it=0; it &lt; actionButtons.length; it++){
+				actionButtons[it].onclick = hud.onActionStateButton;				
+			}
+		};
+
+		/**
+		 * @method onEndTurn
+		 */
+		hud.onEndTurn = function(){
+			/**
+			 * Setup the next players turn
+			 */
+			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().state = &quot;inactive&quot;;
+			gh.ptrActiveLevel.manager.setNextTurn();
+			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
+
+			/**
+			 * Hud maintenance re new turn
+			 */
+			hud.clearActionStateButtons();
+
+			/**
+			 * Center board view onto new agent
+			 */
+			gh.board.centerOn(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
+		};
+
+		/**
+		 * @method onActionStateButton
+		 */
+		hud.onActionStateButton = function(){
+			/**
+			 * Handle the cosmetic changs of the actions state buttons
+			 */
+			var actionButtons = document.getElementsByClassName(&quot;actionButton&quot;);
+			for(var it = 0; it &lt; actionButtons.length; it++){
+				actionButtons[it].style.backgroundColor = &quot;rgba(163, 155, 138, 0.8)&quot;;
+				actionButtons[it].style.borderStyle = &quot;ridge&quot;;
+			}
+			this.style.borderStyle = &quot;groove&quot;;
+			this.style.backgroundColor = &quot;rgba(78, 74, 67, 0.8)&quot;;
+
+			/**
+			 * Update the current player/agents action state
+			 */
+			switch(this.id){
+				case &quot;attack&quot;:
+					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = &quot;attack&quot;;
+					break;
+				case &quot;search&quot;:
+					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = &quot;search&quot;;
+					break;
+				case &quot;item&quot;:
+					break;
+				case &quot;traps&quot;:
+					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = &quot;traps&quot;;
+					break;
+				case &quot;spell&quot;:
+					break;
+				default:
+					console.log(&quot;invalid action button id value&quot;);
+					break;
+			};
+		};
+
+		/**
+		 * @method clearActionStateButtons
+		 */
+		hud.clearActionStateButtons = function(){
+			var actionButtons = document.getElementsByClassName(&quot;actionButton&quot;);
+			for(var it = 0; it &lt; actionButtons.length; it++){
+				actionButtons[it].style.backgroundColor = &quot;rgba(163, 155, 138, 0.8)&quot;;
+				actionButtons[it].style.borderStyle = &quot;ridge&quot;;
+			}
+		}
+
+		/**
+		 * @method displayAttack
+		 * @param {} attack
+		 */
+		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence){
+			document.getElementById(&quot;diceSplashScreen&quot;).style.visibility = &quot;visible&quot;;
+			setTimeout(
+				function(){
+					document.getElementById(&quot;diceSplashScreen&quot;).style.visibility = &quot;hidden&quot;;
+				},
+				500
+			);
+			
+		};
+
+
+		return hud;
+	})(hud || {});
+
+	gh.hud = hud;
 	return gh;
 })(gh || {});
     </pre>

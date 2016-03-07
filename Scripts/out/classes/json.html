@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -135,7 +139,15 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
+                                <a href="#method_fillBorders">fillBorders</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_findTrigger">findTrigger</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getAgentSprites">getAgentSprites</a>
 
                             </li>
                             <li class="index-item method">
@@ -175,6 +187,10 @@
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_getWeapon">getWeapon</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_loadAssets">loadAssets</a>
 
                             </li>
@@ -196,6 +212,58 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
+<div id="method_fillBorders" class="method item">
+    <h3 class="name"><code>fillBorders</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>map</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_json.js.html#l336"><code>GH\json.js:336</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">map</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
 <div id="method_findTrigger" class="method item">
     <h3 class="name"><code>findTrigger</code></h3>
 
@@ -223,7 +291,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l232"><code>GH\json.js:232</code></a>
+        <a href="../files/GH_json.js.html#l282"><code>GH\json.js:282</code></a>
         </p>
 
 
@@ -270,8 +338,8 @@
 
 
 </div>
-<div id="method_getBorder" class="method item">
-    <h3 class="name"><code>getBorder</code></h3>
+<div id="method_getAgentSprites" class="method item">
+    <h3 class="name"><code>getAgentSprites</code></h3>
 
         <span class="paren">()</span>
 
@@ -285,7 +353,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l250"><code>GH\json.js:250</code></a>
+        <a href="../files/GH_json.js.html#l416"><code>GH\json.js:416</code></a>
         </p>
 
 
@@ -296,6 +364,84 @@
         
     </div>
 
+
+
+
+</div>
+<div id="method_getBorder" class="method item">
+    <h3 class="name"><code>getBorder</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>x</code>
+                </li>
+                <li class="arg">
+                        <code>y</code>
+                </li>
+                <li class="arg">
+                        <code>jsonCell</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_json.js.html#l300"><code>GH\json.js:300</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">x</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">y</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">jsonCell</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
 
 
 
@@ -330,7 +476,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l319"><code>GH\json.js:319</code></a>
+        <a href="../files/GH_json.js.html#l400"><code>GH\json.js:400</code></a>
         </p>
 
 
@@ -475,7 +621,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l87"><code>GH\json.js:87</code></a>
+        <a href="../files/GH_json.js.html#l89"><code>GH\json.js:89</code></a>
         </p>
 
 
@@ -531,7 +677,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l168"><code>GH\json.js:168</code></a>
+        <a href="../files/GH_json.js.html#l202"><code>GH\json.js:202</code></a>
         </p>
 
 
@@ -558,7 +704,13 @@
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
+                        <code>path</code>
+                </li>
+                <li class="arg">
                         <code>jsonMap</code>
+                </li>
+                <li class="arg">
+                        <code>sprites</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
@@ -576,7 +728,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l300"><code>GH\json.js:300</code></a>
+        <a href="../files/GH_json.js.html#l379"><code>GH\json.js:379</code></a>
         </p>
 
 
@@ -592,7 +744,27 @@
 
             <ul class="params-list">
                 <li class="param">
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
                         <code class="param-name">jsonMap</code>
+                        <span class="type">JSON</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">sprites</code>
                         <span class="type">Object</span>
 
 
@@ -640,7 +812,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l102"><code>GH\json.js:102</code></a>
+        <a href="../files/GH_json.js.html#l104"><code>GH\json.js:104</code></a>
         </p>
 
 
@@ -714,7 +886,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l132"><code>GH\json.js:132</code></a>
+        <a href="../files/GH_json.js.html#l155"><code>GH\json.js:155</code></a>
         </p>
 
 
@@ -782,7 +954,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l210"><code>GH\json.js:210</code></a>
+        <a href="../files/GH_json.js.html#l260"><code>GH\json.js:260</code></a>
         </p>
 
 
@@ -800,6 +972,71 @@
                 <li class="param">
                         <code class="param-name">jsonTriggers</code>
                         <span class="type">JSON</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getWeapon" class="method item">
+    <h3 class="name"><code>getWeapon</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>resRef</code>
+                </li>
+                <li class="arg">
+                        <code>jsonWeaponTemplates</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_json.js.html#l134"><code>GH\json.js:134</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">resRef</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">jsonWeaponTemplates</code>
+                        <span class="type">Object</span>
 
 
                     <div class="param-description">
@@ -843,7 +1080,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_json.js.html#l282"><code>GH\json.js:282</code></a>
+        <a href="../files/GH_json.js.html#l359"><code>GH\json.js:359</code></a>
         </p>
 
 

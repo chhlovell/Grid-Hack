@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>math</title>
+    <title>SpriteStrip</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,15 +105,15 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>math Class</h1>
+<h1>SpriteStrip Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/StdLib_vec2.js.html#l7"><code>StdLib\vec2.js:7</code></a>
+            Defined in: <a href="../files/StdLib_spriteStrip.js.html#l14"><code>StdLib\spriteStrip.js:14</code></a>
         </div>
 
-            Module: <a href="../modules/StdLib.html">StdLib</a>
+            Module: <a href="../modules/graphics.html">graphics</a>
 
 </div>
 
@@ -122,6 +122,100 @@
     
 </div>
 
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_SpriteStrip" class="method item">
+    <h3 class="name"><code>SpriteStrip</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>path</code>
+                </li>
+                <li class="arg">
+                        <code>numFrames</code>
+                </li>
+                <li class="arg">
+                        <code>frameWidth</code>
+                </li>
+                <li class="arg">
+                        <code>index</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/StdLib_spriteStrip.js.html#l14"><code>StdLib\spriteStrip.js:14</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">numFrames</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">frameWidth</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">index</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+    </div>
 
 <div id="classdocs" class="tabview">
     <ul class="api-class-tabs">
@@ -139,7 +233,7 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_degToRadians">degToRadians</a>
+                                <a href="#method_draw">draw</a>
 
                             </li>
                     </ul>
@@ -152,20 +246,32 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_degToRadians" class="method item">
-    <h3 class="name"><code>degToRadians</code></h3>
+<div id="method_draw" class="method item">
+    <h3 class="name"><code>draw</code></h3>
 
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
                 <li class="arg">
-                        <code>deg</code>
+                        <code>frame</code>
+                </li>
+                <li class="arg">
+                        <code>context</code>
+                </li>
+                <li class="arg">
+                        <code>x</code>
+                </li>
+                <li class="arg">
+                        <code>y</code>
+                </li>
+                <li class="arg">
+                        <code>w</code>
+                </li>
+                <li class="arg">
+                        <code>h</code>
                 </li>
             </ul><span class="paren">)</span>
         </div>
 
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
 
 
 
@@ -176,7 +282,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/StdLib_math.js.html#l14"><code>StdLib\math.js:14</code></a>
+        <a href="../files/StdLib_spriteStrip.js.html#l30"><code>StdLib\spriteStrip.js:30</code></a>
         </p>
 
 
@@ -184,8 +290,7 @@
     </div>
 
     <div class="description">
-        <p>This function converts degrees to radians.</p>
-
+        
     </div>
 
         <div class="params">
@@ -193,8 +298,58 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">deg</code>
-                        <span class="type">Floast</span>
+                        <code class="param-name">frame</code>
+                        <span class="type">Integer |  | string</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">context</code>
+                        <span class="type">Canvas.context</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">x</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">y</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">w</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">h</code>
+                        <span class="type">Integer</span>
 
 
                     <div class="param-description">
@@ -205,12 +360,6 @@
             </ul>
         </div>
 
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-            </div>
-        </div>
 
 
 </div>

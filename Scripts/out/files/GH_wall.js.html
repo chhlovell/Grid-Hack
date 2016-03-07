@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -123,7 +127,9 @@ var gh = (function(gh){
 	 * @param {Bool} passable
 	 * @param {Bool} transparent
 	 */
-	function Wall(side, passable, transparent){
+	function Wall(x, y, side, passable, transparent){
+		this.x				= x;
+		this.y				= y;
 		this.side 			= side;
 		this.passable 		= passable || false;
 		this.transparent 	= transparent || false;
@@ -135,26 +141,41 @@ var gh = (function(gh){
 	 * @param {integer} x
 	 * @param {integer} y
 	 * @param {float} tileSize
-	 * @param {scale}
+	 * @param {float} scale
+	 * @param {} offset
 	 */
-	Wall.prototype.draw = function(context, x, y, tileSize, scale){
+	Wall.prototype.draw = function(context, tileSize, scale, offset){
 		context.strokeStyle = &quot;grey&quot;;
 		context.lineWidth = 8 * scale;
 		context.beginPath();
 		switch(this.side){
 			case &quot;top&quot;:
-				context.moveTo(x * tileSize * scale, y * tileSize * scale);
-				context.lineTo(x * tileSize * scale + (tileSize * scale), y * tileSize * scale);
+				context.moveTo(this.x * tileSize * scale + offset.x, this.y * tileSize * scale + offset.y);
+				context.lineTo(this.x * tileSize * scale + (tileSize * scale) + offset.x, this.y * tileSize * scale + offset.y);
 				break;
 			case &quot;left&quot;:
-				context.moveTo(x * tileSize * scale, y * tileSize * scale);
-				context.lineTo(x * tileSize * scale, y * tileSize * scale + (tileSize * scale));
+				context.moveTo(this.x * tileSize * scale + offset.x, this.y * tileSize * scale + offset.y);
+				context.lineTo(this.x * tileSize * scale + offset.x, this.y * tileSize * scale + (tileSize * scale) + offset.y);
 				break;
 			default:
 				break;
 		}
 		context.stroke();
 	};
+
+	/**
+	 * @method isMouseOver
+	 */
+	Wall.prototype.isMouseOver = function(){
+		return false;
+	}
+
+	/**
+	 * @method isClicked
+	 */
+	Wall.prototype.isClicked = function(){
+		return false;
+	}
 	
 	gh.Wall = Wall;
 	return gh;

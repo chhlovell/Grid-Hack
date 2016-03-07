@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -143,19 +147,28 @@ var gh = (function(gh){
 	gh.setup = function(divDisplay, canvasHud, canvasBoard){
 		console.log(&quot;gh.js setup&quot;);
 
+		// Load the campaign and level data
 		gh.ptrActiveCampaign 	= gh.json.loadCampaign(&quot;Hero Quest&quot;);
 		gh.ptrActiveLevel 		= gh.ptrActiveCampaign.ptrActiveLevel;
 
+		// Setup the players
 		gh.setupPlayer();
 		gh.ptrActiveLevel.manager.activePlayer = 1;
 
+		// Setup the board display
 		gh.divDisplay 			= document.getElementById(divDisplay);
+		//gh.divDisplay			= document.body;
 		gh.display 				= new graphics.Display(divDisplay);
 
+		// Load the graphics assets
 		gh.json.loadAssets(gh.assets, &quot;Hero Quest&quot;, &quot;The Trial&quot;);
 
-		gh.setupDisplay(divDisplay, canvasHud, canvasBoard);
+		// Setup the hud and input interface
+		gh.setupDisplay(gh.divDisplay, canvasHud, canvasBoard);
 		gh.setupInput();
+
+		// Setup the map visibility
+		gh.ptrActiveLevel.setupVisibility();
 
 		return true;
 	};
@@ -169,32 +182,13 @@ var gh = (function(gh){
 		var manager = gh.ptrActiveLevel.manager;
 		var roster = [];
 		var jsonAgentTemplates = gh.json.getData(&quot;./Data/Campaigns/Hero Quest/Data/creatures.json&quot;);
+		var jsonWeaponTemplates = gh.json.getData(&quot;./Data/Campaigns/Hero Quest/Data/weapons.json&quot;);
 
+		var type = &quot;Barbarian&quot;;
 		var agent = new gh.Agent(
-			&quot;Barbarian&quot;,
-			&quot;Barbarian&quot;,
-			null,
-			null,
-			&quot;Empire&quot;,
-			jsonAgentTemplates[&quot;Barbarian&quot;].description,
-			jsonAgentTemplates[&quot;Barbarian&quot;].body,
-			jsonAgentTemplates[&quot;Barbarian&quot;].mind,
-			jsonAgentTemplates[&quot;Barbarian&quot;].baseDefence,
-			jsonAgentTemplates[&quot;Barbarian&quot;].mainHand,
-			jsonAgentTemplates[&quot;Barbarian&quot;].offHand,
-			jsonAgentTemplates[&quot;Barbarian&quot;].chest,
-			jsonAgentTemplates[&quot;Barbarian&quot;].head,
-			jsonAgentTemplates[&quot;Barbarian&quot;].moveDice,
-			jsonAgentTemplates[&quot;Barbarian&quot;].baseMove,
-			jsonAgentTemplates[&quot;Barbarian&quot;].spellList,
-			jsonAgentTemplates[&quot;Barbarian&quot;].inventory
-		);
-		roster.push(agent);
-
-		var type = &quot;Elf&quot;;
-		agent = new gh.Agent(
 			type,
 			type,
+			null,
 			null,
 			null,
 			&quot;Empire&quot;,
@@ -202,15 +196,46 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
 			jsonAgentTemplates[type].baseDefence,
-			jsonAgentTemplates[type].mainHand,
+			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
 			jsonAgentTemplates[type].head,
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory
+			jsonAgentTemplates[type].inventory,
+			jsonAgentTemplates[type].sprites,
+			jsonAgentTemplates[type].animations
 		);
+		agent.active = true;
+		agent.protagonist = true;
+		roster.push(agent);
+
+		type = &quot;Elf&quot;;
+		agent = new gh.Agent(
+			type,
+			type,
+			null,
+			null,
+			null,
+			&quot;Empire&quot;,
+			jsonAgentTemplates[type].description,
+			jsonAgentTemplates[type].body,
+			jsonAgentTemplates[type].mind,
+			jsonAgentTemplates[type].baseDefence,
+			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
+			jsonAgentTemplates[type].offHand,
+			jsonAgentTemplates[type].chest,
+			jsonAgentTemplates[type].head,
+			jsonAgentTemplates[type].moveDice,
+			jsonAgentTemplates[type].baseMove,
+			jsonAgentTemplates[type].spellList,
+			jsonAgentTemplates[type].inventory,
+			jsonAgentTemplates[type].sprites,
+			jsonAgentTemplates[type].animations
+		);
+		agent.active = true;
+		agent.protagonist = true;
 		roster.push(agent);
 
 		type = &quot;Dwarf&quot;;
@@ -219,20 +244,25 @@ var gh = (function(gh){
 			type,
 			null,
 			null,
+			null,
 			&quot;Empire&quot;,
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
 			jsonAgentTemplates[type].baseDefence,
-			jsonAgentTemplates[type].mainHand,
+			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
 			jsonAgentTemplates[type].head,
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory
+			jsonAgentTemplates[type].inventory,
+			jsonAgentTemplates[type].sprites,
+			jsonAgentTemplates[type].animations
 		);
+		agent.protagonist = true;
+		agent.active = true;
 		roster.push(agent);
 
 		var type = &quot;Wizard&quot;;
@@ -241,20 +271,25 @@ var gh = (function(gh){
 			type,
 			null,
 			null,
+			null,
 			&quot;Empire&quot;,
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
 			jsonAgentTemplates[type].baseDefence,
-			jsonAgentTemplates[type].mainHand,
+			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
 			jsonAgentTemplates[type].head,
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory
+			jsonAgentTemplates[type].inventory,
+			jsonAgentTemplates[type].sprites,
+			jsonAgentTemplates[type].animations
 		);
+		agent.protagonist = true;
+		agent.active = true;
 		roster.push(agent);
 
 		var player = new gh.Player(&quot;Chris&quot;, gh.AI.HUMAN, roster);
@@ -281,27 +316,14 @@ var gh = (function(gh){
 		gh.board = new gh.Board(canvasBoard, width, height);
 
 		window.onresize = function(){
-			var display = document.getElementById(&quot;all&quot;);
-			gh.board.canvas2d.resize(&quot;0px&quot;, &quot;0px&quot;, display.clientWidth, display.clientHeight);
+			var display = document.body;
+			//var display = document.getElementById(&quot;all&quot;);
+			if(display){
+				gh.board.canvas2d.resize(&quot;0px&quot;, &quot;0px&quot;, display.clientWidth, display.clientHeight);
+			}
 		};
 
 		return true;
-
-	/*
-		gh.display.addCanvas(
-			new graphics.Canvas2D(canvasHud, &quot;0px&quot;, &quot;0px&quot;, width, height)
-		);
-
-		gh.display.addCanvas(
-			new graphics.Canvas2D(canvasBoard, &quot;0px&quot;, &quot;0px&quot;, width, height)
-		);
-
-		window.onresize = function(){
-			gh.display.onResize();
-		};
-
-		return true;
-	*/
 	};
 
 	/**
@@ -316,7 +338,24 @@ var gh = (function(gh){
 		window.onkeydown			= input.keyboard.keyDown;
 		window.onkeyup				= input.keyboard.keyUp;
 
+		//gh.hud.setupInput();
+
 		return true;
+	};
+
+	/**
+	 * @method buildImageData
+	 */
+	gh.buildImageData = function(){
+		if(graphics.getLoaded() &gt; 0){
+			requestAnimationFrame(gh.buildImageData);
+		} else {
+			for(var key in gh.assets.sprites){
+				gh.assets.sprites[key].buildImageData();
+			}
+
+			gh.run();
+		}
 	};
 
 	/**
@@ -324,9 +363,12 @@ var gh = (function(gh){
 	 * @return
 	 */
 	gh.run = function(){
+
 		if(true){
 			gh.ptrGameState = gh[gh.ptrGameState].update();
-			gh[gh.ptrGameState].render();
+			if(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().active){
+				gh[gh.ptrGameState].render();
+			}
 
 			requestAnimationFrame(gh.run);
 		}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>StdLib\display.js</title>
+    <title>Vec2</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,70 +105,111 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: StdLib\display.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
-&quot;use strict&quot;
-
-/**
- * @module graphics
- */
+<h1>Vec2 Class</h1>
+<div class="box meta">
 
 
-/**
- * @class grahpics
- * @constructor
- */
-var graphics = (function(graphics){
-	console.log(&quot;display.js loaded&quot;);
+        <div class="foundat">
+            Defined in: <a href="../files/StdLib_vec2.js.html#l13"><code>StdLib\vec2.js:13</code></a>
+        </div>
 
-	/**
-	 * Class Display
-	 */
-	function Display(divDisplay){
-		this.layers = [];
-		this.divDisplay = document.getElementById(divDisplay);
-	}
+            Module: <a href="../modules/StdLib.html">StdLib</a>
 
-	/**
-	 * Public methods
-	 */
+</div>
 
 
-	Display.prototype.addCanvas = function(canvas){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].zindex &lt; canvas.zindex; it++){
+<div class="box intro">
+    
+</div>
 
-		}
-		this.layers.splice(it, 0, canvas);
-	};
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_Vec2" class="method item">
+    <h3 class="name"><code>Vec2</code></h3>
 
-	Display.prototype.onResize = function(e){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(&quot;0px&quot;, &quot;0px&quot;, this.divDisplay.clientWidth, this.divDisplay.clientHeight);
-		}
-	}
-
-	Display.prototype.resize = function(top, left, width, height){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(top, left, width, height);
-		}
-	};
-
-	Display.prototype.onClick = function(){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].onClick().focus === false; it++){
-
-		}
-		console.log(it);
-
-	};
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>x</code>
+                </li>
+                <li class="arg">
+                        <code>y</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
 
 
-	graphics.Display = Display;
-	return graphics;
-})(graphics || {});
 
-    </pre>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/StdLib_vec2.js.html#l13"><code>StdLib\vec2.js:13</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">x</code>
+                        <span class="type">Float</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">y</code>
+                        <span class="type">Float</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+    </div>
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
 </div>
                     </div>
                 </div>

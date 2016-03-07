@@ -205,8 +205,11 @@ var gh = (function(gh){
 		gh.board = new gh.Board(canvasBoard, width, height);
 
 		window.onresize = function(){
-			var display = document.getElementById("all");
-			gh.board.canvas2d.resize("0px", "0px", display.clientWidth, display.clientHeight);
+			var display = document.body;
+			//var display = document.getElementById("all");
+			if(display){
+				gh.board.canvas2d.resize("0px", "0px", display.clientWidth, display.clientHeight);
+			}
 		};
 
 		return true;

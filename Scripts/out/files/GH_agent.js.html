@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -119,11 +123,12 @@ var gh = (function(gh){
 	console.log(&quot;agent.js loaded&quot;);
 
 	var state = {};
-	state.INERT 		= 0;
-	state.MOVE 			= 1;
-	state.DEAD 			= 2;
-	state.FOCUS 		= 3;
-	state.TURN 			= 4;
+	state.INACTIVE 		= &quot;inactive&quot;;
+	state.MOVE 			= &quot;move&quot;;
+	state.DEAD 			= &quot;dead&quot;;
+	state.FOCUS 		= &quot;focus&quot;;
+	state.ACTIVE 		= &quot;active&quot;;
+	
 
 	/**
 	 * @class Agent
@@ -142,15 +147,18 @@ var gh = (function(gh){
 	 * @param {} chest
 	 * @param {} head
 	 * @param {} moveDice
-	 * @param {} baseMove
+	 * @param {integer} baseMove
 	 * @param {} spellList
 	 * @param {} inventory
+	 * @param {} sprites
+	 * @param {} animations
 	 */
-	function Agent(templateID,uniqueID, x, y, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellList, inventory){
+	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellList, inventory, sprites, animations){
 		this.templateID 		= templateID;
 		this.uniqueID 			= uniqueID;
 		this.x 					= x || -1;
 		this.y 					= y || -1;
+		this.ptrOwner			= owner || null;
 		this.team				= team || &quot;&quot;;
 		this.description		= description || &quot;&quot;;
 		this.health 			= {&quot;max&quot; : body || 0, &quot;damage&quot; : 0};
@@ -162,13 +170,416 @@ var gh = (function(gh){
 		this.head				= head || null;
 		this.moveDice			= moveDice || 0;
 		this.baseMove			= baseMove || 0;
+		this.moved 				= 0;
 		this.spellList			= spellList || null;
 		this.inventory			= inventory || null;
 
-		this.actionState		= &quot;inert&quot;;
+		this.actionPoints		= 0;
+		this.maxActionPoints	= 1;
+
+		this.active 			= false;	// The default state is false.  This should change to active when the agent becomes &#x27;visible&#x27; on the board to other players.
+		this.protagonist		= false;
+		this.state 				= state.INACTIVE;
+		this.actionState 		= &quot;inactive&quot;;
+
+		this.sprites			= sprites;
+		if(animations){
+			this.actionStates 	= this.loadActionStates(animations)
+		}
 
 		return true;
 	}
+
+	/**
+	 * @method loadActionStates
+	 * @param {} animations
+	 */
+	Agent.prototype.loadActionStates = function(animations){
+		var as = {};
+
+		for(var key in animations){
+			as[key] = new gh.Animation(
+				animations[key].path,
+				animations[key].numFrames,
+				animations[key].frameWidth,
+				animations[key].repeat,
+				animations[key].speed,
+				animations[key].index
+			);
+		}
+
+		return as;
+	};
+
+	/**
+	 * @method getCurrentHealth
+	 */
+	Agent.prototype.getCurrentHealth = function(){
+		return this.health.max - this.health.damage;
+	};
+
+	/**
+	 * @method getCurrentMind
+	 */
+	Agent.prototype.getCurrentMind = function(){
+		return this.mind.max - this.mind.damage;
+	}
+
+	/**
+	 * @method getOpponents
+	 * @param {} teamIndex
+	 * @param {} allAgents
+	 */
+	Agent.prototype.getOpponents = function(teamIndex, allAgents){
+		var hostile = teamIndex[this.team].hostile;
+		var opponents = [];
+
+		for(var it = 0; it &lt; allAgents.length; it++){
+			if(allAgents[it].isHostile(this, teamIndex)){
+				opponents.push(allAgents[it]);
+			}
+		}
+
+		return opponents;
+	};
+
+	/**
+	 * @method getClosestPathTo
+	 * @param {} target
+	 * @return
+	 */
+	Agent.prototype.getClosestMovePathTo = function(map, target){
+		var cellSet = [];
+
+		if(this.canMove(&quot;up&quot;, map)){
+			cellSet.push({&quot;cell&quot; : map[this.y-1][this.x], &quot;direction&quot; : &quot;up&quot;});
+		}
+		if(this.canMove(&quot;down&quot;, map)){
+			cellSet.push({&quot;cell&quot; : map[this.y+1][this.x], &quot;direction&quot; : &quot;down&quot;});
+		}
+		if(this.canMove(&quot;left&quot;, map)){
+			cellSet.push({&quot;cell&quot; : map[this.y][this.x-1], &quot;direction&quot; : &quot;left&quot;});
+		}
+		if(this.canMove(&quot;right&quot;, map)){
+			cellSet.push({&quot;cell&quot; : map[this.y][this.x+1], &quot;direction&quot; : &quot;right&quot;});
+		}
+
+		return cellSet;
+	};
+
+	/**
+	 * @method getClosestOpponent
+	 * @param {} teamIndex
+	 * @param {gh.Agent[]} allAgents
+	 * @return 
+	 */
+	Agent.prototype.getClosestOpponent = function(teamIndex, allAgents){
+		var opponent;
+		var hostileAgents = this.getOpponents(teamIndex, allAgents);
+
+		if(hostileAgents.length &gt; 0){
+			opponent = hostileAgents[0];
+			for(var it = 0; it &lt; hostileAgents.length; it++){
+				if(gh.getMapDist(this.x, this.y, hostileAgents[it].x, hostileAgents[it].y) &lt; gh.getMapDist(this.x, this.y, opponent.x, opponent.y)){
+					opponent = hostileAgents[it];
+				}
+			}
+		} else {
+			opponent = null;
+		}
+
+		return opponent;
+	};
+
+	Agent.prototype.startTurn = function(){
+		this.state = &quot;active&quot;;
+
+		this.moved = this.baseMove;
+		for(var it = 0; it &lt; this.moveDice; it++){
+			this.moved += new gh.Dice(6).roll();
+		}
+
+		this.actionPoints = 0;
+	};
+
+	/**
+	 * @method canMove
+	 * @param {string} direction
+	 * @param {} map
+	 * @param {} from
+	 * @return
+	 */
+	Agent.prototype.canMove = function(direction, map, from){
+		if(!from){
+			from = {};
+			from.x = this.x;
+			from.y = this.y;
+		}
+
+		if(this.moved &lt;= 0){
+			return false;
+		}
+
+		// Is a border blocking the movement direction?
+
+		var d = direction;
+		if(d === &quot;up&quot;){ d = &quot;top&quot;; }
+		if(d === &quot;down&quot;){ d = &quot;bottom&quot;; }
+
+		var cell = map[from.y][from.x];
+		if(cell.border){
+			if(cell.border[d]){
+				var border = cell.border[d];
+				if(border instanceof gh.Wall){
+					if(!border.passable){
+						return false;
+					}
+				}
+				if(border instanceof gh.Door){
+					if(!border.open){
+						return false;
+					}
+				}
+
+			}
+		}
+
+		// Is there an obstructing agent or object in the direction of movement
+		var destination;
+		switch(direction){
+			case &quot;left&quot;:
+				destination = map[from.y][from.x-1];
+				break;
+			case &quot;right&quot;:
+				destination = map[from.y][from.x+1];
+				break;
+			case &quot;up&quot;:
+				destination = map[from.y-1][from.x];
+				break;
+			case &quot;down&quot;:
+				destination = map[from.y+1][from.x];
+				break;
+			default:
+				break;
+		}
+
+		// Is there an obstructing hostile agent?
+		// Only check the top-most (last) agent in the agent queue for the destination cell.
+		if(destination.agents &amp;&amp; destination.agents.length &gt; 0	){
+			if(this.isHostile(destination.agents[destination.agents.length-1],	gh.ptrActiveLevel.teams)){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * @method move
+	 * @param {string} direction This can be &#x27;up&#x27; &#x27;down&#x27; &#x27;left&#x27; and &#x27;right&#x27;.
+	 * @param {gh.Cell[][]} map A 2d array of cells.
+	 */
+	Agent.prototype.move = function(direction, map){
+		if(this.moved &lt;= 0){
+			return false;
+		}
+
+		if(!this.canMove(direction, map)){
+			return false;
+		}
+
+		// The move is valid at this juncture.
+		// Remove the reference to the agent from the cell it currently resides in.
+		var cell = map[this.y][this.x];
+		var agents = cell.agents;
+		for(var it = 0; it &lt; agents.length &amp;&amp; agents[it] !== this; it++){
+		}
+		agents.splice(it, 1);
+
+		// Update the agents x/y location.
+		switch(direction){
+			case &quot;left&quot;:
+				this.x--;
+				break;
+			case &quot;right&quot;:
+				this.x++;
+				break;
+			case &quot;up&quot;:
+				this.y--;
+				break;
+			case &quot;down&quot;:
+				this.y++;
+				break;
+			default:
+				break;
+		}
+
+		// Reduce the number of moves the agent has left.
+		this.moved--;
+		console.log(this.moved);
+
+		// Add the agent to the destination cell.
+		map[this.y][this.x].agents.push(this);
+
+		// Update the maps visibility.
+		gh.ptrActiveLevel.mapData.map.updateAgentVisibility(this);
+
+		return true;
+	};
+
+	/**
+	 * @method draw
+	 * @param {} assets
+	 * @param {Canvas.context}
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 */
+	Agent.prototype.draw = function(assets, context, tileSize, scale, offset){
+		this.actionStates[this.state].draw(
+			assets, 
+			context,
+			this.x * tileSize * scale + offset.x,
+			this.y * tileSize * scale + offset.y,
+			tileSize * scale,
+			tileSize * scale
+		);
+	}
+
+	/**
+	 * @method isClicked
+	 * @param {integer} x
+	 * @param {integer} y
+	 * @param {float} tileSize
+	 * @param {} sprites
+	 * @return
+	 */
+	Agent.prototype.isClicked = function(x, y, tileSize, sprites){
+		var pixel = this.actionStates[this.state].getPixelAt(x, y, tileSize, sprites);
+
+		return !pixel.isTransparent();
+	};
+
+	/**
+	 * Determines whether or not the target is hostile to the agent
+	 * @method isHostile
+	 * @param {gh.Agent} target
+	 * @param {} teams
+	 */
+	Agent.prototype.isHostile = function(target, teams){
+		var faction = teams[this.team].hostile;
+		for(var it = 0; it &lt; faction.length; it++){
+			if(faction[it] === target.team){
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	/**
+	 * @method getDefenceDice
+	 * @return
+	 */
+	Agent.prototype.getDefenceDice = function(){
+		var defenceDice = 0;
+		
+		if(this.chest !== null){
+
+		}
+		if(this.head !== null){
+
+		}
+		if(this.offHand !== null){
+
+		}
+
+		if(defenceDice === 0){
+			defenceDice = this.baseDefence;
+		}
+
+		return defenceDice;
+	}
+
+	/**
+	 * A human agent successfully defends on a 1 or 2.
+	 * A computer agent successfully defends on a 1.
+	 * @method getDefence
+	 */
+	Agent.prototype.getDefence = function(){
+		var defenceDice = this.getDefenceDice();
+
+		var defence = 0;
+		for(var it = 0; it &lt; defenceDice; it++){
+			switch(gh.ptrActiveLevel.manager.getActivePlayer().AI){
+				case gh.AI.HUMAN:
+					if(new gh.Dice(6).roll &lt; 3){
+						defence++;
+					}
+					break;
+				case gh.AI.COMPUTER:
+					if(new gh.Dice(6).roll &lt; 2){
+						defence++;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		return defence;
+	};
+
+	/**
+	 * @method canAttack
+	 * @param {Agent} target
+	 * @return
+	 */
+	Agent.prototype.canAttack = function(target){
+		if(this.actionPoints &gt;= 1) return false;
+		if(!this.isHostile(target, gh.ptrActiveLevel.teams)) return false;
+		if(this.mainHand.diagonal){
+			if(gh.isDiagonal(this.x, this.y, target.x, target.y)){
+				return true;
+			}
+		}
+		if(gh.getMapDist(this.x, this.y, target.x, target.y) &gt; this.mainHand.range) return false;
+
+		return true;
+	};
+
+	/**
+	 * @method attack
+	 * @param {gh.Agent} target
+	 * @return
+	 */
+	Agent.prototype.attack = function(target){
+		if(!this.canAttack(target)){
+			return null;
+		}
+
+		this.actionPoints++;
+
+		var hits = this.mainHand.attack();
+		var defence = target.getDefence();
+		return {&quot;damage&quot; : hits - defence, &quot;hits&quot; : hits, &quot;defence&quot; : defence};
+	};
+
+	/**
+	 * @method damageHealth
+	 * @param {integer} damage
+	 * @return
+	 */
+	Agent.prototype.damageHealth = function(damage){
+		this.health.damage += damage;
+		if(this.health.damage &gt;= this.health.max){
+			this.state = state.DEAD;
+			this.ptrOwner.removeAgent(this);
+			return &quot;dead&quot;;
+		} else {
+			return &quot;alive&quot;;
+		}
+	};
 
 	gh.Agent = Agent;
 

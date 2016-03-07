@@ -23,8 +23,7 @@
 		<div id="activeAgent">
 			<div id="aaBorder">
 				<div id="aaBackgroundImage">
-					<h2 id="aaName">Barbarian</h2>
-					
+					<h2 id="aaName">Barbarian</h2>					
 					<div id="aaDetails">
 						<p id="aaDescription"></p>
 						<canvas id="aaImage"></canvas>
@@ -32,22 +31,21 @@
 							<tr >
 								<td rowspan="2">Attack Dice</td>
 								<td rowspan="2">Defend Dice</td>
-								<td colspan="2" style="text-align: center;">Starting Points</td>
+								<td colspan="2" style="text-align: center;">Current Health</td>
 							</tr>
 							<tr>
 								<td>Body</td>
 								<td>Mind</td>
 							</tr>
 							<tr>
-								<td id="aaBody">dummytext</td>
-								<td id="aaMind">dummytext</td>
-								<td>dummytext</td>
-								<td>dummytext</td>
+								<td class="aaData" id="aadAttackDice"></td>
+								<td class="aaData" id="aadDefendDice"></td>
+								<td class="aaData" id="aaBody"></td>
+								<td class="aaData" id="aaMind"></td>
 							</tr>
 						</table>
 						<p id="aaMove">Movement</p>
-					</div>
-					
+					</div>					
 				</div>
 			</div>
 		</div>
@@ -83,10 +81,10 @@
 				<!-- <button id="endTurn"><p>END TURN</p></button> -->
 				<div id="endTurnButton">
 					<p id="endTurnText">End Turn</p>
+
 				</div>
 			</div>
 		</div>
-
 	</div>
 
 	<!-- 
@@ -98,6 +96,13 @@
 	</div>
 
 	<div id="diceSplashScreen">
+		<div id="attackDice">
+			<div class="diceBox"><p>Text</p>
+			</div>
+		</div>
+
+		<div id="defendDice">
+		</div>
 	</div>
 
 	<!-- Load StdLib files -->
@@ -127,6 +132,7 @@
 
 	<!-- Load HUD files -->
 	<script type="text/javascript" src="./Scripts/GH/Interface/hud.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/Interface/diceSplashScreen.js"></script>
 
 	<!-- Load API files -->
 	<script type="text/javascript" src="./Scripts/GH/dice.js"></script>

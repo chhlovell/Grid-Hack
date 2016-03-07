@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -123,20 +127,78 @@ var gh = (function(gh){
 		this.active	= true;
 	}
 
-	EntryTrigger.prototype.draw = function(context, tileSize, scale){
+	/**
+	 * @method draw
+	 * @param {Canvas.context} context
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 */
+	EntryTrigger.prototype.draw = function(context, tileSize, scale, offset){
 		if(this.active){
 			context.save();
 
 			context.globalAlpha = 0.5;
 			context.fillStyle = &quot;blue&quot;;
-			context.fillRect(this.x * tileSize * scale, this.y * tileSize * scale, tileSize * scale, tileSize * scale);
+			context.fillRect(
+				this.x * tileSize * scale + offset.x, 
+				this.y * tileSize * scale + offset.y, 
+				tileSize * scale, 
+				tileSize * scale);
 
 			context.restore();
 		}
 	};
 
-	EntryTrigger.prototype.onClick = function(){
+	/**
+	 * Return true if all heroes have been placed.
+	 * Return false if not all heroes in the roster have been placed.
+	 * @method onClick
+	 * @param {} roster
+	 * @param {} map
+	 * @return
+	 */
+	EntryTrigger.prototype.onClick = function(roster, map){
 
+		// counte how many agents in the roster have been placed
+		var placed = 0;
+		for(var n = 0; n &lt; roster.length; n++){
+			if(roster[n].x !== -1 &amp;&amp; roster[n].y !== -1){
+				placed++;
+			}
+		}
+		if(placed &gt;= roster.length){
+			return true;
+		}
+
+		// get the first unplaced hero in the player&#x27;s roster.
+		var it = 0;
+		while(it &lt; roster.length &amp;&amp; roster[it].x !== -1 &amp;&amp; roster[it].y !== -1){
+			it++;
+		}
+
+		roster[it].x = this.x;
+		roster[it].y = this.y;
+
+		var cell = map[this.y][this.x];
+
+		if(cell.agents){
+			if(cell.agents.length &gt; 0){
+				while(cell.agents.length &gt; 0){
+					cell.agents[0].x = -1;
+					cell.agents[0].y = -1;
+					cell.agents.shift();
+					placed--;
+				}
+			}
+			cell.agents.push(roster[it]);
+			placed++;
+		}
+
+		if(placed &gt;= roster.length){
+			return true;
+		}
+		return false;
 	};
 
 	gh.EntryTrigger = EntryTrigger;

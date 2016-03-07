@@ -14,7 +14,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "Mlayer",
         "Player",
         "Sprite",
+        "SpriteStrip",
+        "Vec2",
         "Wall",
+        "Weapon",
         "gh",
         "grahpics",
         "graphics",
@@ -22,6 +25,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "json",
         "keyboard",
         "math",
+        "stateGame",
         "stateSetup"
     ],
     "modules": [

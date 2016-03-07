@@ -58,8 +58,12 @@
                                 <li><a href="../classes/Mlayer.html">Mlayer</a></li>
                                 <li><a href="../classes/Player.html">Player</a></li>
                                 <li><a href="../classes/Sprite.html">Sprite</a></li>
+                                <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
+                                <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
+                                <li><a href="../classes/Weapon.html">Weapon</a></li>
                             </ul>
                 
                 
@@ -160,6 +164,36 @@ var gh = (function(gh){
 		}
 
 		return true;
+	};
+
+	/** 
+	 * @method getAgentsAd
+	 * @param {integer} x
+	 * @param {integer} y
+	 * @return
+	 */
+	Manager.prototype.getAgentsAt = function(x, y){
+		var agents = [];
+
+		for(var it = 0; it &lt; this.players.length; it++){
+			for(var n = 0; n &lt; this.players[it].roster.length; n++){
+				if(this.players[it].roster[n].x === x &amp;&amp; this.players[it].roster[n].y === y){
+					agents.push(this.players[it].roster[n]);
+				}
+			}
+		}
+
+		return agents;
+	};
+
+	Manager.prototype.getAllAgents = function(){
+		var agents = [];
+
+		for(var it = 0; it &lt; this.players.length; it++){
+			agents = agents.concat(this.players[it].roster);
+		}
+
+		return agents;
 	}
 
 	gh.Manager = Manager;

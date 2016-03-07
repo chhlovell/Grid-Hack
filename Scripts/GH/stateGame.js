@@ -1,12 +1,24 @@
 "use strict"
 
+/**
+ * @module gh
+ */
+
+/**
+ * @class gh
+ */
 var gh = (function(gh){
 
-
+	/**
+	 * @class stateGame
+	 * @constructor
+	 * @method stateGame
+	 */
 	var stateGame = (function(stateGame){
 
 		var timeStamp;
 		var dt;
+		var ptrFocus;
 
 		function endTurn(){
 			gh.ptrActiveLevel.manager.setNextTurn();
@@ -18,7 +30,9 @@ var gh = (function(gh){
 			}
 		}
 
-
+		/**
+		 * @method update
+		 */
 		stateGame.update = function(){
 			gh.board.handleInput();
 
@@ -108,19 +122,21 @@ var gh = (function(gh){
 
 			}
 
-			/**
-			 * Handle mouse input
-			 */
+			// Handle mouse input.
 
 			var pt = gh.board.mouseToCell();
 			var map = gh.ptrActiveLevel.mapData.map.board;
 
-			// update object focus
+			// Clear the current mouse focus.
+			if(ptrFocus){
+				ptrFocus.focus = false;
+			}
+			// Update mouse focus.
 			if(map[pt.y]){
 				if(map[pt.y][pt.x]){
 					var cell = map[pt.y][pt.x];
 					if(cell.visible){
-						cell.setMouseFocus(
+						ptrFocus = cell.setMouseFocus(
 							input.mouse.x,
 							input.mouse.y,
 							gh.board.tileSize,
@@ -132,6 +148,7 @@ var gh = (function(gh){
 				}
 			}
 
+			// Handle mouse click events.
 			if(input.mouse.clicked){
 				input.mouse.clicked = false;
 
@@ -158,6 +175,9 @@ var gh = (function(gh){
 			return "stateGame";
 		};
 
+		/**
+		 * @method render
+		 */
 		stateGame.render = function(){
 			//gh.board.draw(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().team);
 			gh.board.draw("Empire");

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>StdLib\display.js</title>
+    <title>GH\weapon.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -105,69 +105,70 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1 class="file-heading">File: StdLib\display.js</h1>
+<h1 class="file-heading">File: GH\weapon.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &quot;use strict&quot;
 
 /**
- * @module graphics
+ * @module gh
  */
 
 
 /**
- * @class grahpics
- * @constructor
+ * @class gh
  */
-var graphics = (function(graphics){
-	console.log(&quot;display.js loaded&quot;);
+var gh = (function(gh){
+	console.log(&quot;weapon.js loaded&quot;);
 
 	/**
-	 * Class Display
+	 * @class Weapon
+	 * @constructor
+	 * @param {string} name
+	 * @param {string} resRef
+	 * @apram {string} size
+	 * @param {integer} attack
+	 * @param {integer} hands
+	 * @param {integer} range
+	 * @param {bool} diagonal
+	 * @param {integer} cost
 	 */
-	function Display(divDisplay){
-		this.layers = [];
-		this.divDisplay = document.getElementById(divDisplay);
+	function Weapon(name, resRef, size, attack, hands, range, diagonal, cost, actionPoints){
+		this.name 			= name;
+		this.resRef 		= resRef;
+		this.size			= size;
+		this.attackDice		= attack;
+		this.hands			= hands;
+		this.range			= range;
+		this.diagonal		= diagonal || false;
+		this.cost			= cost || 0;
+		this.actionPoints   = actionPoints || 1;
 	}
 
 	/**
-	 * Public methods
+	 * Returns the number of successful hits when attacking with this weapon.
+	 * A 4+ on a d6 is a hit.
+	 * @method attack
+	 * @return
 	 */
-
-
-	Display.prototype.addCanvas = function(canvas){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].zindex &lt; canvas.zindex; it++){
-
+	Weapon.prototype.attack = function(){
+		console.log(this);
+		var sum = 0;
+		
+		for(var it = 0; it &lt; this.attackDice; it++){
+			if(new gh.Dice(6).roll() &gt; 3){
+				sum++;
+			}
 		}
-		this.layers.splice(it, 0, canvas);
+
+		return sum;
 	};
 
-	Display.prototype.onResize = function(e){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(&quot;0px&quot;, &quot;0px&quot;, this.divDisplay.clientWidth, this.divDisplay.clientHeight);
-		}
-	}
+	gh.Weapon = Weapon;
 
-	Display.prototype.resize = function(top, left, width, height){
-		for(var it = 0; it &lt; this.layers.length; it++){
-			this.layers[it].resize(top, left, width, height);
-		}
-	};
-
-	Display.prototype.onClick = function(){
-		for(var it = 0; it &lt; this.layers.length &amp;&amp; this.layers[it].onClick().focus === false; it++){
-
-		}
-		console.log(it);
-
-	};
-
-
-	graphics.Display = Display;
-	return graphics;
-})(graphics || {});
-
+	return gh;
+})(gh || {});
     </pre>
 </div>
                     </div>
