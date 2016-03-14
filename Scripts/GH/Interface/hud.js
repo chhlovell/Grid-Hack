@@ -22,6 +22,7 @@ var gh = (function(gh){
 		var AAD_DEFEND_DICE 	= "aadDefendDice";
 		var AAD_BODY			= "aaBody";
 		var AAD_MIND			= "aaMind";
+		var AAD_IMAGE			= document.getElementById("aaImage");
 		var AAD_OVERVIEW		= document.getElementById("aaOverview");
 		var AAD_INVENTORY		= document.getElementById("aaInventory");
 
@@ -136,10 +137,9 @@ var gh = (function(gh){
 			document.getElementById("aaName").innerHTML = agent.uniqueID;
 			document.getElementById("aaDescription").innerHTML = agent.description;
 
-			var aaImage = document.getElementById("aaImage");
-			var context = aaImage.getContext("2d");
-			aaImage.width = aaImage.clientWidth;
-			aaImage.height = aaImage.clientHeight;
+			var context = AAD_IMAGE.getContext("2d");
+			AAD_IMAGE.width = aaImage.clientWidth;
+			AAD_IMAGE.height = aaImage.clientWidth;
 			
 			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
 			aadAtkDice.innerHTML = agent.mainHand.attackDice;

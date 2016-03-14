@@ -18,6 +18,7 @@ TO DO
 		Fimir
 		Chaos Warrior
 		Mummy
+
 -	A* search algorithm
 		General AStar search that does not predicate an agent
 		Maybe add options for what should/should not block the search path and write a
@@ -25,11 +26,14 @@ TO DO
 		fix last move check in A* search to include scenario when creatures are in a row more
 		two deep, thus preventing movement form further away than originally predicted
 -	include an unarmed base attack value for all agents?
+
 -	may need to include a map max x and y values to determine whether or not movement remains
 	in the map even if a cell has not been initialized.
--	implement an attack/defence dice splash screen display
+
 -	change the pathing to include a check for weapon range
+
 -	add a ray cast check for weapon line of sight
+
 -	update the gh.Agent.getDefenceDice to include armour checks in the total value
 
 -	Add a turn counter for each player (and agent?)
@@ -72,6 +76,9 @@ TO DO
 		which can be altered for players who whish to provide a different name for their
 		heroes.
 
+-	GAME: win/loose condition on all monsters/players heroes dead.
+
+
 
 =============================================================================================
 COMPLETED
@@ -103,5 +110,12 @@ COMPLETED
 		current mind
 		current weapon (damage)
 		current armor equiped (total defence)
+
+-	implement an attack/defence dice splash screen display
+
+-	ACTIVE AGENT DISPLAY: setting height to 100% does not work when switching between tabs. Need to
+		consider using a fixed pixel height value for the canvas.  Perhaps a % of the total
+		screen height.
+
 
 

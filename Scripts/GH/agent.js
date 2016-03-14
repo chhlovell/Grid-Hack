@@ -61,7 +61,8 @@ var gh = (function(gh){
 		this.baseMove			= baseMove || 0;
 		this.moved 				= 0;
 		this.spellList			= spellList || null;
-		this.inventory			= inventory || null;
+		this.inventory			= inventory || [];
+		loadInventory(this);	// Load the equiped items into the agents inventory.
 
 		this.actionPoints		= 0;
 		this.maxActionPoints	= 1;
@@ -77,6 +78,31 @@ var gh = (function(gh){
 		}
 
 		return true;
+	}
+
+	/**
+	 * This method is used to load an agents initially equiped items into the inventory array.
+	 * This method should only be used on creation of a new agent and not called externally.
+	 * It is assumed that equiped items do not exist in the agents 'inventory' at the time of its
+	 * initialization.
+	 * @method loadInventory
+	 * @param {gh.Agent} An instnace of a newly created agent.
+	 */
+	function loadInventory(agent){
+		if(agent.mainHand !== null){
+			agent.inventory.push(agent.mainHand);
+		}
+		if(agent.offHand !== null){
+			agent.inventory.push(agent.offHand);
+		}
+		if(agent.chest !== null){
+			agent.inventory.push(agent.chest);
+		}
+		if(agent.head !== null){
+			agent.inventory.push(agent.head);
+		}
+
+		return;
 	}
 
 	/**

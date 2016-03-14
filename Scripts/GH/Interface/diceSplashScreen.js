@@ -111,7 +111,11 @@ var gh = (function(gh){
 				c.width = 100;
 				c.height = 100;
 
-				ctx.fillStyle = "white";
+				if(defender.ptrOwner.AI){
+					ctx.fillStyle = "white";
+				} else {
+					ctx.fillStyle = "red";
+				}
 				ctx.fillRect(0, 0, c.width, c.height);
 
 				switch (hits.dice[it]){
@@ -142,7 +146,11 @@ var gh = (function(gh){
 				c.width = 100;
 				c.height = 100;
 
-				ctx.fillStyle = "red";
+				if(defender.ptrOwner.AI){
+					ctx.fillStyle = "red";
+				} else {
+					ctx.fillStyle = "white";
+				}
 				ctx.fillRect(0, 0, c.width, c.height);
 
 				switch (defence.dice[it]){
@@ -159,7 +167,7 @@ var gh = (function(gh){
 						break;
 				}
 
-			DSS_DEF_DICE.appendChild(c);
+				DSS_DEF_DICE.appendChild(c);
 			}
 		};
 
