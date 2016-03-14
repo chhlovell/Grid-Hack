@@ -76,13 +76,9 @@ var gh = (function(gh){
 				document.getElementById(DICE2).getContext("2d")
 			);
 
-			// Setup the active agent display
-			//document.getElementById("aaName").onclick = hud.aaButton;
-
 			hud.setupAAD();
 
 			hud.setupInput();
-			
 		}
 
 		/**
@@ -110,9 +106,11 @@ var gh = (function(gh){
 		 * @method aaTabOnClick
 		 */
 		function aadTabOnClick(){
+			// Set all the tabbed pages to a height of 0px.
 			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "0px");
 			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "0px");
 
+			// Set the height of the currently selected tab page's height to 100%.
 			// Could potentially remove this switch statement if a standardized string
 			// selector is utilized.
 			switch(this.id){

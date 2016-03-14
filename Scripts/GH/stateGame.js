@@ -55,9 +55,9 @@ var gh = (function(gh){
 					 *
 					 */
 
-					var opponents = activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
-					var target = activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
-					var path = gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
+					var opponents 	= activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
+					var target 		= activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
+					var path 		= gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
 
 					if(path.length > 2 && activeAgent.moved > 1){
 						dt = Date.now() - timeStamp;
@@ -77,6 +77,16 @@ var gh = (function(gh){
 							endTurn();
 						}
 					} else {
+						// Try to attack the target.
+						var atk = activeAgent.attack(target);
+
+						// Display the attack splash screen
+						if(atk !== null){
+							gh.hud.displayAttack(activeAgent.mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
+							if(target.damageHealth(atk.damage) === "dead"){
+								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].removeAgent(target);
+							}
+						}
 						endTurn();
 					}
 				} else {

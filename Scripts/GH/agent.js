@@ -399,15 +399,17 @@ var gh = (function(gh){
 		var defence 		= {"sum" : 0, "dice" : []};
 		var defenceDice 	= this.getDefenceDice();
 
+		console.log(this);
+
 		for(var it = 0; it < defenceDice; it++){
 			var r = gh.hqDice.roll();
-			switch(gh.ptrActiveLevel.manager.getActivePlayer().AI){
-				case gh.AI.HUMAN:
+			switch(this.ptrOwner.AI){
+				case false:
 					if(r === "whiteShield"){
 						defence.sum++;
 					}
 					break;
-				case gh.AI.COMPUTER:
+				case true:
 					console.log("AI");
 					if(r === "blackShield"){
 						defence.sum++;
@@ -453,7 +455,13 @@ var gh = (function(gh){
 
 		var hits = this.mainHand.attack();
 		var defence = target.getDefence();
-		return {"damage" : hits.sum - defence.sum, "hits" : hits, "defence" : defence};
+
+		// Ensure that the damage value is positve and prevents negative values.
+		var dmg = hits.sum - defence.sum;
+		if(dmg < 0){
+			dmg = 0;
+		}
+		return {"damage" : dmg, "hits" : hits, "defence" : defence};
 	};
 
 	/**

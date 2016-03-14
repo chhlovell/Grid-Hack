@@ -34,11 +34,14 @@ TO DO
 
 -	Add a turn counter for each player (and agent?)
 
--	Attack: Update feedback via splash screens 
 -	Attack: Add a damage animation
 -	Attack: Add a death animation
 -	Attack: line of sight overlay5
 -	Attack: custom cursor
+
+-	gh.ptrActiveLevel.mapData.map.aStar: add a trim function to remove the starting squares 
+		already occupied by agents.  This should prevent AI from finishing a move in a square with
+		an allied agent.
 
 -	Search for traps: implement funcitonality
 -	Search for secret doors: implement functionality
@@ -49,7 +52,6 @@ TO DO
 -	Cell.setMouseFocus: include check for items/objects
 -	Cell: include draw rotation for tiles
 
--	AI: Attack a player
 -	AI: Determine best player to attack
 -	AI: consider using a modified A* to get map distance between two objects to account for
 		walls and other items between agents
@@ -58,10 +60,17 @@ TO DO
 
 -	ACTIVE AGENT DISPLAY: when adjusting screen size height can enter a loop where it
 		increases without stopping and exceeds screen height.
+-	ACTIVE AGENT DISPLAY: improve graphics
+-	ACTIVE AGENT DISPLAY: Change the aaName value to the agent's 'name' attribute rather than
+		the 'uniqueID' value.
 
 -	graphics.spriteStrip: add error handling for the use of an index
 
 -	End Turn: button should not function while AI turn.
+
+-	Agent: add 'name' attribute.  There should be a default value for each template resRef
+		which can be altered for players who whish to provide a different name for their
+		heroes.
 
 
 =============================================================================================
@@ -79,10 +88,16 @@ COMPLETED
 		Move toward player
 -	implement actions
 		Attack
+
 -	AI: implement a move to closes player
 -	AI: introduce delay for visuals in agent movement
+-	AI: Attack a player
+
 -	Attack: Add check for adjacent vs diagonal
+-	Attack: Update feedback via splash screens 
+
 -	fix error in getline when in a 0 y cell (must be in the vision raycasting algorithms?)
+
 -	ACTIVE AGENT DISPLAY:
 		current health
 		current mind
