@@ -184,23 +184,7 @@ var gh = (function(gh){
 			var fps = document.getElementById("performance");
 			fps.innerHTML = "FPS: " + graphics.fps.getFPS();
 
-			/**
-			 * Draw the dice
-			 * Should probably move this to the hud js file
-			 */
-			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
-			if(moved > 6){
-				var diff = moved - 6;
-				gh.hud.d2.draw(diff - 1, 0, 0, 100, 100);
-				moved = moved - diff;
-			} else {
-				gh.hud.d2.clear();
-			}
-			if(moved > 0){
-				gh.hud.d1.draw(moved - 1, 0, 0, 100, 100)
-			} else {
-				gh.hud.d1.clear();
-			}
+			gh.hud.render();
 
 			return true;
 		};

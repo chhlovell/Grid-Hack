@@ -32,7 +32,7 @@ TO DO
 -	add a ray cast check for weapon line of sight
 -	update the gh.Agent.getDefenceDice to include armour checks in the total value
 
--	Add a turn tounter for each player (and agent?)
+-	Add a turn counter for each player (and agent?)
 
 -	Attack: Update feedback via splash screens 
 -	Attack: Add a damage animation
@@ -58,6 +58,10 @@ TO DO
 
 -	ACTIVE AGENT DISPLAY: when adjusting screen size height can enter a loop where it
 		increases without stopping and exceeds screen height.
+
+-	graphics.spriteStrip: add error handling for the use of an index
+
+-	End Turn: button should not function while AI turn.
 
 
 =============================================================================================

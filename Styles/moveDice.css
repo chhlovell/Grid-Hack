@@ -6,7 +6,7 @@
 	border-style: ridge;
 	border-width: 5px;
 
-	background-image: url("./Data/Graphics/Interface/Ashy Sandstone.jpg");
+	background-image: url("../Data/Graphics/Interface/Ashy Sandstone.jpg");
 
 	z-index: 100;
 }

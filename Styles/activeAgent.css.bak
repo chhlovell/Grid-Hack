@@ -9,16 +9,21 @@
 	max-height: 70%;
 }
 
+/*
 #aaBorder{
 	border-width: 10px;
-	border-image: url("./Data/Graphics/Interface/torn-edge.gif") 40 40;
+	border-image: url("../Data/Graphics/Interface/torn-edge.gif") 40 40;
+}
+*/
+#aaBorder{
+	border-style: ridge;
 }
 
 #aaBackgroundImage{
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background-image: url("./Data/Graphics/Interface/aged paper.jpg");
+	background-image: url("../Data/Graphics/Interface/aged paper.jpg");
 	background-repeat: repeat;
 }
 
@@ -51,6 +56,14 @@
 }
 */
 
+#aaDetails{
+	width: 90%;
+	max-height: 0px;
+
+	visiblity: hidden;
+	overflow: hidden;
+}
+
 #aaDescription{
 	float: left;
 	width: 50%;
@@ -69,4 +82,13 @@
 
 .aaData{
 	text-align: center;
+}
+
+#aaEquipment{
+	width: 10%;
+	overflow: hidden;
+
+	visibility: hidden;
+
+	background-color: blue;
 }

@@ -46,7 +46,6 @@ var gh = (function(gh){
 
 		// Setup the board display
 		gh.divDisplay 			= document.getElementById(divDisplay);
-		//gh.divDisplay			= document.body;
 		gh.display 				= new graphics.Display(divDisplay);
 
 		// Load the graphics assets
@@ -206,7 +205,6 @@ var gh = (function(gh){
 
 		window.onresize = function(){
 			var display = document.body;
-			//var display = document.getElementById("all");
 			if(display){
 				gh.board.canvas2d.resize("0px", "0px", display.clientWidth, display.clientHeight);
 			}
@@ -227,7 +225,7 @@ var gh = (function(gh){
 		window.onkeydown			= input.keyboard.keyDown;
 		window.onkeyup				= input.keyboard.keyUp;
 
-		//gh.hud.setupInput();
+		gh.dss.setupInput();
 
 		return true;
 	};

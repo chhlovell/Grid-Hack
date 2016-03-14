@@ -8,7 +8,8 @@ var gh = (function(gh){
 		/**
 		 * Private constants
 		 */
-		var HUD 				= "hud";
+		//var HUD 				= "hud";
+		var HUD 				= document.getElementById("hud");
 		var LOWER_HUD 			= "lowerHud";
 
 		var DICE1 				= "d1";
@@ -16,12 +17,32 @@ var gh = (function(gh){
 
 		var END_TURN_BUTTTON 	= "endTurnButton";
 
+		var AAD 				= "activeAgent"
 		var AAD_ATTACK_DICE 	= "aadAttackDice";
 		var AAD_DEFEND_DICE 	= "aadDefendDice";
 		var AAD_BODY			= "aaBody";
 		var AAD_MIND			= "aaMind";
+		var AAD_OVERVIEW		= document.getElementById("aaOverview");
+		var AAD_INVENTORY		= document.getElementById("aaInventory");
 
 		/**
+		 * Private globals
+		 */
+		hud.d1 = undefined;
+		hud.d2 = undefined;
+
+		/**
+		 * Private methods
+		 */
+
+		/**
+		 * This method sets the visibility of a given node and all of its children to the 
+		 * given visibility.
+		 * This method is no longer utilized by Grid Hack. Use stdlib.dom.setNodeTreeStyle instead.
+		 * @method setVisibility
+		 * @param {DOM} node
+		 * @param {string} visible Acceptable parameters are "hidden" or "visible".
+		 * @depreciated
 		 */
 		function setVisibility(node, visible){
 			node.style.visibility = visible;
@@ -31,16 +52,14 @@ var gh = (function(gh){
 		}
 
 		/**
-		 * Private globals
+		 * Public Methods
 		 */
-		hud.d1 = undefined;
-		hud.d2 = undefined;
 
 		/**
 		 * @method setup
 		 */
 		hud.setup = function(){
-			setVisibility(document.getElementById(HUD), "visible");
+			stdlib.dom.setNodeTreeStyle(HUD, "visibility", "visible");
 			
 			//Create the dice
 			hud.d1 = new gh.Dice(
@@ -58,19 +77,55 @@ var gh = (function(gh){
 			);
 
 			// Setup the active agent display
-			document.getElementById("aaName").onclick = hud.aaButton;
+			//document.getElementById("aaName").onclick = hud.aaButton;
+
+			hud.setupAAD();
 
 			hud.setupInput();
 			
 		}
 
-		hud.aaButton = function(){
-			if(document.getElementById("aaDetails").style.maxHeight === "0px" || document.getElementById("aaDetails").style.maxHeight === ""){
-				document.getElementById("aaDetails").style.maxHeight = "500px";
-			} else {
-				document.getElementById("aaDetails").style.maxHeight = "0px";
-			}
+		/**
+		 * Active Agent Display
+		 */
+
+		/**
+		 * Setup the active agent display hud interface.
+		 * This includes initializing the tab visibility and height parameters.
+		 * @method setupAAD
+		 */
+		hud.setupAAD = function(){
+			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "100%");
+			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "0px");
+
+			var aaTabs = document.getElementsByClassName("aaTab");
+			for(var it = 0; it < aaTabs.length; it++){
+				aaTabs[it].onclick = aadTabOnClick;
+			}		
 		};
+
+		/**
+		 * This method responds to a click event on the active agent tabs and allowing the user
+		 * to view different sets of information via the tabs.
+		 * @method aaTabOnClick
+		 */
+		function aadTabOnClick(){
+			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "0px");
+			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "0px");
+
+			// Could potentially remove this switch statement if a standardized string
+			// selector is utilized.
+			switch(this.id){
+				case "aaTabOverview":
+					stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "100%");
+					break;
+				case "aaTabInventory":
+					stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "100%");
+					break;
+				default:
+					break;
+			}
+		}
 
 		/**
 		 * @method update
@@ -78,6 +133,7 @@ var gh = (function(gh){
 		hud.update = function(){
 			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
 
+			
 			// Update the Active Agent display
 			document.getElementById("aaName").innerHTML = agent.uniqueID;
 			document.getElementById("aaDescription").innerHTML = agent.description;
@@ -86,7 +142,7 @@ var gh = (function(gh){
 			var context = aaImage.getContext("2d");
 			aaImage.width = aaImage.clientWidth;
 			aaImage.height = aaImage.clientHeight;
-
+			
 			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
 			aadAtkDice.innerHTML = agent.mainHand.attackDice;
 
@@ -95,15 +151,35 @@ var gh = (function(gh){
 
 			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
 			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
-
+			
 			// Draw the image of the current agent
 			context.save();
 
 			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
 
 			context.restore();
-
+		
 		}
+
+		/**
+		 * Handle any graphical updates to the hud which require drawing.
+		 * @method render
+		 */
+		hud.render = function(){
+			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
+			if(moved > 6){
+				var diff = moved - 6;
+				hud.d2.draw(diff - 1, 0, 0, 100, 100);
+				moved = moved - diff;
+			} else {
+				hud.d2.clear();
+			}
+			if(moved > 0){
+				hud.d1.draw(moved - 1, 0, 0, 100, 100)
+			} else {
+				hud.d1.clear();
+			}
+		};
 
 		/**
 		 * @method setupInput
@@ -191,15 +267,18 @@ var gh = (function(gh){
 		 * @method displayAttack
 		 * @param {} attack
 		 */
-		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence){
+		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence, defender){
+			gh.dss.update(numHitDice, hits, numDefenceDice, defence, defender);
 			gh.dss.setVisible(true);
-			gh.dss.update(numHitDice, hits, numDefenceDice, defence);
+			/*
 			setTimeout(
 				function(){
 					gh.dss.setVisible(false);
+					gh.dss.clear();
 				},
-				500
+				1000
 			);
+			*/
 		};
 
 

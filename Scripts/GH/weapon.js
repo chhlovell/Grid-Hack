@@ -43,15 +43,18 @@ var gh = (function(gh){
 	 */
 	Weapon.prototype.attack = function(){
 		console.log(this);
-		var sum = 0;
+		var attack = {"sum" : 0, "dice" : []};
 		
 		for(var it = 0; it < this.attackDice; it++){
-			if(new gh.Dice(6).roll() > 3){
-				sum++;
+			var roll = gh.hqDice.roll();
+			console.log(roll);
+			if(roll === "skull"){
+				attack.sum++;
 			}
+			attack.dice.push(roll);
 		}
 
-		return sum;
+		return attack;
 	};
 
 	gh.Weapon = Weapon;

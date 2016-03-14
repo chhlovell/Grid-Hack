@@ -17,7 +17,7 @@ var graphics = (function(graphics){
 	 * @param {string} path
 	 * @param {integer} numFrames
 	 * @param {integer} frameWidth
-	 * @param {} index
+	 * @param {} index This is an optional parameter. It allows the user to create a string index for frames.
 	 */
 	function SpriteStrip(path, numFrames, frameWidth, index){
 		graphics.Sprite.call(this, path);

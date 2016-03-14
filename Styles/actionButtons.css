@@ -9,7 +9,7 @@
 
 #abBackground{
 	position:relative;
-	background-image: url("./Data/Graphics/Interface/aged paper.jpg");
+	background-image: url("../Data/Graphics/Interface/aged paper.jpg");
 
 	overflow: auto; /* Required to allow for floated child actionButtons. */
 }

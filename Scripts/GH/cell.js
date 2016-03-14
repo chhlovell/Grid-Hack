@@ -194,7 +194,7 @@ var gh = (function(gh){
 							var attack = activeAgent.attack(obj);
 
 							if(attack !== null){
-								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence);
+								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
 
 								if(obj.damageHealth(attack.damage) === "dead"){
 									this.removeAgent(obj);

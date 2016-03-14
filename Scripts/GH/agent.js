@@ -396,26 +396,28 @@ var gh = (function(gh){
 	 * @method getDefence
 	 */
 	Agent.prototype.getDefence = function(){
-		var defenceDice = this.getDefenceDice();
+		var defence 		= {"sum" : 0, "dice" : []};
+		var defenceDice 	= this.getDefenceDice();
 
-		var defence = 0;
 		for(var it = 0; it < defenceDice; it++){
+			var r = gh.hqDice.roll();
 			switch(gh.ptrActiveLevel.manager.getActivePlayer().AI){
 				case gh.AI.HUMAN:
-					if(new gh.Dice(6).roll < 3){
-						defence++;
+					if(r === "whiteShield"){
+						defence.sum++;
 					}
 					break;
 				case gh.AI.COMPUTER:
-					if(new gh.Dice(6).roll < 2){
-						defence++;
+					console.log("AI");
+					if(r === "blackShield"){
+						defence.sum++;
 					}
 					break;
 				default:
 					break;
 			}
+			defence.dice.push(r);
 		}
-
 		return defence;
 	};
 
@@ -451,7 +453,7 @@ var gh = (function(gh){
 
 		var hits = this.mainHand.attack();
 		var defence = target.getDefence();
-		return {"damage" : hits - defence, "hits" : hits, "defence" : defence};
+		return {"damage" : hits.sum - defence.sum, "hits" : hits, "defence" : defence};
 	};
 
 	/**

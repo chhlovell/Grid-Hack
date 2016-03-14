@@ -4,14 +4,14 @@
 
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="ge.css">
-	<link rel="stylesheet" type="text/css" href="hud.css">
-	<link rel="stylesheet" type="text/css" href="diceSplashScreen.css">
-	<link rel="stylesheet" type="text/css" href="gameSpace.css">
-	<link rel="stylesheet" type="text/css" href="activeAgent.css">
-	<link rel="stylesheet" type="text/css" href="actionButtons.css">
-	<link rel="stylesheet" type="text/css" href="moveDice.css">
-	<link rel="stylesheet" type="text/css" href="endTurnButton.css">
+	<link rel="stylesheet" type="text/css" href="Styles/ge.css">
+	<link rel="stylesheet" type="text/css" href="Styles/hud.css">
+	<link rel="stylesheet" type="text/css" href="Styles/diceSplashScreen.css">
+	<link rel="stylesheet" type="text/css" href="Styles/gameSpace.css">
+	<link rel="stylesheet" type="text/css" href="Styles/activeAgent.css">
+	<link rel="stylesheet" type="text/css" href="Styles/actionButtons.css">
+	<link rel="stylesheet" type="text/css" href="Styles/moveDice.css">
+	<link rel="stylesheet" type="text/css" href="Styles/endTurnButton.css">
 	<title>Game Engine</title>
 </head>
 
@@ -21,12 +21,12 @@
 	-->
 	<div id="hud">
 		<div id="activeAgent">
-			<div id="aaBorder">
-				<div id="aaBackgroundImage">
-					<h2 id="aaName">Barbarian</h2>					
-					<div id="aaDetails">
-						<p id="aaDescription"></p>
-						<canvas id="aaImage"></canvas>
+			<h2 id="aaName">Barbarian</h2>
+			<h3 class="aaTab" id="aaTabOverview">Overview</h2>
+			<h3 class="aaTab" id="aaTabInventory">Inventory</h2>
+			<div id="aaOverview">
+				<div id="aaDescription"></div>
+				<canvas id="aaImage"></canvas>
 						<table id="aaTable" border="1">
 							<tr >
 								<td rowspan="2">Attack Dice</td>
@@ -44,9 +44,9 @@
 								<td class="aaData" id="aaMind"></td>
 							</tr>
 						</table>
-						<p id="aaMove">Movement</p>
-					</div>					
-				</div>
+			</div>
+			<div id="aaInventory">
+				<p class="aaInventoryItem">Long Sword</p>
 			</div>
 		</div>
 
@@ -97,8 +97,6 @@
 
 	<div id="diceSplashScreen">
 		<div id="attackDice">
-			<div class="diceBox"><p>Text</p>
-			</div>
 		</div>
 
 		<div id="defendDice">
@@ -111,6 +109,7 @@
 	<script type="text/javascript" src="./Scripts/StdLib/ajax.js"></script>
 	<script type="text/javascript" src="./Scripts/StdLib/math.js"></script>
 	<script type="text/javascript" src="./Scripts/StdLib/vec2.js"></script>
+	<script type="text/javascript" src="./Scripts/StdLib/dom.js"></script>
 
 	<script type="text/javascript" src="./Scripts/StdLib/mouse.js"></script>
 	<script type="text/javascript" src="./Scripts/StdLib/keyboard.js"></script>
