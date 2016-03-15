@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>gh</title>
+    <title>GH\Interface\diceSplashScreen.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -111,128 +111,205 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>gh Module</h1>
-<div class="box clearfix meta">
+<h1 class="file-heading">File: GH\Interface\diceSplashScreen.js</h1>
 
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * @module gh
+ */
 
-        <div class="foundat">
-            Defined in: <a href="../files/GH_weapon.js.html#l14"><code>GH\weapon.js:14</code></a>
-        </div>
+/**
+ * @class gh
+ */
+var gh = (function(gh){
+	console.log(&quot;diceSplashScreen.js loaded&quot;);
 
-</div>
+	/**
+	 * @class HQDice
+	 * @constructor
+	 */
+	function HQDice(spriteStrip){
+		this.spriteStrip 	= spriteStrip;
+		this.sides			= [&quot;blackShield&quot;, &quot;whiteShield&quot;, &quot;whiteShield&quot;, &quot;skull&quot;, &quot;skull&quot;, &quot;skull&quot;];
+	}
 
+	/**
+	 * @method draw
+	 * @param {string || integer} frame
+	 * @param {Canvas.context} context
+	 * @param {integer} x
+	 * @param {integer} y
+	 */
+	HQDice.prototype.draw = function(frame, context, x, y){
+		this.spriteStrip.draw(frame, context, x, y, this.spriteStrip.frameWidth, this.spriteStrip.img.height);
+	};
 
-<div class="box intro">
-    
-</div>
+	HQDice.prototype.roll = function(){
+		var r = Math.floor((Math.random() * 6));
+		return this.sides[r];
+	};
 
+	gh.hqDice = new HQDice(new graphics.SpriteStrip(&quot;./Data/Graphics/hqdice.gif&quot;, 6, 100, {&quot;skull&quot; : 3, &quot;whiteShield&quot; : 1, &quot;blackShield&quot; : 0}));
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-            <p>This module provides the following classes:</p>
+	/**
+	 * @class dss
+	 * @constructor
+	 */
+	var dss = (function(dss){
 
-            <ul class="module-classes">
-                <li class="module-class">
-                    <a href="../classes/Agent.html">
-                        Agent
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Board.html">
-                        Board
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Campaign.html">
-                        Campaign
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Cell.html">
-                        Cell
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Door.html">
-                        Door
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/dss.html">
-                        dss
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/EntryTrigger.html">
-                        EntryTrigger
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/gh.html">
-                        gh
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/HQDice.html">
-                        HQDice
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Item.html">
-                        Item
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/json.html">
-                        json
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Level.html">
-                        Level
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Map.html">
-                        Map
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Mlayer.html">
-                        Mlayer
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Player.html">
-                        Player
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/stateGame.html">
-                        stateGame
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/stateSetup.html">
-                        stateSetup
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Wall.html">
-                        Wall
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Weapon.html">
-                        Weapon
-                    </a>
-                </li>
-            </ul>
-    </div>
+		/**
+		 * Private globals
+		 */
+		var DSS 			= document.getElementById(&quot;diceSplashScreen&quot;);
+		var DSS_ATK_DICE	= document.getElementById(&quot;attackDice&quot;);
+		var DSS_DEF_DICE 	= document.getElementById(&quot;defendDice&quot;);
 
+		// class &quot;diceBox&quot; 
 
-    <div class="yui3-u-1-2">
-    </div>
+		/**
+		 * Public methods
+		 */
+
+		/**
+		 * @method setupInput
+		 */
+		dss.setupInput = function(){
+			DSS.onclick = dss.onClick;
+		};
+
+		/**
+		 * @method setVisible
+		 * @param {bool} visible
+		 */
+		dss.setVisible = function(visible){
+			if(visible){
+				DSS.style.visibility = &quot;visible&quot;;
+			} else {
+				DSS.style.visibility = &quot;hidden&quot;;
+			}
+		};
+
+		/**
+		 * Change the visibility of the dice splash screen.
+		 * On the assumption that it is only visible following an attack, also clear the existing
+		 * dice canvas elements from the display.
+		 * @method onClick
+		 */
+		dss.onClick = function(){
+			if(DSS.style.visibility === &quot;visible&quot;){
+				DSS.style.visibility = &quot;hidden&quot;;
+				dss.clear();
+			} else {
+				DSS.style.visibility = &quot;visible&quot;;
+			}
+		};
+
+		/**
+		 * Add the dice rolled for attack and defence to the screen as canvas elements for
+		 * display. Randomly generate what images should appear for &#x27;misses&#x27;.
+		 * @method update
+		 * @param {} numHitDice
+		 * @param {} hits
+		 * @param {} numDefenceDice
+		 * @param {} defence
+		 */
+		dss.update = function(numHitDice, hits, numDefenceDice, defence, defender){
+			console.log(arguments);
+
+			var n = 0;
+
+			// Add the hit dice rolled to the splash screen.
+			for(var it = 0; it &lt; numHitDice; it++){
+				var c = document.createElement(&#x27;canvas&#x27;)
+				var ctx = c.getContext(&quot;2d&quot;);
+
+				c.className = &quot;diceBox&quot;;
+				c.width = 100;
+				c.height = 100;
+
+				if(defender.ptrOwner.AI){
+					ctx.fillStyle = &quot;white&quot;;
+				} else {
+					ctx.fillStyle = &quot;red&quot;;
+				}
+				ctx.fillRect(0, 0, c.width, c.height);
+
+				switch (hits.dice[it]){
+					case &quot;skull&quot;:
+						gh.hqDice.draw(&quot;skull&quot;, ctx, 0, 0);
+						break;
+					case &quot;whiteShield&quot;:
+						gh.hqDice.draw(&quot;whiteShield&quot;, ctx, 0, 0);
+						break;
+					case &quot;blackShield&quot;:
+						gh.hqDice.draw(&quot;blackShield&quot;, ctx, 0, 0);
+						break;
+					default:
+						break;
+				}
+
+				DSS_ATK_DICE.appendChild(c);
+			}
+
+			// Add the defence dice to the splash screen.
+			var d = 0;
+
+			for(var it = 0; it &lt; numDefenceDice; it++){
+				var c = document.createElement(&#x27;canvas&#x27;);
+				var ctx = c.getContext(&quot;2d&quot;);
+
+				c.className = &quot;diceBox&quot;;
+				c.width = 100;
+				c.height = 100;
+
+				if(defender.ptrOwner.AI){
+					ctx.fillStyle = &quot;red&quot;;
+				} else {
+					ctx.fillStyle = &quot;white&quot;;
+				}
+				ctx.fillRect(0, 0, c.width, c.height);
+
+				switch (defence.dice[it]){
+					case &quot;skull&quot;:
+						gh.hqDice.draw(&quot;skull&quot;, ctx, 0, 0);
+						break;
+					case &quot;whiteShield&quot;:
+						gh.hqDice.draw(&quot;whiteShield&quot;, ctx, 0, 0);
+						break;
+					case &quot;blackShield&quot;:
+						gh.hqDice.draw(&quot;blackShield&quot;, ctx, 0, 0);
+						break;
+					default:
+						break;
+				}
+
+				DSS_DEF_DICE.appendChild(c);
+			}
+		};
+
+		/**
+		 * Remove the dice &#x27;canvas&#x27; elements from the display.
+		 * @method clear
+		 */
+		dss.clear = function(){
+			while(DSS_ATK_DICE.children.length &gt; 0){
+				DSS_ATK_DICE.removeChild(DSS_ATK_DICE.children[0]);
+			}
+
+			while(DSS_DEF_DICE.children.length &gt; 0){
+				DSS_DEF_DICE.removeChild(DSS_DEF_DICE.children[0]);
+			}
+		};
+
+		return dss;
+	})(dss || {});
+
+	gh.dss = dss;
+	
+	return gh;
+})(gh || {});
+    </pre>
 </div>
                     </div>
                 </div>

@@ -44,12 +44,16 @@
                                 <li><a href="../classes/Campaign.html">Campaign</a></li>
                                 <li><a href="../classes/Canvas2D.html">Canvas2D</a></li>
                                 <li><a href="../classes/Cell.html">Cell</a></li>
+                                <li><a href="../classes/dom.html">dom</a></li>
                                 <li><a href="../classes/Door.html">Door</a></li>
+                                <li><a href="../classes/dss.html">dss</a></li>
                                 <li><a href="../classes/EntryTrigger.html">EntryTrigger</a></li>
                                 <li><a href="../classes/gh.html">gh</a></li>
                                 <li><a href="../classes/grahpics.html">grahpics</a></li>
                                 <li><a href="../classes/graphics.html">graphics</a></li>
+                                <li><a href="../classes/HQDice.html">HQDice</a></li>
                                 <li><a href="../classes/input.html">input</a></li>
+                                <li><a href="../classes/Item.html">Item</a></li>
                                 <li><a href="../classes/json.html">json</a></li>
                                 <li><a href="../classes/keyboard.html">keyboard</a></li>
                                 <li><a href="../classes/Level.html">Level</a></li>
@@ -61,6 +65,7 @@
                                 <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
                                 <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/stdlib.html">stdlib</a></li>
                                 <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
                                 <li><a href="../classes/Weapon.html">Weapon</a></li>
@@ -71,6 +76,7 @@
                                 <li><a href="../modules/gh.html">gh</a></li>
                                 <li><a href="../modules/graphics.html">graphics</a></li>
                                 <li><a href="../modules/input.html">input</a></li>
+                                <li><a href="../modules/stdlib.html">stdlib</a></li>
                                 <li><a href="../modules/StdLib.html">StdLib</a></li>
                             </ul>
                         </div>
@@ -166,9 +172,9 @@ var gh = (function(gh){
 					 *
 					 */
 
-					var opponents = activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
-					var target = activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
-					var path = gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
+					var opponents 	= activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
+					var target 		= activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
+					var path 		= gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
 
 					if(path.length &gt; 2 &amp;&amp; activeAgent.moved &gt; 1){
 						dt = Date.now() - timeStamp;
@@ -188,6 +194,16 @@ var gh = (function(gh){
 							endTurn();
 						}
 					} else {
+						// Try to attack the target.
+						var atk = activeAgent.attack(target);
+
+						// Display the attack splash screen
+						if(atk !== null){
+							gh.hud.displayAttack(activeAgent.mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
+							if(target.damageHealth(atk.damage) === &quot;dead&quot;){
+								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].removeAgent(target);
+							}
+						}
 						endTurn();
 					}
 				} else {
@@ -295,23 +311,7 @@ var gh = (function(gh){
 			var fps = document.getElementById(&quot;performance&quot;);
 			fps.innerHTML = &quot;FPS: &quot; + graphics.fps.getFPS();
 
-			/**
-			 * Draw the dice
-			 * Should probably move this to the hud js file
-			 */
-			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
-			if(moved &gt; 6){
-				var diff = moved - 6;
-				gh.hud.d2.draw(diff - 1, 0, 0, 100, 100);
-				moved = moved - diff;
-			} else {
-				gh.hud.d2.clear();
-			}
-			if(moved &gt; 0){
-				gh.hud.d1.draw(moved - 1, 0, 0, 100, 100)
-			} else {
-				gh.hud.d1.clear();
-			}
+			gh.hud.render();
 
 			return true;
 		};

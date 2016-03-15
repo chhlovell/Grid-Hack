@@ -187,5 +187,42 @@
 										"index" : ""
 									}
 								}
+	},
+	"Goblin" : {
+		"name"					: "Goblin",
+		"sprites"				: {
+									"display" 	: "Goblin.gif",
+									"token"		: "goblinToken.gif"
+								},
+		"description"			: "These green-skinned creatures are small and cruel. Despite their small size and lack of brute strength, they are dangerous foes. Orcs have enslaved many Goblin tribes, and the two are often found together.",
+		"body"					: 1,
+		"mind"					: 1,
+		"baseDefence"			: 1,
+		"mainHand"				: "Shortsword",
+		"offHand"				: "",
+		"chest"					: "",
+		"head"					: "",
+		"moveDice" 				: 0,
+		"baseMove"				: 10,
+		"spellList"				: [],
+		"restrictions"			: [],
+		"animations"			: {
+									"inactive"		: {
+										"path" : "goblin.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									},
+									"active" : {
+										"path" : "goblin.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									}
+								}
 	}
 }

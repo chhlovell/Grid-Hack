@@ -44,12 +44,16 @@
                                 <li><a href="../classes/Campaign.html">Campaign</a></li>
                                 <li><a href="../classes/Canvas2D.html">Canvas2D</a></li>
                                 <li><a href="../classes/Cell.html">Cell</a></li>
+                                <li><a href="../classes/dom.html">dom</a></li>
                                 <li><a href="../classes/Door.html">Door</a></li>
+                                <li><a href="../classes/dss.html">dss</a></li>
                                 <li><a href="../classes/EntryTrigger.html">EntryTrigger</a></li>
                                 <li><a href="../classes/gh.html">gh</a></li>
                                 <li><a href="../classes/grahpics.html">grahpics</a></li>
                                 <li><a href="../classes/graphics.html">graphics</a></li>
+                                <li><a href="../classes/HQDice.html">HQDice</a></li>
                                 <li><a href="../classes/input.html">input</a></li>
+                                <li><a href="../classes/Item.html">Item</a></li>
                                 <li><a href="../classes/json.html">json</a></li>
                                 <li><a href="../classes/keyboard.html">keyboard</a></li>
                                 <li><a href="../classes/Level.html">Level</a></li>
@@ -61,6 +65,7 @@
                                 <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
                                 <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/stdlib.html">stdlib</a></li>
                                 <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
                                 <li><a href="../classes/Weapon.html">Weapon</a></li>
@@ -71,6 +76,7 @@
                                 <li><a href="../modules/gh.html">gh</a></li>
                                 <li><a href="../modules/graphics.html">graphics</a></li>
                                 <li><a href="../modules/input.html">input</a></li>
+                                <li><a href="../modules/stdlib.html">stdlib</a></li>
                                 <li><a href="../modules/StdLib.html">StdLib</a></li>
                             </ul>
                         </div>
@@ -172,7 +178,8 @@ var gh = (function(gh){
 		this.baseMove			= baseMove || 0;
 		this.moved 				= 0;
 		this.spellList			= spellList || null;
-		this.inventory			= inventory || null;
+		this.inventory			= inventory || [];
+		loadInventory(this);	// Load the equiped items into the agents inventory.
 
 		this.actionPoints		= 0;
 		this.maxActionPoints	= 1;
@@ -188,6 +195,31 @@ var gh = (function(gh){
 		}
 
 		return true;
+	}
+
+	/**
+	 * This method is used to load an agents initially equiped items into the inventory array.
+	 * This method should only be used on creation of a new agent and not called externally.
+	 * It is assumed that equiped items do not exist in the agents &#x27;inventory&#x27; at the time of its
+	 * initialization.
+	 * @method loadInventory
+	 * @param {gh.Agent} An instnace of a newly created agent.
+	 */
+	function loadInventory(agent){
+		if(agent.mainHand !== null){
+			agent.inventory.push(agent.mainHand);
+		}
+		if(agent.offHand !== null){
+			agent.inventory.push(agent.offHand);
+		}
+		if(agent.chest !== null){
+			agent.inventory.push(agent.chest);
+		}
+		if(agent.head !== null){
+			agent.inventory.push(agent.head);
+		}
+
+		return;
 	}
 
 	/**
@@ -507,26 +539,30 @@ var gh = (function(gh){
 	 * @method getDefence
 	 */
 	Agent.prototype.getDefence = function(){
-		var defenceDice = this.getDefenceDice();
+		var defence 		= {&quot;sum&quot; : 0, &quot;dice&quot; : []};
+		var defenceDice 	= this.getDefenceDice();
 
-		var defence = 0;
+		console.log(this);
+
 		for(var it = 0; it &lt; defenceDice; it++){
-			switch(gh.ptrActiveLevel.manager.getActivePlayer().AI){
-				case gh.AI.HUMAN:
-					if(new gh.Dice(6).roll &lt; 3){
-						defence++;
+			var r = gh.hqDice.roll();
+			switch(this.ptrOwner.AI){
+				case false:
+					if(r === &quot;whiteShield&quot;){
+						defence.sum++;
 					}
 					break;
-				case gh.AI.COMPUTER:
-					if(new gh.Dice(6).roll &lt; 2){
-						defence++;
+				case true:
+					console.log(&quot;AI&quot;);
+					if(r === &quot;blackShield&quot;){
+						defence.sum++;
 					}
 					break;
 				default:
 					break;
 			}
+			defence.dice.push(r);
 		}
-
 		return defence;
 	};
 
@@ -562,7 +598,13 @@ var gh = (function(gh){
 
 		var hits = this.mainHand.attack();
 		var defence = target.getDefence();
-		return {&quot;damage&quot; : hits - defence, &quot;hits&quot; : hits, &quot;defence&quot; : defence};
+
+		// Ensure that the damage value is positve and prevents negative values.
+		var dmg = hits.sum - defence.sum;
+		if(dmg &lt; 0){
+			dmg = 0;
+		}
+		return {&quot;damage&quot; : dmg, &quot;hits&quot; : hits, &quot;defence&quot; : defence};
 	};
 
 	/**

@@ -44,12 +44,16 @@
                                 <li><a href="../classes/Campaign.html">Campaign</a></li>
                                 <li><a href="../classes/Canvas2D.html">Canvas2D</a></li>
                                 <li><a href="../classes/Cell.html">Cell</a></li>
+                                <li><a href="../classes/dom.html">dom</a></li>
                                 <li><a href="../classes/Door.html">Door</a></li>
+                                <li><a href="../classes/dss.html">dss</a></li>
                                 <li><a href="../classes/EntryTrigger.html">EntryTrigger</a></li>
                                 <li><a href="../classes/gh.html">gh</a></li>
                                 <li><a href="../classes/grahpics.html">grahpics</a></li>
                                 <li><a href="../classes/graphics.html">graphics</a></li>
+                                <li><a href="../classes/HQDice.html">HQDice</a></li>
                                 <li><a href="../classes/input.html">input</a></li>
+                                <li><a href="../classes/Item.html">Item</a></li>
                                 <li><a href="../classes/json.html">json</a></li>
                                 <li><a href="../classes/keyboard.html">keyboard</a></li>
                                 <li><a href="../classes/Level.html">Level</a></li>
@@ -61,6 +65,7 @@
                                 <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
                                 <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/stdlib.html">stdlib</a></li>
                                 <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
                                 <li><a href="../classes/Weapon.html">Weapon</a></li>
@@ -71,6 +76,7 @@
                                 <li><a href="../modules/gh.html">gh</a></li>
                                 <li><a href="../modules/graphics.html">graphics</a></li>
                                 <li><a href="../modules/input.html">input</a></li>
+                                <li><a href="../modules/stdlib.html">stdlib</a></li>
                                 <li><a href="../modules/StdLib.html">StdLib</a></li>
                             </ul>
                         </div>
@@ -141,6 +147,10 @@ interface which is the perview of the hud.</p>
 
                     <ul class="index-list methods">
                             <li class="index-item method">
+                                <a href="#method_aaTabOnClick">aaTabOnClick</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_buildImageData">buildImageData</a>
 
                             </li>
@@ -169,11 +179,19 @@ interface which is the perview of the hud.</p>
 
                             </li>
                             <li class="index-item method">
+                                <a href="#method_render">render</a>
+
+                            </li>
+                            <li class="index-item method">
                                 <a href="#method_setup">setup</a>
 
                             </li>
                             <li class="index-item method">
                                 <a href="#method_setup">setup</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_setupAAD">setupAAD</a>
 
                             </li>
                             <li class="index-item method">
@@ -191,6 +209,11 @@ interface which is the perview of the hud.</p>
                             <li class="index-item method">
                                 <a href="#method_setupPlayer">setupPlayer</a>
 
+                            </li>
+                            <li class="index-item method deprecated">
+                                <a href="#method_setVisibility">setVisibility</a>
+
+                                    <span class="flag deprecated">deprecated</span>
                             </li>
                             <li class="index-item method">
                                 <a href="#method_start">start</a>
@@ -210,6 +233,38 @@ interface which is the perview of the hud.</p>
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
+<div id="method_aaTabOnClick" class="method item">
+    <h3 class="name"><code>aaTabOnClick</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_hud.js.html#l104"><code>GH\Interface\hud.js:104</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>This method responds to a click event on the active agent tabs and allowing the user
+to view different sets of information via the tabs.</p>
+
+    </div>
+
+
+
+
+</div>
 <div id="method_buildImageData" class="method item">
     <h3 class="name"><code>buildImageData</code></h3>
 
@@ -225,7 +280,7 @@ interface which is the perview of the hud.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_gh.js.html#l235"><code>GH\gh.js:235</code></a>
+        <a href="../files/GH_gh.js.html#l233"><code>GH\gh.js:233</code></a>
         </p>
 
 
@@ -255,7 +310,7 @@ interface which is the perview of the hud.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l176"><code>GH\Interface\hud.js:176</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l253"><code>GH\Interface\hud.js:253</code></a>
         </p>
 
 
@@ -291,7 +346,7 @@ interface which is the perview of the hud.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l187"><code>GH\Interface\hud.js:187</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l264"><code>GH\Interface\hud.js:264</code></a>
         </p>
 
 
@@ -509,7 +564,7 @@ interface which is the perview of the hud.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l138"><code>GH\Interface\hud.js:138</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l215"><code>GH\Interface\hud.js:215</code></a>
         </p>
 
 
@@ -539,7 +594,68 @@ interface which is the perview of the hud.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l116"><code>GH\Interface\hud.js:116</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l193"><code>GH\Interface\hud.js:193</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+<div id="method_render" class="method item">
+    <h3 class="name"><code>render</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_hud.js.html#l162"><code>GH\Interface\hud.js:162</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Handle any graphical updates to the hud which require drawing.</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_setup" class="method item">
+    <h3 class="name"><code>setup</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_hud.js.html#l59"><code>GH\Interface\hud.js:59</code></a>
         </p>
 
 
@@ -646,8 +762,8 @@ o Load the campaign/level data</p>
 
 
 </div>
-<div id="method_setup" class="method item">
-    <h3 class="name"><code>setup</code></h3>
+<div id="method_setupAAD" class="method item">
+    <h3 class="name"><code>setupAAD</code></h3>
 
         <span class="paren">()</span>
 
@@ -661,7 +777,7 @@ o Load the campaign/level data</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l39"><code>GH\Interface\hud.js:39</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l89"><code>GH\Interface\hud.js:89</code></a>
         </p>
 
 
@@ -669,7 +785,9 @@ o Load the campaign/level data</p>
     </div>
 
     <div class="description">
-        
+        <p>Setup the active agent display hud interface.
+This includes initializing the tab visibility and height parameters.</p>
+
     </div>
 
 
@@ -706,7 +824,7 @@ o Load the campaign/level data</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_gh.js.html#l191"><code>GH\gh.js:191</code></a>
+        <a href="../files/GH_gh.js.html#l190"><code>GH\gh.js:190</code></a>
         </p>
 
 
@@ -773,6 +891,36 @@ game board.</p>
 
         <span class="paren">()</span>
 
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_hud.js.html#l182"><code>GH\Interface\hud.js:182</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+<div id="method_setupInput" class="method item">
+    <h3 class="name"><code>setupInput</code></h3>
+
+        <span class="paren">()</span>
+
         <span class="returns-inline">
             <span class="type"></span>
         </span>
@@ -786,7 +934,7 @@ game board.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_gh.js.html#l218"><code>GH\gh.js:218</code></a>
+        <a href="../files/GH_gh.js.html#l216"><code>GH\gh.js:216</code></a>
         </p>
 
 
@@ -808,36 +956,6 @@ game board.</p>
 
 
 </div>
-<div id="method_setupInput" class="method item">
-    <h3 class="name"><code>setupInput</code></h3>
-
-        <span class="paren">()</span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/GH_Interface_hud.js.html#l105"><code>GH\Interface\hud.js:105</code></a>
-        </p>
-
-
-
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-
-
-
-</div>
 <div id="method_setupPlayer" class="method item">
     <h3 class="name"><code>setupPlayer</code></h3>
 
@@ -856,7 +974,7 @@ game board.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_gh.js.html#l65"><code>GH\gh.js:65</code></a>
+        <a href="../files/GH_gh.js.html#l64"><code>GH\gh.js:64</code></a>
         </p>
 
 
@@ -878,6 +996,76 @@ game board.</p>
 
 
 </div>
+<div id="method_setVisibility" class="method item deprecated">
+    <h3 class="name"><code>setVisibility</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>node</code>
+                </li>
+                <li class="arg">
+                        <code>visible</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+        <span class="flag deprecated">deprecated</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_hud.js.html#l39"><code>GH\Interface\hud.js:39</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>This method sets the visibility of a given node and all of its children to the
+given visibility.
+This method is no longer utilized by Grid Hack. Use stdlib.dom.setNodeTreeStyle instead.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">node</code>
+                        <span class="type">DOM</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">visible</code>
+                        <span class="type">String</span>
+
+
+                    <div class="param-description">
+                        <p>Acceptable parameters are &quot;hidden&quot; or &quot;visible&quot;.</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
 <div id="method_start" class="method item">
     <h3 class="name"><code>start</code></h3>
 
@@ -896,7 +1084,7 @@ game board.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_gh.js.html#l250"><code>GH\gh.js:250</code></a>
+        <a href="../files/GH_gh.js.html#l248"><code>GH\gh.js:248</code></a>
         </p>
 
 
@@ -932,7 +1120,7 @@ game board.</p>
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/GH_Interface_hud.js.html#l75"><code>GH\Interface\hud.js:75</code></a>
+        <a href="../files/GH_Interface_hud.js.html#l129"><code>GH\Interface\hud.js:129</code></a>
         </p>
 
 

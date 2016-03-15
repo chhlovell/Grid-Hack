@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>math</title>
+    <title>dss</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -111,15 +111,15 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>math Class</h1>
+<h1>dss Class</h1>
 <div class="box meta">
 
 
         <div class="foundat">
-            Defined in: <a href="../files/StdLib_vec2.js.html#l7"><code>StdLib\vec2.js:7</code></a>
+            Defined in: <a href="../files/GH_Interface_diceSplashScreen.js.html#l38"><code>GH\Interface\diceSplashScreen.js:38</code></a>
         </div>
 
-            Module: <a href="../modules/StdLib.html">StdLib</a>
+            Module: <a href="../modules/gh.html">gh</a>
 
 </div>
 
@@ -128,6 +128,39 @@
     
 </div>
 
+    <div class="constructor">
+        <h2>Constructor</h2>
+<div id="method_dss" class="method item">
+    <h3 class="name"><code>dss</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l38"><code>GH\Interface\diceSplashScreen.js:38</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+    </div>
 
 <div id="classdocs" class="tabview">
     <ul class="api-class-tabs">
@@ -145,7 +178,23 @@
 
                     <ul class="index-list methods">
                             <li class="index-item method">
-                                <a href="#method_degToRadians">degToRadians</a>
+                                <a href="#method_clear">clear</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_onClick">onClick</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_setupInput">setupInput</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_setVisible">setVisible</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_update">update</a>
 
                             </li>
                     </ul>
@@ -158,20 +207,11 @@
             <div id="methods" class="api-class-tabpanel">
                 <h2 class="off-left">Methods</h2>
 
-<div id="method_degToRadians" class="method item">
-    <h3 class="name"><code>degToRadians</code></h3>
+<div id="method_clear" class="method item">
+    <h3 class="name"><code>clear</code></h3>
 
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-                <li class="arg">
-                        <code>deg</code>
-                </li>
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
 
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
 
 
 
@@ -182,7 +222,7 @@
     <div class="meta">
                 <p>
                 Defined in
-        <a href="../files/StdLib_math.js.html#l14"><code>StdLib\math.js:14</code></a>
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l174"><code>GH\Interface\diceSplashScreen.js:174</code></a>
         </p>
 
 
@@ -190,8 +230,107 @@
     </div>
 
     <div class="description">
-        <p>This function converts degrees to radians.</p>
+        <p>Remove the dice 'canvas' elements from the display.</p>
 
+    </div>
+
+
+
+
+</div>
+<div id="method_onClick" class="method item">
+    <h3 class="name"><code>onClick</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l76"><code>GH\Interface\diceSplashScreen.js:76</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Change the visibility of the dice splash screen.
+On the assumption that it is only visible following an attack, also clear the existing
+dice canvas elements from the display.</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_setupInput" class="method item">
+    <h3 class="name"><code>setupInput</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l57"><code>GH\Interface\diceSplashScreen.js:57</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+<div id="method_setVisible" class="method item">
+    <h3 class="name"><code>setVisible</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>visible</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l64"><code>GH\Interface\diceSplashScreen.js:64</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
     </div>
 
         <div class="params">
@@ -199,8 +338,8 @@
 
             <ul class="params-list">
                 <li class="param">
-                        <code class="param-name">deg</code>
-                        <span class="type">Floast</span>
+                        <code class="param-name">visible</code>
+                        <span class="type">Bool</span>
 
 
                     <div class="param-description">
@@ -211,12 +350,99 @@
             </ul>
         </div>
 
-        <div class="returns">
-            <h4>Returns:</h4>
 
-            <div class="returns-description">
-            </div>
+
+</div>
+<div id="method_update" class="method item">
+    <h3 class="name"><code>update</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>numHitDice</code>
+                </li>
+                <li class="arg">
+                        <code>hits</code>
+                </li>
+                <li class="arg">
+                        <code>numDefenceDice</code>
+                </li>
+                <li class="arg">
+                        <code>defence</code>
+                </li>
+            </ul><span class="paren">)</span>
         </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_Interface_diceSplashScreen.js.html#l91"><code>GH\Interface\diceSplashScreen.js:91</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Add the dice rolled for attack and defence to the screen as canvas elements for
+display. Randomly generate what images should appear for 'misses'.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">numHitDice</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">hits</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">numDefenceDice</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">defence</code>
+                        <span class="type">Object</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
 
 
 </div>

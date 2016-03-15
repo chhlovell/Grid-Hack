@@ -44,12 +44,16 @@
                                 <li><a href="../classes/Campaign.html">Campaign</a></li>
                                 <li><a href="../classes/Canvas2D.html">Canvas2D</a></li>
                                 <li><a href="../classes/Cell.html">Cell</a></li>
+                                <li><a href="../classes/dom.html">dom</a></li>
                                 <li><a href="../classes/Door.html">Door</a></li>
+                                <li><a href="../classes/dss.html">dss</a></li>
                                 <li><a href="../classes/EntryTrigger.html">EntryTrigger</a></li>
                                 <li><a href="../classes/gh.html">gh</a></li>
                                 <li><a href="../classes/grahpics.html">grahpics</a></li>
                                 <li><a href="../classes/graphics.html">graphics</a></li>
+                                <li><a href="../classes/HQDice.html">HQDice</a></li>
                                 <li><a href="../classes/input.html">input</a></li>
+                                <li><a href="../classes/Item.html">Item</a></li>
                                 <li><a href="../classes/json.html">json</a></li>
                                 <li><a href="../classes/keyboard.html">keyboard</a></li>
                                 <li><a href="../classes/Level.html">Level</a></li>
@@ -61,6 +65,7 @@
                                 <li><a href="../classes/SpriteStrip.html">SpriteStrip</a></li>
                                 <li><a href="../classes/stateGame.html">stateGame</a></li>
                                 <li><a href="../classes/stateSetup.html">stateSetup</a></li>
+                                <li><a href="../classes/stdlib.html">stdlib</a></li>
                                 <li><a href="../classes/Vec2.html">Vec2</a></li>
                                 <li><a href="../classes/Wall.html">Wall</a></li>
                                 <li><a href="../classes/Weapon.html">Weapon</a></li>
@@ -71,6 +76,7 @@
                                 <li><a href="../modules/gh.html">gh</a></li>
                                 <li><a href="../modules/graphics.html">graphics</a></li>
                                 <li><a href="../modules/input.html">input</a></li>
+                                <li><a href="../modules/stdlib.html">stdlib</a></li>
                                 <li><a href="../modules/StdLib.html">StdLib</a></li>
                             </ul>
                         </div>
@@ -119,7 +125,8 @@ var gh = (function(gh){
 		/**
 		 * Private constants
 		 */
-		var HUD 				= &quot;hud&quot;;
+		//var HUD 				= &quot;hud&quot;;
+		var HUD 				= document.getElementById(&quot;hud&quot;);
 		var LOWER_HUD 			= &quot;lowerHud&quot;;
 
 		var DICE1 				= &quot;d1&quot;;
@@ -127,12 +134,33 @@ var gh = (function(gh){
 
 		var END_TURN_BUTTTON 	= &quot;endTurnButton&quot;;
 
+		var AAD 				= &quot;activeAgent&quot;
 		var AAD_ATTACK_DICE 	= &quot;aadAttackDice&quot;;
 		var AAD_DEFEND_DICE 	= &quot;aadDefendDice&quot;;
 		var AAD_BODY			= &quot;aaBody&quot;;
 		var AAD_MIND			= &quot;aaMind&quot;;
+		var AAD_IMAGE			= document.getElementById(&quot;aaImage&quot;);
+		var AAD_OVERVIEW		= document.getElementById(&quot;aaOverview&quot;);
+		var AAD_INVENTORY		= document.getElementById(&quot;aaInventory&quot;);
 
 		/**
+		 * Private globals
+		 */
+		hud.d1 = undefined;
+		hud.d2 = undefined;
+
+		/**
+		 * Private methods
+		 */
+
+		/**
+		 * This method sets the visibility of a given node and all of its children to the 
+		 * given visibility.
+		 * This method is no longer utilized by Grid Hack. Use stdlib.dom.setNodeTreeStyle instead.
+		 * @method setVisibility
+		 * @param {DOM} node
+		 * @param {string} visible Acceptable parameters are &quot;hidden&quot; or &quot;visible&quot;.
+		 * @depreciated
 		 */
 		function setVisibility(node, visible){
 			node.style.visibility = visible;
@@ -142,16 +170,14 @@ var gh = (function(gh){
 		}
 
 		/**
-		 * Private globals
+		 * Public Methods
 		 */
-		hud.d1 = undefined;
-		hud.d2 = undefined;
 
 		/**
 		 * @method setup
 		 */
 		hud.setup = function(){
-			setVisibility(document.getElementById(HUD), &quot;visible&quot;);
+			stdlib.dom.setNodeTreeStyle(HUD, &quot;visibility&quot;, &quot;visible&quot;);
 			
 			//Create the dice
 			hud.d1 = new gh.Dice(
@@ -168,20 +194,54 @@ var gh = (function(gh){
 				document.getElementById(DICE2).getContext(&quot;2d&quot;)
 			);
 
-			// Setup the active agent display
-			document.getElementById(&quot;aaName&quot;).onclick = hud.aaButton;
+			hud.setupAAD();
 
 			hud.setupInput();
-			
 		}
 
-		hud.aaButton = function(){
-			if(document.getElementById(&quot;aaDetails&quot;).style.maxHeight === &quot;0px&quot; || document.getElementById(&quot;aaDetails&quot;).style.maxHeight === &quot;&quot;){
-				document.getElementById(&quot;aaDetails&quot;).style.maxHeight = &quot;500px&quot;;
-			} else {
-				document.getElementById(&quot;aaDetails&quot;).style.maxHeight = &quot;0px&quot;;
-			}
+		/**
+		 * Active Agent Display
+		 */
+
+		/**
+		 * Setup the active agent display hud interface.
+		 * This includes initializing the tab visibility and height parameters.
+		 * @method setupAAD
+		 */
+		hud.setupAAD = function(){
+			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, &quot;height&quot;, &quot;100%&quot;);
+			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, &quot;height&quot;, &quot;0px&quot;);
+
+			var aaTabs = document.getElementsByClassName(&quot;aaTab&quot;);
+			for(var it = 0; it &lt; aaTabs.length; it++){
+				aaTabs[it].onclick = aadTabOnClick;
+			}		
 		};
+
+		/**
+		 * This method responds to a click event on the active agent tabs and allowing the user
+		 * to view different sets of information via the tabs.
+		 * @method aaTabOnClick
+		 */
+		function aadTabOnClick(){
+			// Set all the tabbed pages to a height of 0px.
+			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, &quot;height&quot;, &quot;0px&quot;);
+			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, &quot;height&quot;, &quot;0px&quot;);
+
+			// Set the height of the currently selected tab page&#x27;s height to 100%.
+			// Could potentially remove this switch statement if a standardized string
+			// selector is utilized.
+			switch(this.id){
+				case &quot;aaTabOverview&quot;:
+					stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, &quot;height&quot;, &quot;100%&quot;);
+					break;
+				case &quot;aaTabInventory&quot;:
+					stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, &quot;height&quot;, &quot;100%&quot;);
+					break;
+				default:
+					break;
+			}
+		}
 
 		/**
 		 * @method update
@@ -189,29 +249,52 @@ var gh = (function(gh){
 		hud.update = function(){
 			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
 
+			
 			// Update the Active Agent display
 			document.getElementById(&quot;aaName&quot;).innerHTML = agent.uniqueID;
 			document.getElementById(&quot;aaDescription&quot;).innerHTML = agent.description;
 
-			var aaImage = document.getElementById(&quot;aaImage&quot;);
-			var context = aaImage.getContext(&quot;2d&quot;);
-			aaImage.width = aaImage.clientWidth;
-			aaImage.height = aaImage.clientHeight;
-
+			var context = AAD_IMAGE.getContext(&quot;2d&quot;);
+			AAD_IMAGE.width = aaImage.clientWidth;
+			AAD_IMAGE.height = aaImage.clientWidth;
+			
 			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
 			aadAtkDice.innerHTML = agent.mainHand.attackDice;
 
 			var aadDefDice = document.getElementById(AAD_DEFEND_DICE);
 			aadDefDice.innerHTML = agent.getDefenceDice();
 
+			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
+			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
+			
 			// Draw the image of the current agent
 			context.save();
 
 			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
 
 			context.restore();
-
+		
 		}
+
+		/**
+		 * Handle any graphical updates to the hud which require drawing.
+		 * @method render
+		 */
+		hud.render = function(){
+			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
+			if(moved &gt; 6){
+				var diff = moved - 6;
+				hud.d2.draw(diff - 1, 0, 0, 100, 100);
+				moved = moved - diff;
+			} else {
+				hud.d2.clear();
+			}
+			if(moved &gt; 0){
+				hud.d1.draw(moved - 1, 0, 0, 100, 100)
+			} else {
+				hud.d1.clear();
+			}
+		};
 
 		/**
 		 * @method setupInput
@@ -299,15 +382,18 @@ var gh = (function(gh){
 		 * @method displayAttack
 		 * @param {} attack
 		 */
-		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence){
-			document.getElementById(&quot;diceSplashScreen&quot;).style.visibility = &quot;visible&quot;;
+		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence, defender){
+			gh.dss.update(numHitDice, hits, numDefenceDice, defence, defender);
+			gh.dss.setVisible(true);
+			/*
 			setTimeout(
 				function(){
-					document.getElementById(&quot;diceSplashScreen&quot;).style.visibility = &quot;hidden&quot;;
+					gh.dss.setVisible(false);
+					gh.dss.clear();
 				},
-				500
+				1000
 			);
-			
+			*/
 		};
 
 

@@ -8,10 +8,19 @@
 			"name" 	: "Zargon",
 			"AI" 	: true, 
 			"roster" : [
-				{"name" : "Orc", "id" : "Orc01", "position" : {"x" : 2, "y" : 11}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc02", "position" : {"x" : 7, "y" : 13}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc03", "position" : {"x" : 8, "y" : 14}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc04", "position" : {"x" : 4, "y" : 16}, "faction" : "Zargon"}
+				{"name" : "Orc", "id" : "Orc01", "position" : {"x" :  2, "y" : 11}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc02", "position" : {"x" :  7, "y" : 13}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc03", "position" : {"x" :  8, "y" : 14}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc04", "position" : {"x" :  4, "y" : 16}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc05", "position" : {"x" :  4, "y" :  4}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc06", "position" : {"x" : 11, "y" : 10}, "faction" : "Zargon"},
+				{"name" : "Orc", "id" : "Orc07", "position" : {"x" : 14, "y" :  7}, "faction" : "Zargon"},
+
+				{"name" : "Goblin", "id" : "Goblin01", "position" : {"x" : 10, "y" : 13}, "faction" : "Zargon"},
+				{"name" : "Goblin", "id" : "Goblin02", "position" : {"x" : 2,  "y" : 10}, "faction" : "Zargon"},
+				{"name" : "Goblin", "id" : "Goblin03", "position" : {"x" : 3,  "y" :  5}, "faction" : "Zargon"},
+				{"name" : "Goblin", "id" : "Goblin04", "position" : {"x" : 6,  "y" :  6}, "faction" : "Zargon"},
+				{"name" : "Goblin", "id" : "Goblin05", "position" : {"x" : 7,  "y" :  6}, "faction" : "Zargon"}
 			]
 		}
 	],
@@ -36,7 +45,25 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_003.bmp", "rotation" : 0},
 				{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}
 			],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+
+				{},
+				{},
+				{},
+				{},
+
+				{},
+				{},
+				{},
+				{},
+
+				{},
+				{},
+				{},
+
+				{},{},{},{},{},{}
+			],
 			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
 			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
 			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],

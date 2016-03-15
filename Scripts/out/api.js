@@ -9,6 +9,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "Cell",
         "Door",
         "EntryTrigger",
+        "HQDice",
+        "Item",
         "Level",
         "Map",
         "Mlayer",
@@ -18,6 +20,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "Vec2",
         "Wall",
         "Weapon",
+        "dom",
+        "dss",
         "gh",
         "grahpics",
         "graphics",
@@ -26,13 +30,15 @@ YUI.add("yuidoc-meta", function(Y) {
         "keyboard",
         "math",
         "stateGame",
-        "stateSetup"
+        "stateSetup",
+        "stdlib"
     ],
     "modules": [
         "StdLib",
         "gh",
         "graphics",
-        "input"
+        "input",
+        "stdlib"
     ],
     "allModules": [
         {
@@ -46,6 +52,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "input",
             "name": "input"
+        },
+        {
+            "displayName": "stdlib",
+            "name": "stdlib"
         },
         {
             "displayName": "StdLib",

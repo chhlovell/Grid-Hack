@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>gh</title>
+    <title>GH\item.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -111,128 +111,39 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>gh Module</h1>
-<div class="box clearfix meta">
+<h1 class="file-heading">File: GH\item.js</h1>
 
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * @module gh
+ */
 
-        <div class="foundat">
-            Defined in: <a href="../files/GH_weapon.js.html#l14"><code>GH\weapon.js:14</code></a>
-        </div>
+/**
+ * @class gh
+ */
+var gh = (function(gh){
+	console.log(&quot;item.js loaded&quot;);
 
-</div>
+	/**
+	 * @class Item
+	 */
+	function Item(name, uniqueID, templateRef, spriteID, mask, x, y, rotation){
+		this.name = name;
+		this.uniqueID = uniqueID;
+		this.templateRef = templateRef;
+		this.spriteID = spriteID;
+		this.mask = mask;
+		this.x = x;
+		this.y = y;
+		this.rotation = rotation;
+	}
 
+	gh.Item = Item;
 
-<div class="box intro">
-    
-</div>
-
-
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-            <p>This module provides the following classes:</p>
-
-            <ul class="module-classes">
-                <li class="module-class">
-                    <a href="../classes/Agent.html">
-                        Agent
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Board.html">
-                        Board
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Campaign.html">
-                        Campaign
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Cell.html">
-                        Cell
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Door.html">
-                        Door
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/dss.html">
-                        dss
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/EntryTrigger.html">
-                        EntryTrigger
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/gh.html">
-                        gh
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/HQDice.html">
-                        HQDice
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Item.html">
-                        Item
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/json.html">
-                        json
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Level.html">
-                        Level
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Map.html">
-                        Map
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Mlayer.html">
-                        Mlayer
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Player.html">
-                        Player
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/stateGame.html">
-                        stateGame
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/stateSetup.html">
-                        stateSetup
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Wall.html">
-                        Wall
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Weapon.html">
-                        Weapon
-                    </a>
-                </li>
-            </ul>
-    </div>
-
-
-    <div class="yui3-u-1-2">
-    </div>
+	return gh;
+})(gh || {});
+    </pre>
 </div>
                     </div>
                 </div>

@@ -1,6 +1,18 @@
 {
     "project": {},
     "files": {
+        "GH\\Interface\\diceSplashScreen.js": {
+            "name": "GH\\Interface\\diceSplashScreen.js",
+            "modules": {
+                "gh": 1
+            },
+            "classes": {
+                "HQDice": 1,
+                "dss": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "GH\\Interface\\hud.js": {
             "name": "GH\\Interface\\hud.js",
             "modules": {},
@@ -10,9 +22,7 @@
         },
         "GH\\agent.js": {
             "name": "GH\\agent.js",
-            "modules": {
-                "gh": 1
-            },
+            "modules": {},
             "classes": {
                 "Agent": 1
             },
@@ -82,6 +92,15 @@
             "name": "GH\\gh.js",
             "modules": {},
             "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "GH\\item.js": {
+            "name": "GH\\item.js",
+            "modules": {},
+            "classes": {
+                "Item": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -201,6 +220,18 @@
             "fors": {},
             "namespaces": {}
         },
+        "StdLib\\dom.js": {
+            "name": "StdLib\\dom.js",
+            "modules": {
+                "stdlib": 1
+            },
+            "classes": {
+                "stdlib": 1,
+                "dom": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "StdLib\\keyboard.js": {
             "name": "StdLib\\keyboard.js",
             "modules": {
@@ -268,12 +299,15 @@
             "elements": {},
             "classes": {
                 "gh": 1,
+                "HQDice": 1,
+                "dss": 1,
                 "Agent": 1,
                 "Board": 1,
                 "Campaign": 1,
                 "Cell": 1,
                 "Door": 1,
                 "EntryTrigger": 1,
+                "Item": 1,
                 "json": 1,
                 "Level": 1,
                 "Mlayer": 1,
@@ -307,6 +341,20 @@
             "tag": "module",
             "file": "StdLib\\spriteStrip.js",
             "line": 14
+        },
+        "stdlib": {
+            "name": "stdlib",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "stdlib": 1,
+                "dom": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "StdLib\\dom.js",
+            "line": 12
         },
         "input": {
             "name": "input",
@@ -360,6 +408,34 @@
             "return": {
                 "description": ""
             }
+        },
+        "HQDice": {
+            "name": "HQDice",
+            "shortname": "HQDice",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 11,
+            "is_constructor": 1
+        },
+        "dss": {
+            "name": "dss",
+            "shortname": "dss",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 38,
+            "is_constructor": 1
         },
         "Agent": {
             "name": "Agent",
@@ -641,6 +717,19 @@
                     "type": "Integer"
                 }
             ]
+        },
+        "Item": {
+            "name": "Item",
+            "shortname": "Item",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "gh",
+            "namespace": "",
+            "file": "GH\\item.js",
+            "line": 11
         },
         "json": {
             "name": "json",
@@ -977,6 +1066,32 @@
             "line": 8,
             "is_constructor": 1
         },
+        "stdlib": {
+            "name": "stdlib",
+            "shortname": "stdlib",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "stdlib",
+            "namespace": "",
+            "file": "StdLib\\dom.js",
+            "line": 6
+        },
+        "dom": {
+            "name": "dom",
+            "shortname": "dom",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "stdlib",
+            "namespace": "",
+            "file": "StdLib\\dom.js",
+            "line": 12
+        },
         "input": {
             "name": "input",
             "shortname": "input",
@@ -1071,7 +1186,7 @@
                 },
                 {
                     "name": "index",
-                    "description": ""
+                    "description": "This is an optional parameter. It allows the user to create a string index for frames."
                 }
             ]
         },
@@ -1105,97 +1220,287 @@
     "elements": {},
     "classitems": [
         {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 20,
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "frame",
+                    "description": "",
+                    "type": "String || integer"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "class": "HQDice",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 44,
+            "description": "Private globals",
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 53,
+            "description": "Public methods",
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 57,
+            "itemtype": "method",
+            "name": "setupInput",
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 64,
+            "itemtype": "method",
+            "name": "setVisible",
+            "params": [
+                {
+                    "name": "visible",
+                    "description": "",
+                    "type": "Bool"
+                }
+            ],
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 76,
+            "description": "Change the visibility of the dice splash screen.\nOn the assumption that it is only visible following an attack, also clear the existing\ndice canvas elements from the display.",
+            "itemtype": "method",
+            "name": "onClick",
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 91,
+            "description": "Add the dice rolled for attack and defence to the screen as canvas elements for\ndisplay. Randomly generate what images should appear for 'misses'.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "numHitDice",
+                    "description": ""
+                },
+                {
+                    "name": "hits",
+                    "description": ""
+                },
+                {
+                    "name": "numDefenceDice",
+                    "description": ""
+                },
+                {
+                    "name": "defence",
+                    "description": ""
+                }
+            ],
+            "class": "dss",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\diceSplashScreen.js",
+            "line": 174,
+            "description": "Remove the dice 'canvas' elements from the display.",
+            "itemtype": "method",
+            "name": "clear",
+            "class": "dss",
+            "module": "gh"
+        },
+        {
             "file": "GH\\Interface\\hud.js",
             "line": 8,
             "description": "Private constants",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 24,
-            "class": "gh"
-        },
-        {
-            "file": "GH\\Interface\\hud.js",
-            "line": 33,
+            "line": 29,
             "description": "Private globals",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 35,
+            "description": "Private methods",
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
             "line": 39,
+            "description": "This method sets the visibility of a given node and all of its children to the \ngiven visibility.\nThis method is no longer utilized by Grid Hack. Use stdlib.dom.setNodeTreeStyle instead.",
+            "itemtype": "method",
+            "name": "setVisibility",
+            "params": [
+                {
+                    "name": "node",
+                    "description": "",
+                    "type": "DOM"
+                },
+                {
+                    "name": "visible",
+                    "description": "Acceptable parameters are \"hidden\" or \"visible\".",
+                    "type": "String"
+                }
+            ],
+            "deprecated": true,
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 55,
+            "description": "Public Methods",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 59,
             "itemtype": "method",
             "name": "setup",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 75,
+            "line": 85,
+            "description": "Active Agent Display",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 89,
+            "description": "Setup the active agent display hud interface.\nThis includes initializing the tab visibility and height parameters.",
+            "itemtype": "method",
+            "name": "setupAAD",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 104,
+            "description": "This method responds to a click event on the active agent tabs and allowing the user\nto view different sets of information via the tabs.",
+            "itemtype": "method",
+            "name": "aaTabOnClick",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 129,
             "itemtype": "method",
             "name": "update",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 105,
+            "line": 162,
+            "description": "Handle any graphical updates to the hud which require drawing.",
+            "itemtype": "method",
+            "name": "render",
+            "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\Interface\\hud.js",
+            "line": 182,
             "itemtype": "method",
             "name": "setupInput",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 116,
+            "line": 193,
             "itemtype": "method",
             "name": "onEndTurn",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 120,
+            "line": 197,
             "description": "Setup the next players turn",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 127,
+            "line": 204,
             "description": "Hud maintenance re new turn",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 132,
+            "line": 209,
             "description": "Center board view onto new agent",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 138,
+            "line": 215,
             "itemtype": "method",
             "name": "onActionStateButton",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 142,
+            "line": 219,
             "description": "Handle the cosmetic changs of the actions state buttons",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 153,
+            "line": 230,
             "description": "Update the current player/agents action state",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 176,
+            "line": 253,
             "itemtype": "method",
             "name": "clearActionStateButtons",
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 187,
+            "line": 264,
             "itemtype": "method",
             "name": "displayAttack",
             "params": [
@@ -1204,11 +1509,28 @@
                     "description": ""
                 }
             ],
-            "class": "gh"
+            "class": "gh",
+            "module": "gh"
         },
         {
             "file": "GH\\agent.js",
-            "line": 82,
+            "line": 83,
+            "description": "This method is used to load an agents initially equiped items into the inventory array.\nThis method should only be used on creation of a new agent and not called externally.\nIt is assumed that equiped items do not exist in the agents 'inventory' at the time of its\ninitialization.",
+            "itemtype": "method",
+            "name": "loadInventory",
+            "params": [
+                {
+                    "name": "An",
+                    "description": "instnace of a newly created agent.",
+                    "type": "gh.Agent"
+                }
+            ],
+            "class": "Agent",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\agent.js",
+            "line": 108,
             "itemtype": "method",
             "name": "loadActionStates",
             "params": [
@@ -1222,7 +1544,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 103,
+            "line": 129,
             "itemtype": "method",
             "name": "getCurrentHealth",
             "class": "Agent",
@@ -1230,7 +1552,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 110,
+            "line": 136,
             "itemtype": "method",
             "name": "getCurrentMind",
             "class": "Agent",
@@ -1238,7 +1560,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 117,
+            "line": 143,
             "itemtype": "method",
             "name": "getOpponents",
             "params": [
@@ -1256,7 +1578,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 135,
+            "line": 161,
             "itemtype": "method",
             "name": "getClosestPathTo",
             "params": [
@@ -1273,7 +1595,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 159,
+            "line": 185,
             "itemtype": "method",
             "name": "getClosestOpponent",
             "params": [
@@ -1295,7 +1617,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 194,
+            "line": 220,
             "itemtype": "method",
             "name": "canMove",
             "params": [
@@ -1321,7 +1643,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 266,
+            "line": 292,
             "itemtype": "method",
             "name": "move",
             "params": [
@@ -1341,7 +1663,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 319,
+            "line": 345,
             "itemtype": "method",
             "name": "draw",
             "params": [
@@ -1374,7 +1696,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 338,
+            "line": 364,
             "itemtype": "method",
             "name": "isClicked",
             "params": [
@@ -1406,7 +1728,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 352,
+            "line": 378,
             "description": "Determines whether or not the target is hostile to the agent",
             "itemtype": "method",
             "name": "isHostile",
@@ -1426,7 +1748,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 369,
+            "line": 395,
             "itemtype": "method",
             "name": "getDefenceDice",
             "return": {
@@ -1437,7 +1759,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 393,
+            "line": 419,
             "description": "A human agent successfully defends on a 1 or 2.\nA computer agent successfully defends on a 1.",
             "itemtype": "method",
             "name": "getDefence",
@@ -1446,7 +1768,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 422,
+            "line": 452,
             "itemtype": "method",
             "name": "canAttack",
             "params": [
@@ -1464,7 +1786,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 440,
+            "line": 470,
             "itemtype": "method",
             "name": "attack",
             "params": [
@@ -1482,7 +1804,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 457,
+            "line": 493,
             "itemtype": "method",
             "name": "damageHealth",
             "params": [
@@ -1930,7 +2252,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 65,
+            "line": 64,
             "description": "This it a 'test' function which preloads a player with agents for use in the game.",
             "itemtype": "method",
             "name": "setupPlayer",
@@ -1942,7 +2264,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 191,
+            "line": 190,
             "description": "Initialize the games display.  This includes creating canvas objects for both the hud and the\ngame board.",
             "itemtype": "method",
             "name": "setupDisplay",
@@ -1971,7 +2293,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 218,
+            "line": 216,
             "description": "Setup the mouse and keyboard input for processing.",
             "itemtype": "method",
             "name": "setupInput",
@@ -1983,7 +2305,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 235,
+            "line": 233,
             "itemtype": "method",
             "name": "buildImageData",
             "class": "gh",
@@ -1991,7 +2313,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 250,
+            "line": 248,
             "itemtype": "method",
             "name": "start",
             "return": {
@@ -2783,37 +3105,30 @@
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 86,
+            "line": 96,
             "description": "handle agent input",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 91,
+            "line": 101,
             "description": "Spacebar to center on active agent",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 99,
+            "line": 109,
             "description": "Handle agent movement",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 178,
+            "line": 188,
             "itemtype": "method",
             "name": "render",
-            "class": "stateGame",
-            "module": "gh"
-        },
-        {
-            "file": "GH\\stateGame.js",
-            "line": 187,
-            "description": "Draw the dice\nShould probably move this to the hud js file",
             "class": "stateGame",
             "module": "gh"
         },
@@ -3024,6 +3339,31 @@
             "description": "Public methods",
             "class": "grahpics",
             "module": "graphics"
+        },
+        {
+            "file": "StdLib\\dom.js",
+            "line": 17,
+            "description": "Sets a style element of a DOM node and all of its children to a given value.",
+            "itemtype": "method",
+            "name": "setNodeTreeStyle",
+            "params": [
+                {
+                    "name": "node",
+                    "description": ""
+                },
+                {
+                    "name": "paramater",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "dom",
+            "module": "stdlib"
         },
         {
             "file": "StdLib\\keyboard.js",
@@ -3276,8 +3616,12 @@
     ],
     "warnings": [
         {
+            "message": "replacing incorrect tag: depreciated with deprecated",
+            "line": " GH\\Interface\\hud.js:39"
+        },
+        {
             "message": "param name missing: {Canvas.context}",
-            "line": " GH\\agent.js:319"
+            "line": " GH\\agent.js:345"
         },
         {
             "message": "replacing incorrect tag: parma with param",
@@ -3296,36 +3640,52 @@
             "line": " StdLib\\animation.js:13"
         },
         {
+            "message": "Missing item type\nPrivate globals",
+            "line": " GH\\Interface\\diceSplashScreen.js:44"
+        },
+        {
+            "message": "Missing item type\nPublic methods",
+            "line": " GH\\Interface\\diceSplashScreen.js:53"
+        },
+        {
             "message": "Missing item type\nPrivate constants",
             "line": " GH\\Interface\\hud.js:8"
         },
         {
-            "message": "Missing item type",
-            "line": " GH\\Interface\\hud.js:24"
+            "message": "Missing item type\nPrivate globals",
+            "line": " GH\\Interface\\hud.js:29"
         },
         {
-            "message": "Missing item type\nPrivate globals",
-            "line": " GH\\Interface\\hud.js:33"
+            "message": "Missing item type\nPrivate methods",
+            "line": " GH\\Interface\\hud.js:35"
+        },
+        {
+            "message": "Missing item type\nPublic Methods",
+            "line": " GH\\Interface\\hud.js:55"
+        },
+        {
+            "message": "Missing item type\nActive Agent Display",
+            "line": " GH\\Interface\\hud.js:85"
         },
         {
             "message": "Missing item type\nSetup the next players turn",
-            "line": " GH\\Interface\\hud.js:120"
+            "line": " GH\\Interface\\hud.js:197"
         },
         {
             "message": "Missing item type\nHud maintenance re new turn",
-            "line": " GH\\Interface\\hud.js:127"
+            "line": " GH\\Interface\\hud.js:204"
         },
         {
             "message": "Missing item type\nCenter board view onto new agent",
-            "line": " GH\\Interface\\hud.js:132"
+            "line": " GH\\Interface\\hud.js:209"
         },
         {
             "message": "Missing item type\nHandle the cosmetic changs of the actions state buttons",
-            "line": " GH\\Interface\\hud.js:142"
+            "line": " GH\\Interface\\hud.js:219"
         },
         {
             "message": "Missing item type\nUpdate the current player/agents action state",
-            "line": " GH\\Interface\\hud.js:153"
+            "line": " GH\\Interface\\hud.js:230"
         },
         {
             "message": "Missing item type",
@@ -3353,19 +3713,15 @@
         },
         {
             "message": "Missing item type\nhandle agent input",
-            "line": " GH\\stateGame.js:86"
+            "line": " GH\\stateGame.js:96"
         },
         {
             "message": "Missing item type\nSpacebar to center on active agent",
-            "line": " GH\\stateGame.js:91"
+            "line": " GH\\stateGame.js:101"
         },
         {
             "message": "Missing item type\nHandle agent movement",
-            "line": " GH\\stateGame.js:99"
-        },
-        {
-            "message": "Missing item type\nDraw the dice\nShould probably move this to the hud js file",
-            "line": " GH\\stateGame.js:187"
+            "line": " GH\\stateGame.js:109"
         },
         {
             "message": "Missing item type\nProceed to stateGame.\nInitialize the game hud and stateGame objects.",
