@@ -89,16 +89,16 @@ var gh = (function(gh){
 	 * @param {gh.Agent} An instnace of a newly created agent.
 	 */
 	function loadInventory(agent){
-		if(agent.mainHand !== null){
+		if(agent.mainHand !== null && agent.mainHand !== ""){
 			agent.inventory.push(agent.mainHand);
 		}
-		if(agent.offHand !== null){
+		if(agent.offHand !== null && agent.offHand !== ""){
 			agent.inventory.push(agent.offHand);
 		}
-		if(agent.chest !== null){
+		if(agent.chest !== null && agent.chest !== ""){
 			agent.inventory.push(agent.chest);
 		}
-		if(agent.head !== null){
+		if(agent.head !== null && agent.head !== ""){
 			agent.inventory.push(agent.head);
 		}
 

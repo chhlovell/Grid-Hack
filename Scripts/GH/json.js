@@ -64,7 +64,7 @@ var gh = (function(gh){
 		 * @method loadLevel
 		 * @param {string} campaignName
 		 * @param {string} levelName
-		 * @param {} jsonAgentTemplates
+		 * @param {JSON} jsonAgentTemplates
 		 */
 		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates){
 			var path = PATH + campaignName + "/Data/" + levelName + ".json";
@@ -103,8 +103,8 @@ var gh = (function(gh){
 
 		/**
 		 * @method getPlayers
-		 * @param {[Player]} jsonPlayers
-		 * @param {} jsonAgentTemplates
+		 * @param {[gh.Player]} jsonPlayers
+		 * @param {JSON} jsonAgentTemplates
 		 * @return
 		 */
 		json.getPlayers = function(jsonPlayers, jsonAgentTemplates, jsonWeaponTemplates){
@@ -134,7 +134,7 @@ var gh = (function(gh){
 		/**
 		 * @method getWeapon
 		 * @param {string} resRef
-		 * @param {} jsonWeaponTemplates
+		 * @param {JSON} jsonWeaponTemplates
 		 */
 		json.getWeapon = function(resRef, jsonWeaponTemplates){
 			var template = jsonWeaponTemplates[resRef];
@@ -154,8 +154,9 @@ var gh = (function(gh){
 
 		/**
 		 * @method getRoster
-		 * @param {[Agent]} jsonRoster
-		 * @param {} jsonAgentTemplates
+		 * @param {[gh.Agent]} jsonRoster
+		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
 		 * @return
 		 */
 		json.getRoster = function(jsonRoster, jsonAgentTemplates, jsonWeaponTemplates){
@@ -177,7 +178,7 @@ var gh = (function(gh){
 						jsonRoster[it].id,
 						jsonRoster[it].position.x,
 						jsonRoster[it].position.y,
-						null,
+						null, // ptrOwner
 						jsonRoster[it].faction,
 						template.description,
 						template.body,
@@ -200,7 +201,13 @@ var gh = (function(gh){
 		};
 
 		/**
+		 * This method builds the digital map data for a particular campaign level.
+		 * The map data consists of a board, which is a 2d array of cells.  The cells
+		 * contain all the relevant information about its content, including pointers to
+		 * items, agents and trigger objects located on any particular cell.
 		 * @method getMapData
+		 * @param {JSON} jsonMapData
+		 * @param {[gh.Player]} players
 		 * @return
 		 */
 		json.getMapData = function(jsonMapData, players){
@@ -225,7 +232,8 @@ var gh = (function(gh){
 							undefined, // items
 							json.findTriggers(x, y, mapData.triggers), // triggers
 							map[y][x].visible, // visibility
-							map[y][x].img  // spriteId
+							map[y][x].img,  // spriteId
+							map[y][x].rotation
 						);
 						board[y].push(cell);
 					}
@@ -236,13 +244,20 @@ var gh = (function(gh){
 
 			mapData.map = new gh.Map(board);
 
-			// Add agent data
 			// Add item data
 			// Add trigger data
 
 			return mapData;
 		};
 
+		/**
+		 * This method parses through a list of player's rosters and returns a list of all those
+		 * agents determined to be at a given (x,y) location on the board. 
+		 * @method getAgentsAt
+		 * @param {[gh.Player]} players
+		 * @param {integer} x
+		 * @param {integer} y
+		 */
 		json.getAgentsAt = function(players, x, y){
 			var agents = [];
 

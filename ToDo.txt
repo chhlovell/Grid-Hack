@@ -54,7 +54,6 @@ TO DO
 
 -	Cell.setMouseFocus: add a check for agent focus and animation (probably an overlay effect)
 -	Cell.setMouseFocus: include check for items/objects
--	Cell: include draw rotation for tiles
 
 -	AI: Determine best player to attack
 -	AI: consider using a modified A* to get map distance between two objects to account for
@@ -117,5 +116,6 @@ COMPLETED
 		consider using a fixed pixel height value for the canvas.  Perhaps a % of the total
 		screen height.
 
+-	Cell: include draw rotation for tiles
 
 
