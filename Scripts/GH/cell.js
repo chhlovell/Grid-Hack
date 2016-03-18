@@ -133,6 +133,43 @@ var gh = (function(gh){
 	};
 
 	/**
+	 * @method drawItems
+	 * @param {} context
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {} team
+	 */
+	Cell.prototype.drawItems = function(context, tileSize, scale, offset, team){
+		if(!this.items || (this.items.length === 0)){
+			return;
+		}
+/*
+		if(this.y === 15 && this.x === 3){
+			console.log(arguments);
+		}
+*/
+		if(this.visible && this.visible[team] === true){
+			context.save();
+
+			//console.log(this.items[this.items.length-1]);
+
+			gh.assets.sprites[this.items[this.items.length-1].spriteID].draw(
+				context, 
+				this.x * tileSize * scale + offset.x,
+				this.y * tileSize * scale + offset.y,
+				tileSize * scale,
+				tileSize * scale,
+				this.rotation
+			);
+
+			context.restore();
+		}
+
+		return true;
+	}
+
+	/**
 	 * @method setMouseFocus
 	 * @param {integer} mouseX
 	 * @param {integer} mouseY

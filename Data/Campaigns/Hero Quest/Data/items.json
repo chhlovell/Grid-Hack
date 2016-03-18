@@ -1,5 +1,12 @@
 {
 	"Chest" : {
-		"name" : "chest"
+		"name" : "chest",
+		"description" : "This is a chest",
+		"sprite" : "chest.gif",
+		"width" : 1,
+		"heigh" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
 	}
 }

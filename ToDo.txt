@@ -77,6 +77,9 @@ TO DO
 
 -	GAME: win/loose condition on all monsters/players heroes dead.
 
+-	gh.getItemsAt: Need to include a width/height check for multicell items to correctly
+		determine if an item exists at a particular location.
+
 
 
 =============================================================================================

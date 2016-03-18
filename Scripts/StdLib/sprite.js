@@ -112,11 +112,6 @@ var graphics = (function(graphics){
 			var offx = (w - (this.img.width * ratio)) * .5;
 			var offy = (h - (this.img.height * ratio)) * .5;
 
-			if(rotation === 180){
-				console.log((x + offx) + " : " + (this.img.width * ratio) + " , " + (y + offy));
-			}
-
-
 			context.save();
 
 			context.translate((x+offx) + (0.5 * this.img.width * ratio), (y + offy) + (0.5 * this.img.height * ratio));
@@ -125,7 +120,6 @@ var graphics = (function(graphics){
 			context.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, this.img.width * ratio, this.img.height * ratio);
 
 			context.restore();
-			//context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x + offx, y + offy, this.img.width * ratio, this.img.height * ratio);
 		} catch (e) {
 			console.log(e);
 		}

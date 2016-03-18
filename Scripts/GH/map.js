@@ -78,7 +78,12 @@ var gh = (function(gh){
 	 * @param {} context
 	 * @return 
 	 */
-	Map.prototype.drawItems = function(context){
+	Map.prototype.drawItems = function(context, tileSize, scale, offset, team){
+		for(var y = 0; y < this.board.length; y++){
+			for(var x = 0; x < this.board[y].length; x++){
+				this.board[y][x].drawItems(context, tileSize, scale, offset, team);
+			}
+		}
 		return true;
 	};
 
@@ -203,8 +208,6 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Map.prototype.getLine = function(x0, y0, x1, y1){
-		console.log("getLine");
-
 		var dy 			= y1-y0;						// change in y
 		var dx 			= x1-x0;						// change in x
 		var m 			= dy/dx;						// slope

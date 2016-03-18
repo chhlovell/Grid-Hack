@@ -31,8 +31,9 @@ var gh = (function(gh){
 	 * @param {integer} rotation The rotation of the object in degrees.
 	 * @param {bool} obstacle Identifies whether or not the item is an obstacle for the purposes of agent movement.
 	 * @param {bool} usable Identifies whether or not an agent can interract with the item.
+	 * @param {} mask
 	 */
-	function Item(name, uniqueID, templateRef, description, spriteID, x, y, width, height, rotation, obstacle, usable){
+	function Item(name, uniqueID, templateRef, description, spriteID, x, y, width, height, rotation, obstacle, usable, mask){
 		this.name 				= name || "defaultName";
 		this.uniqueID 			= uniqueID || "uniqueID";
 		this.templateRef 		= templateRef || "templateRef";
@@ -56,6 +57,31 @@ var gh = (function(gh){
 	};
 
 	gh.Item = Item;
+
+	/**
+	 * This method returns a list of items in a item list that are located at a
+	 * particular (x,y) position on the board.
+	 * @method getItemsAt
+	 * @param {[gh.Item]} items
+	 * @param {integer} x
+	 * @param {integer} y
+	 * @return
+	 */
+	gh.getItemsAt = function(items, x, y){
+		var iList = [];
+
+		if(!items){
+			return iList;
+		}
+
+		for(var it = 0; it < items.length; it++){
+			if(items[it].x === x && items[it].y === y){
+				iList.push(items[it]);
+			}
+		}
+
+		return iList;
+	};
 
 	return gh;
 })(gh || {});
