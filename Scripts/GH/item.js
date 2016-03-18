@@ -42,17 +42,58 @@ var gh = (function(gh){
 		this.mask 				= mask || [];
 		this.x 					= x;
 		this.y 					= y;
+		this.width				= width;
+		this.height				= height;
 		this.rotation 			= rotation || 0;
-		this.obstacle			= obstacle || true;
+		this.obstacle			= obstacle || false;
 		this.usable				= usable || false;
 	}
 
 	/**
-	 * Draw the item to the given canvas.
+	 * Draw the item to the given canvas.  Rotation is allowed for, rotaton not around the
+	 * center of an image, preserves the upper left corner of the item on the map.
 	 * @method draw
 	 * @param {Canvas.context} context
 	 */
-	Item.prototype.draw = function(context){
+	Item.prototype.draw = function(context, tileSize, scale, offset, team){
+		var s = gh.assets.sprites[this.spriteID];
+
+		// Get the grid coordinate to rotate around.
+		var ax = this.x;
+		var ay = this.y;
+		switch(this.rotation){
+			case 90:
+				ax += this.height;
+				break;
+			case 180:
+				ax += this.width;
+				ay += this.height;
+				break;
+			case 270:
+				ay += this.width;
+				break;
+			default:
+				break;
+		}
+
+		context.save();
+
+		context.translate(ax * scale * tileSize + offset.x, ay * scale * tileSize + offset.y);
+		context.rotate(math.degToRadians(this.rotation));
+
+		context.drawImage(
+			s.img,
+			0,
+			0,
+			s.img.width,
+			s.img.height,
+			0,
+			0,
+			tileSize * scale * this.width,
+			tileSize * scale * this.height
+		);
+
+		context.restore();
 
 	};
 
@@ -75,8 +116,20 @@ var gh = (function(gh){
 		}
 
 		for(var it = 0; it < items.length; it++){
-			if(items[it].x === x && items[it].y === y){
-				iList.push(items[it]);
+			for(var yit = 0; yit < items[it].height; yit++){
+				for(var xit = 0; xit < items[it].width; xit++){
+
+					if(items[it].rotation === 90 || items[it].rotation === 270){
+						if((items[it].x + yit) === x && (items[it].y + xit) === y){
+							iList.push(items[it]);
+						}
+					} else {
+						if((items[it].x + xit) === x && (items[it].y + yit) === y){
+							iList.push(items[it]);
+						}
+					}
+
+				}
 			}
 		}
 

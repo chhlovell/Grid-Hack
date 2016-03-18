@@ -4,9 +4,119 @@
 		"description" : "This is a chest",
 		"sprite" : "chest.gif",
 		"width" : 1,
-		"heigh" : 1,
+		"height" : 1,
 		"mask" : [],
 		"obstacle" : true,
 		"usable" : true
+	},
+	"Chair" : {
+		"name" : "chair",
+		"description" : "This is a chair",
+		"sprite" : "chair.gif",
+		"width" : 1,
+		"height" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : false
+	},
+	"Desk" : {
+		"name" : "desk",
+		"description" : "This is a desk",
+		"sprite" : "desk.gif",
+		"width" : 3,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Bookshelf" : {
+		"name" : "bookshelf",
+		"description" : "This is a bookshelf",
+		"sprite" : "bookshelf.gif",
+		"width" : 3,
+		"height" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Cupboard" : {
+		"name" : "cupboard",
+		"description" : "This is a cupboard",
+		"sprite" : "cupboard.gif",
+		"width" : 3,
+		"height" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Table" : {
+		"name" : "table",
+		"description" : "This is a table",
+		"sprite" : "table.gif",
+		"width" : 3,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Tome" : {
+		"name" : "tome",
+		"description" : "A large tome lies open on a stone table",
+		"sprite" : "tome.gif",
+		"width" : 3,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Fireplace" : {
+		"name" : "fireplace",
+		"description" : "This is a fireplace",
+		"sprite" : "fireplace.gif",
+		"width" : 3,
+		"height" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Toomb" : {
+		"name" : "toomb",
+		"description" : "This is a toomb",
+		"sprite" : "toomb.gif",
+		"width" : 3,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"WeaponRack" : {
+		"name" : "weapon rack",
+		"description" : "This is a weapon rack",
+		"sprite" : "weaponRack.gif",
+		"width" : 3,
+		"height" : 1,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"TortureRack" : {
+		"name" : "torture rack",
+		"description" : "This is a torture rack",
+		"sprite" : "tortureRack.gif",
+		"width" : 3,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : true,
+		"usable" : true
+	},
+	"Stair" : {
+		"name" : "stair",
+		"description" : "This is a stairwell",
+		"sprite" : "stair.gif",
+		"width" : 2,
+		"height" : 2,
+		"mask" : [],
+		"obstacle" : false,
+		"usable" : false
 	}
 }

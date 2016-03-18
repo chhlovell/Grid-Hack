@@ -148,14 +148,7 @@ var gh = (function(gh){
 		if(this.visible && this.visible[team] === true){
 			context.save();
 
-			gh.assets.sprites[this.items[this.items.length-1].spriteID].draw(
-				context, 
-				this.x * tileSize * scale + offset.x,
-				this.y * tileSize * scale + offset.y,
-				tileSize * scale,
-				tileSize * scale,
-				this.rotation
-			);
+			this.items[this.items.length-1].draw(context, tileSize, scale, offset, team);
 
 			context.restore();
 		}

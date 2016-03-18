@@ -185,7 +185,15 @@
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_8.png", "rotation" : 0},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_9.png", "rotation" : 0},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{}
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 270, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
+
+				{"border" : {"door" : {"left" : {"open" : false}}}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
 			[
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "border" : {"wall" : ["left"]}},
@@ -204,13 +212,13 @@
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_11.png", "rotation" : 0},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_12.png", "rotation" : 0},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "border" : {"wall" : ["left"]}},
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png"},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "roation" : 270,"border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-				{},
-				{},
-				{},
+				{"visible" : {"Empire" : false, "Zargon" : false}},
+				{"visible" : {"Empire" : false, "Zargon" : false}},
+				{"visible" : {"Empire" : false, "Zargon" : false}},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
@@ -231,8 +239,8 @@
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_14.png", "rotation" : 0},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_15.png", "rotation" : 0},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "border" : {"wall" : ["left"]}},
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png"},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 270, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
 				{},
@@ -268,17 +276,21 @@
 			],
 			[
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}}
 			]
@@ -295,10 +307,33 @@
 			{"type" : "exit", "pos" : {"x" : 2, "y": 14}}
 		],
 		"items" 	: [
-			{"type" : "Chest", "id" : "chest01", "pos" : {"x" : 11, "y" :  6}},
-			{"type" : "Chest", "id" : "chest02", "pos" : {"x" : 10, "y" :  4}},
-			{"type" : "Chest", "id" : "chest03", "pos" : {"x" : 17, "y" : 15}, "rotation" : 90},
-			{"type" : "Chest", "id" : "dummyChest", "pos" : {"x" : 3, "y": 15}}
+			{"type" : "Chest", 			"id" : "chest02", 		"pos" : {"x" : 10, "y" :  4}},
+			{"type" : "Chest", 			"id" : "chest01", 		"pos" : {"x" : 11, "y" :  6}},
+			{"type" : "Chest", 			"id" : "chest03", 		"pos" : {"x" : 17, "y" : 15}, 	"rotation" : 90},
+
+			{"type" : "Chair", 			"id" : "chair01", 		"pos" : {"x" : 10, "y" :  7}},
+
+			{"type" : "Desk", 			"id" : "desk01", 		"pos" : {"x" :  5, "y" : 14}, 	"rotation" : 90},
+
+			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" :  5, "y" : 12}},
+			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" : 15, "y" : 16}, 	"rotation" : 180},
+
+			{"type" : "Cupboard", 		"id" : "cupboard01", 	"pos" : {"x" : 15, "y" : 12}},
+
+			{"type" : "Table", 			"id" : "table01", 		"pos" : {"x" : 11, "y" :  8}},
+			{"type" : "Table", 			"id" : "table02", 		"pos" : {"x" :  6, "y" :  4}},
+
+			{"type" : "Tome",			"id" : "tome01",		"pos" : {"x" :  1, "y" :  4}},
+
+			{"type" : "Fireplace",		"id" : "fireplace01",	"pos" : {"x" : 12, "y" :  6}},
+
+			{"type" : "Toomb",			"id" : "toomb01",		"pos" : {"x" : 10, "y" :  0},	"rotation" : 90},
+
+			{"type" : "WeaponRack",		"id" : "weaponRack01",	"pos" : {"x" : 11, "y" : 14},	"rotation" : 90},
+
+			{"type" : "TortureRack",	"id" : "tortureRack01",	"pos" : {"x" :  3, "y" :  9},	"rotation" : 270},
+
+			{"type" : "Stair",			"id" : "stair01",		"pos" : {"x" :  1, "y" : 13}}
 		]
 	}
 }

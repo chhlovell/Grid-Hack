@@ -281,6 +281,7 @@ var gh = (function(gh){
 		// Is there an obstructive object?
 		if(destination.items && destination.items.length > 0){
 			for(var it = 0; it < destination.items.length; it++){
+				console.log(destination.items[it]);
 				if(destination.items[it].obstacle){
 					return false;
 				}

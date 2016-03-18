@@ -59,7 +59,6 @@ TO DO
 -	AI: consider using a modified A* to get map distance between two objects to account for
 		walls and other items between agents
 
--	Items: need to implement this
 
 -	ACTIVE AGENT DISPLAY: when adjusting screen size height can enter a loop where it
 		increases without stopping and exceeds screen height.
@@ -120,5 +119,8 @@ COMPLETED
 		screen height.
 
 -	Cell: include draw rotation for tiles
+
+-	Items: need to implement this
+
 
 
