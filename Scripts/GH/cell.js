@@ -144,15 +144,9 @@ var gh = (function(gh){
 		if(!this.items || (this.items.length === 0)){
 			return;
 		}
-/*
-		if(this.y === 15 && this.x === 3){
-			console.log(arguments);
-		}
-*/
+
 		if(this.visible && this.visible[team] === true){
 			context.save();
-
-			//console.log(this.items[this.items.length-1]);
 
 			gh.assets.sprites[this.items[this.items.length-1].spriteID].draw(
 				context, 

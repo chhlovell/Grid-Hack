@@ -450,6 +450,15 @@ var gh = (function(gh){
 			return false;
 		}
 
+		// Is there an item blocking movement in the destination cell?
+		if(destination.items && destination.items.length > 0){
+			for(var it = 0; it < destination.items.length; it++){
+				if(destination.items[it].obstacle){
+					return false;
+				}
+			}
+		}
+
 		// Is the a potentially obstructive agent in the cell?
 		if(destination.agents && destination.agents.length > 0){
 			// Is the target in the destination square?

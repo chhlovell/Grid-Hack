@@ -278,6 +278,15 @@ var gh = (function(gh){
 				break;
 		}
 
+		// Is there an obstructive object?
+		if(destination.items && destination.items.length > 0){
+			for(var it = 0; it < destination.items.length; it++){
+				if(destination.items[it].obstacle){
+					return false;
+				}
+			}
+		}
+
 		// Is there an obstructing hostile agent?
 		// Only check the top-most (last) agent in the agent queue for the destination cell.
 		if(destination.agents && destination.agents.length > 0	){
