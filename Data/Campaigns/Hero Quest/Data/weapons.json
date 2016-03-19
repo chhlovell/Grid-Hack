@@ -51,5 +51,15 @@
 		"diagonal" : 	true,
 		"cost" : 		100,
 		"actionPoints" 	: 1						
+	},
+	"Chaos Axe" : {
+		"name"			: "Chaos Axe",
+		"size"			: "large",
+		"attack"		: 4,
+		"hands" 		: 2,
+		"range"			: 1,
+		"diagonal"		: false,
+		"cost"			: 500,
+		"actionPoints"	: 1
 	}
 }

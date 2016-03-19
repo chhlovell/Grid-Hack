@@ -224,5 +224,156 @@
 										"index" : ""
 									}
 								}
+	},
+	"Skeleton" : {
+		"name"					: "Skeleton",
+		"sprites"				: {
+									"display" 	: "Skeleton.gif",
+									"token"		: "skeletonToken.gif"
+								},
+		"description"			: "The animated emains of long dead warriros, Skeletons form the bulk of the Armies of the Undead. They are slow but relentless, controlled by Chaos magic.",
+		"body"					: 1,
+		"mind"					: 0,
+		"baseDefence"			: 2,
+		"mainHand"				: "Shortsword",
+		"offHand"				: "",
+		"chest"					: "",
+		"head"					: "",
+		"moveDice" 				: 0,
+		"baseMove"				: 6,
+		"spellList"				: [],
+		"restrictions"			: [],
+		"animations"			: {
+									"inactive"		: {
+										"path" : "skeleton.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									},
+									"active" : {
+										"path" : "skeleton.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									}
+								}
+	},
+	"Zombie" : {
+		"name"					: "Zombie",
+		"sprites"				: {
+									"display" 	: "Zombie.gif",
+									"token"		: "zombieToken.gif"
+								},
+		"description"			: "Like Skeletons, Zombies are magically animated corpses. Unlike Skeletons, some still bear traces of decaying flesh and muscle. Their movements are slow and awkward and they carry the stench of the grave wherever they go.",
+		"body"					: 1,
+		"mind"					: 0,
+		"baseDefence"			: 3,
+		"mainHand"				: "Shortsword",
+		"offHand"				: "",
+		"chest"					: "",
+		"head"					: "",
+		"moveDice" 				: 0,
+		"baseMove"				: 5,
+		"spellList"				: [],
+		"restrictions"			: [],
+		"animations"			: {
+									"inactive"		: {
+										"path" : "zombie.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									},
+									"active" : {
+										"path" : "zombie.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									}
+								}
+	},
+	"Mummy" : {
+		"name"					: "Mummy",
+		"sprites"				: {
+									"display" 	: "Mummy.gif",
+									"token"		: "mummyToken.gif"
+								},
+		"description"			: "Embalmed and preserved by secret and magical arts, Mummies are controlled by a more powerful version of the magic that animates Zombies and Skeletons. They are very hard to overcome in single handed combat.",
+		"body"					: 2,
+		"mind"					: 0,
+		"baseDefence"			: 4,
+		"mainHand"				: "Broadsword",
+		"offHand"				: "",
+		"chest"					: "",
+		"head"					: "",
+		"moveDice" 				: 0,
+		"baseMove"				: 4,
+		"spellList"				: [],
+		"restrictions"			: [],
+		"animations"			: {
+									"inactive"		: {
+										"path" : "mummy.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									},
+									"active" : {
+										"path" : "mummy.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									}
+								}
+	},
+	"ChaosWarrior" : {
+		"name"					: "Chaos Warrior",
+		"sprites"				: {
+									"display" 	: "ChaosWarrior.gif",
+									"token"		: "chaoswarriorToken.gif"
+								},
+		"description"			: "These are men who have become monsters- slaves to darkness. They are always heavily armored and often bear weapons enchanted with Chaos magic. These dread warriors strike fear into all but the bravest (or most foolish) of opponents.",
+		"body"					: 3,
+		"mind"					: 3,
+		"baseDefence"			: 4,
+		"mainHand"				: "Chaos Axe",
+		"offHand"				: "",
+		"chest"					: "",
+		"head"					: "",
+		"moveDice" 				: 0,
+		"baseMove"				: 7,
+		"spellList"				: [],
+		"restrictions"			: [],
+		"animations"			: {
+									"inactive"		: {
+										"path" : "chaoswarrior.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									},
+									"active" : {
+										"path" : "chaoswarrior.png", 
+										"numFrames" : 1, 
+										"frameWidth" : 70, 
+										"repeat" : false, 
+										"speed" : 0, 
+										"index" : ""
+									}
+								}
 	}
+
+
+
 }

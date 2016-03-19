@@ -440,18 +440,19 @@ var gh = (function(gh){
 		for(var it = 0; it < defenceDice; it++){
 			var r = gh.hqDice.roll();
 			switch(this.ptrOwner.AI){
-				case false:
+				case gh.AI.HUMAN:
 					if(r === "whiteShield"){
 						defence.sum++;
 					}
 					break;
-				case true:
+				case gh.AI.COMPUTER:
 					console.log("AI");
 					if(r === "blackShield"){
 						defence.sum++;
 					}
 					break;
 				default:
+					console.log("default AI");
 					break;
 			}
 			defence.dice.push(r);
@@ -506,6 +507,7 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Agent.prototype.damageHealth = function(damage){
+		console.log(damage);
 		this.health.damage += damage;
 		if(this.health.damage >= this.health.max){
 			this.state = state.DEAD;

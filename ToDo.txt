@@ -58,6 +58,7 @@ TO DO
 -	AI: Determine best player to attack
 -	AI: consider using a modified A* to get map distance between two objects to account for
 		walls and other items between agents
+-	AI: game sometimes locks down during AI movement. Need to isolate reason for problem and debug.
 
 
 -	ACTIVE AGENT DISPLAY: when adjusting screen size height can enter a loop where it
@@ -78,6 +79,8 @@ TO DO
 
 -	gh.getItemsAt: Need to include a width/height check for multicell items to correctly
 		determine if an item exists at a particular location.
+
+-	monsters with an inital y coordinate of 0 are being placed at a y coordinate of -1
 
 
 

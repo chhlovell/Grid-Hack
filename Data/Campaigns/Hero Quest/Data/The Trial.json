@@ -20,7 +20,21 @@
 				{"name" : "Goblin", "id" : "Goblin02", "position" : {"x" : 2,  "y" : 10}, "faction" : "Zargon"},
 				{"name" : "Goblin", "id" : "Goblin03", "position" : {"x" : 3,  "y" :  5}, "faction" : "Zargon"},
 				{"name" : "Goblin", "id" : "Goblin04", "position" : {"x" : 6,  "y" :  6}, "faction" : "Zargon"},
-				{"name" : "Goblin", "id" : "Goblin05", "position" : {"x" : 7,  "y" :  6}, "faction" : "Zargon"}
+				{"name" : "Goblin", "id" : "Goblin05", "position" : {"x" : 7,  "y" :  6}, "faction" : "Zargon"},
+
+				{"name" : "Skeleton", "id" : "Skeleton01", "position" : {"x" :  2, "y" :  1}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "id" : "Skeleton02", "position" : {"x" :  3, "y" :  1}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "id" : "Skeleton03", "position" : {"x" :  9, "y" :  0}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "id" : "Skeleton04", "position" : {"x" :  9, "y" :  2}, "faction" : "Zargon"},
+
+				{"name" : "Zombie", "id" : "Zombie01", "position" : {"x" :  6, "y" :  0}, "faction" : "Zargon"},
+				{"name" : "Zombie", "id" : "Zombie02", "position" : {"x" :  6, "y" :  2}, "faction" : "Zargon"},
+
+				{"name" : "Mummy", "id" : "Mummy01", "position" : {"x" :  6, "y" :  1}, "faction" : "Zargon"},
+
+				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 13, "y" : 10}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 14, "y" : 15}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 15, "y" : 14}, "faction" : "Zargon"}
 			]
 		}
 	],
@@ -40,39 +54,203 @@
 	"mapData"				:{
 		"map" : [
 			[
+				{},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left","top"]}},
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_002.bmp", "rotation" : 0},
-				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_003.bmp", "rotation" : 0},
-				{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left","top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left","top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left"]}},
+				{},
+
+				{},{},{},{}
 			],
 			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left", "top"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-
-				{},
-				{},
-				{},
-				{},
-
-				{},
 				{},
 				{},
 				{},
 
+				{"border" : {"door" : {"left" : {"open" : false}}}},
 				{},
 				{},
 				{},
 
-				{},{},{},{},{},{}
+				{"border" : {"door" : {"left" : {"open" : false}}}},
+				{},
+				{},
+
+				{"border" : {"wall" : ["left"]}},{},
+
+				{},{},{},{}
 			],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
-			[{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}],
 			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},
+
+				{},{},{},{}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left", "top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"door" : {"top" : {"open" : false}}}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left", "top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left"]}},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},
+
+				{},{},{},{}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},{},{},
+
+				{"border" : {"wall" : ["left"]}},{},{},
+
+				{"border" : {"wall" : ["left"]}},
+				{},
+
+				{},
+				{},
+				{},
+
+				{}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left", "top"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left", "top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+				{"border" : {"wall" : ["top"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+				
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"door" : {"top" : {"open" : false}}}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"door" : {"top" : {"open" : false}}}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png"},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+				{},
+				{},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"door" : {"left" : {"open" : false}}}},
+
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
+			],
+			[
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
 				
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_037.png", "rotation" : 0, "border" : {"wall" : ["top", "left"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_038.png", "rotation" : 0, "border" : {"wall" : ["top"]}},
@@ -85,14 +263,21 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}},
 
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-
 				{},
+				{},
+				{},
+				{},
+				{},
+				
+				{"img" : "corridoor_800.png", "visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
 
-				{},{},{},{},{},{},{}
+				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
 			[
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
 
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_041.png", "rotation" : 0, "border" : {"door" : {"left" : {"open" : false}}}},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_042.png", "rotation" : 0},
@@ -105,12 +290,21 @@
 				{},
 				{},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
 
-				{},{},{},{},{},{},{},{}
+				{"border" : {"wall" : ["left"]}},
+				{},
+				{},
+				{},
+				{},
+				{},
+
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+
+				{"border" : {"wall" : ["left"]}}
 			],
 			[
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
 
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_045.png", "rotation" : 0, "border" : {"wall" : ["left"]}},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_046.png", "rotation" : 0},
@@ -123,9 +317,18 @@
 				{},
 				{},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
 
-				{},{},{},{},{},{},{},{}
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+				{"img" : "corridoor_800.png", "border" : {"wall" : ["top"]}},
+
+				{"img" : "corridoor_800.png"},
+
+				{"border" : {"wall" : ["left"]}}
 			],
 			[
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_003.png", "border" : {"wall" : ["left"]}},
@@ -144,10 +347,15 @@
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_2.png", "rotation" : 0, "border" : {"door" : {"top" : {"open" : false}}}},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_3.png", "rotation" : 0, "border" : {"wall" : ["top"]}},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-				{},
+				{"img" : "corridoor_800.png", "visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"img" : "corridoor_800.png"},
 
-				{},{},{},{}
+				{"img" : "stone_tile_20_01.gif", "border" : {"wall" : ["left", "top"]}},
+				{"img" : "stone_tile_20_02.gif", "border" : {"wall" : ["top"]}},
+				{"img" : "stone_tile_20_03.gif", "border" : {"wall" : ["top"]}},
+				{"img" : "stone_tile_20_04.gif", "border" : {"wall" : ["top"]}},
+
+				{"border" : {"wall" : ["left"]}}
 			],
 			[
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_004.png", "border" : {"wall" : ["left"]}},
@@ -166,7 +374,15 @@
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_5.png", "rotation" : 0},
 				{"walkable" : true, "visible" : {"Empire" : false, "Zargon" : false}, "img" : "stone_tile_19_6.png", "rotation" : 0},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},{},{},{},{},{}
+				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_800.png", "border" : {"wall" : ["left"]}},
+				{"img" : "corridoor_800.png"},
+
+				{"img" : "stone_tile_20_05.gif", "border" : {"wall" : ["left"]}},
+				{"img" : "stone_tile_20_06.gif"},
+				{"img" : "stone_tile_20_07.gif"},
+				{"img" : "stone_tile_20_08.gif"},
+
+				{"border" : {"wall" : ["left"]}}
 			],
 			[
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "border" : {"wall" : ["left"]}},
@@ -188,10 +404,10 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 270, "border" : {"wall" : ["left"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
 
-				{"border" : {"door" : {"left" : {"open" : false}}}},
-				{},
-				{},
-				{},
+				{"img" : "stone_tile_20_09.gif", "border" : {"door" : {"left" : {"open" : false}}}},
+				{"img" : "stone_tile_20_10.gif"},
+				{"img" : "stone_tile_20_11.gif"},
+				{"img" : "stone_tile_20_12.gif"},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
@@ -215,10 +431,10 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "roation" : 270,"border" : {"wall" : ["left"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-				{"visible" : {"Empire" : false, "Zargon" : false}},
-				{"visible" : {"Empire" : false, "Zargon" : false}},
-				{"visible" : {"Empire" : false, "Zargon" : false}},
+				{"img" : "stone_tile_20_13.gif", "visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"img" : "stone_tile_20_14.gif", "visible" : {"Empire" : false, "Zargon" : false}},
+				{"img" : "stone_tile_20_15.gif", "visible" : {"Empire" : false, "Zargon" : false}},
+				{"img" : "stone_tile_20_16.gif", "visible" : {"Empire" : false, "Zargon" : false}},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
@@ -242,10 +458,10 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 270, "border" : {"wall" : ["left"]}},
 				{"visible" : {"Empire" : false, "Zargon" : false}, "img" : "corridoor_005.png", "rotation" : 90},
 
-				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
-				{},
-				{},
-				{},
+				{"img" : "stone_tile_20_17.gif", "visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}},
+				{"img" : "stone_tile_20_18.gif"},
+				{"img" : "stone_tile_20_19.gif"},
+				{"img" : "stone_tile_20_20.gif"},
 
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["left"]}}
 			],
@@ -295,6 +511,7 @@
 				{"visible" : {"Empire" : false, "Zargon" : false}, "border" : {"wall" : ["top"]}}
 			]
 		],
+
 		"triggers"	: [
 			{"type" : "entry", "pos" : {"x" : 1, "y": 13}},
 			{"type" : "entry", "pos" : {"x" : 2, "y": 13}},
@@ -306,6 +523,7 @@
 			{"type" : "exit", "pos" : {"x" : 1, "y": 14}},
 			{"type" : "exit", "pos" : {"x" : 2, "y": 14}}
 		],
+
 		"items" 	: [
 			{"type" : "Chest", 			"id" : "chest02", 		"pos" : {"x" : 10, "y" :  4}},
 			{"type" : "Chest", 			"id" : "chest01", 		"pos" : {"x" : 11, "y" :  6}},
@@ -313,7 +531,7 @@
 
 			{"type" : "Chair", 			"id" : "chair01", 		"pos" : {"x" : 10, "y" :  7}},
 
-			{"type" : "Desk", 			"id" : "desk01", 		"pos" : {"x" :  5, "y" : 14}, 	"rotation" : 90},
+			{"type" : "Desk", 			"id" : "desk01", 		"pos" : {"x" :  5, "y" : 14}, 	"rotation" : 270},
 
 			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" :  5, "y" : 12}},
 			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" : 15, "y" : 16}, 	"rotation" : 180},
@@ -323,7 +541,7 @@
 			{"type" : "Table", 			"id" : "table01", 		"pos" : {"x" : 11, "y" :  8}},
 			{"type" : "Table", 			"id" : "table02", 		"pos" : {"x" :  6, "y" :  4}},
 
-			{"type" : "Tome",			"id" : "tome01",		"pos" : {"x" :  1, "y" :  4}},
+			{"type" : "Tome",			"id" : "tome01",		"pos" : {"x" :  1, "y" :  4},	"rotation" : 90},
 
 			{"type" : "Fireplace",		"id" : "fireplace01",	"pos" : {"x" : 12, "y" :  6}},
 
