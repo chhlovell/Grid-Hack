@@ -131,7 +131,6 @@ var gh = (function(gh){
 		 */
 		hud.update = function(){
 			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
-
 			
 			// Update the Active Agent display
 			document.getElementById("aaName").innerHTML = agent.uniqueID;
@@ -149,14 +148,13 @@ var gh = (function(gh){
 
 			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
 			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
-			
+
 			// Draw the image of the current agent
 			context.save();
 
 			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
 
 			context.restore();
-		
 		}
 
 		/**
@@ -194,12 +192,24 @@ var gh = (function(gh){
 		 * @method onEndTurn
 		 */
 		hud.onEndTurn = function(){
+			// Clear the aad inventory
+			stdlib.dom.removeChildren(AAD_INVENTORY);
+
 			/**
 			 * Setup the next players turn
 			 */
 			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().state = "inactive";
 			gh.ptrActiveLevel.manager.setNextTurn();
 			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
+
+			// Load the current agent's inventory to the aad
+			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+			for(var it = 0; it < agent.inventory.length; it++){
+				var p = document.createElement("p");
+				p.innerHTML = agent.inventory[it].name;
+				p.className = "aaInventoryItem";
+				AAD_INVENTORY.appendChild(p);
+			}
 
 			/**
 			 * Hud maintenance re new turn

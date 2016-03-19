@@ -28,6 +28,18 @@ var stdlib = (function(stdlib){
 			}
 		};
 
+		/**
+		 * This method removes all the children of a specified node.
+		 * @method removeChildren
+		 * @param {} node
+		 */
+		dom.removeChildren = function(node){
+			console.log("removeChildren");
+			while(node.children.length > 0){
+				node.removeChild(node.children[0]);
+			}
+		};
+
 		return dom;
 	})(dom || {});
 
