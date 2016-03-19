@@ -43,6 +43,7 @@ var gh = (function(gh){
 		this.border 	= border || {};
 		this.agents 	= agents || [];
 		this.items 		= items || [];
+		this.effects	= [];
 		this.triggers	= triggers || [];
 		this.visible 	= visible || {};
 		this.spriteId	= spriteId || null;
@@ -157,6 +158,28 @@ var gh = (function(gh){
 	}
 
 	/**
+	 * @method drawEffects
+	 * @param {} context
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {} team
+	 */
+	Cell.prototype.drawEffects = function(context, tileSize, scale, offset, team){
+		if(!this.effects || this.effects.length === 0){
+			return;
+		}
+
+		if(this.visible && this.visible[team] === true){
+			context.save();
+
+			this.effects[this.effects.length-1].draw(context, this.x * tileSize * scale + offset.x, this.y * tileSize * scale + offset.y, tileSize * scale, tileSize * scale, 0);
+
+			context.restore();
+		}
+	}
+
+	/**
 	 * @method setMouseFocus
 	 * @param {integer} mouseX
 	 * @param {integer} mouseY
@@ -225,7 +248,10 @@ var gh = (function(gh){
 							if(attack !== null){
 								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
 
+								// If the target agent has been killed remove it from the game (board and its owner's roster)
+								// and add a corpse/blood splatter effect to the board.
 								if(obj.damageHealth(attack.damage) === "dead"){
+									this.effects.push(gh.assets.sprites["blood-splatter.gif"]);
 									this.removeAgent(obj);
 								}
 							}
@@ -246,7 +272,6 @@ var gh = (function(gh){
 					break;
 			};
 		}
-
 
 		if(obj instanceof gh.Door){
 			if(gh.getMapDist(activeAgent.x, activeAgent.y, this.x, this.y) <= 1){

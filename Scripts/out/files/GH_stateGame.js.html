@@ -137,10 +137,36 @@ var gh = (function(gh){
 		var dt;
 		var ptrFocus;
 
+		/**
+		 * This method loads the next agent&#x27;s turn.  This is done by first looking for
+		 * the next agent in the current players roster, or if the last agent has 
+		 * finished its turn, change to the next players turn with the fist agent in
+		 * that players roster being the next one to proceed.
+		 *
+		 * At this juncture it is also necessary to clear the active agent display
+		 * inventory list and load the new articles.
+		 *
+		 * @method endTurn
+		 */
 		function endTurn(){
+			// Clear the active agent display inventory list.
+			console.log(&quot;endTurn&quot;);
+			stdlib.dom.removeChildren(document.getElementById(&quot;aaInventory&quot;));
+
+			// Set the game to the next agent&#x27;s/player&#x27;s turn.
 			gh.ptrActiveLevel.manager.setNextTurn();
 			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
 			gh.board.centerOn(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
+
+			// Load the current agent&#x27;s inventory to the aad
+			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+			for(var it = 0; it &lt; agent.inventory.length; it++){
+				var p = document.createElement(&quot;p&quot;);
+				p.innerHTML = agent.inventory[it].name;
+				p.className = &quot;aaInventoryItem&quot;;
+				document.getElementById(&quot;aaInventory&quot;).appendChild(p);
+			}
+
 			if(gh.ptrActiveLevel.manager.getActivePlayer().AI){
 				timeStamp = Date.now();
 				dt = 0;

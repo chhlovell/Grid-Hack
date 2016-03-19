@@ -71,6 +71,7 @@ var gh = (function(gh){
 		var roster = [];
 		var jsonAgentTemplates = gh.json.getData("./Data/Campaigns/Hero Quest/Data/creatures.json");
 		var jsonWeaponTemplates = gh.json.getData("./Data/Campaigns/Hero Quest/Data/weapons.json");
+		var jsonArmourTemplates = gh.json.getData("./Data/Campaigns/Hero Quest/Data/armor.json");
 
 		var type = "Barbarian";
 		var agent = new gh.Agent(
@@ -87,7 +88,7 @@ var gh = (function(gh){
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
-			jsonAgentTemplates[type].head,
+			gh.json.getArmour(jsonAgentTemplates[type].head, jsonArmourTemplates),
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,

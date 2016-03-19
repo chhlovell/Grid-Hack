@@ -23,7 +23,7 @@ var gh = (function(gh){
 	 */
 	function Player(name, AI, roster){
 		this.name = name;
-		this.AI = AI || false;
+		this.AI = AI;
 		this.roster = roster || [];
 
 		// Update the roster such that the agents have knowlege of their 'owning' player

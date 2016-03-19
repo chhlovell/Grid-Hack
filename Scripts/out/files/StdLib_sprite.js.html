@@ -204,15 +204,18 @@ var graphics = (function(graphics){
 	/**
 	 * Description
 	 * @method draw
-	 * @param {} context
-	 * @param {} x
-	 * @param {} y
-	 * @param {} w
-	 * @param {} h
+	 * @param {Canvas.context} context
+	 * @param {float} x
+	 * @param {float} y
+	 * @param {float} w
+	 * @param {float} h
+	 * @parma {float} rotation The ammount an image should be rotated when drawn in degrees.
+	 * the function itself converts this to radians when the drawing to the canvas takes place.
 	 * @return 
 	 */
-	Sprite.prototype.draw = function(context, x, y, w, h){
-		context.save();
+	Sprite.prototype.draw = function(context, x, y, w, h, rotation){
+		var r = rotation || 0;
+		r = math.degToRadians(r);
 
 		var ratiow = w/this.img.width;
 		var ratioh = h/this.img.height;
@@ -223,16 +226,20 @@ var graphics = (function(graphics){
 		}
 
 		try{
-			//context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x, y, w, h);
 			var offx = (w - (this.img.width * ratio)) * .5;
 			var offy = (h - (this.img.height * ratio)) * .5;
-			//context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x + offx, y + offy, this.img.width * ratio, this.img.height * ratio);
-			context.drawImage(this.img, 0, 0, this.img.width, this.img.height, x + offx, y + offy, this.img.width * ratio, this.img.height * ratio);
+
+			context.save();
+
+			context.translate((x+offx) + (0.5 * this.img.width * ratio), (y + offy) + (0.5 * this.img.height * ratio));
+			context.rotate(r);
+			context.translate(-(0.5 * this.img.width * ratio), -(0.5 * this.img.height * ratio));
+			context.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, this.img.width * ratio, this.img.height * ratio);
+
+			context.restore();
 		} catch (e) {
 			console.log(e);
 		}
-
-		context.restore();
 	};
 
 	graphics.Sprite = Sprite;

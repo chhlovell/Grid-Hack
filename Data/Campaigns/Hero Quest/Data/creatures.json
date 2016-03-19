@@ -12,7 +12,7 @@
 		"mainHand" 					: "Longsword",
 		"offHand" 					: null,
 		"chest" 					: null,
-		"head" 						: null,
+		"head" 						: "Helmet",
 		"moveDice" 					: 2,
 		"spellList" 				: [],
 		"weaponsRestricted" 		: [],

@@ -162,8 +162,8 @@ var gh = (function(gh){
 	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellList, inventory, sprites, animations){
 		this.templateID 		= templateID;
 		this.uniqueID 			= uniqueID;
-		this.x 					= x || -1;
-		this.y 					= y || -1;
+		this.x 					= x;
+		this.y 					= y;
 		this.ptrOwner			= owner || null;
 		this.team				= team || &quot;&quot;;
 		this.description		= description || &quot;&quot;;
@@ -206,16 +206,16 @@ var gh = (function(gh){
 	 * @param {gh.Agent} An instnace of a newly created agent.
 	 */
 	function loadInventory(agent){
-		if(agent.mainHand !== null){
+		if(agent.offHand !== undefined &amp;&amp; agent.mainHand !== null &amp;&amp; agent.mainHand !== &quot;&quot;){
 			agent.inventory.push(agent.mainHand);
 		}
-		if(agent.offHand !== null){
+		if(agent.offHand !== undefined &amp;&amp; agent.offHand !== null &amp;&amp; agent.offHand !== &quot;&quot;){
 			agent.inventory.push(agent.offHand);
 		}
-		if(agent.chest !== null){
+		if(agent.offHand !== undefined &amp;&amp; agent.chest !== null &amp;&amp; agent.chest !== &quot;&quot;){
 			agent.inventory.push(agent.chest);
 		}
-		if(agent.head !== null){
+		if(agent.offHand !== undefined &amp;&amp; agent.head !== null &amp;&amp; agent.head !== &quot;&quot;){
 			agent.inventory.push(agent.head);
 		}
 
@@ -395,6 +395,16 @@ var gh = (function(gh){
 				break;
 		}
 
+		// Is there an obstructive object?
+		if(destination.items &amp;&amp; destination.items.length &gt; 0){
+			for(var it = 0; it &lt; destination.items.length; it++){
+				console.log(destination.items[it]);
+				if(destination.items[it].obstacle){
+					return false;
+				}
+			}
+		}
+
 		// Is there an obstructing hostile agent?
 		// Only check the top-most (last) agent in the agent queue for the destination cell.
 		if(destination.agents &amp;&amp; destination.agents.length &gt; 0	){
@@ -547,18 +557,19 @@ var gh = (function(gh){
 		for(var it = 0; it &lt; defenceDice; it++){
 			var r = gh.hqDice.roll();
 			switch(this.ptrOwner.AI){
-				case false:
+				case gh.AI.HUMAN:
 					if(r === &quot;whiteShield&quot;){
 						defence.sum++;
 					}
 					break;
-				case true:
+				case gh.AI.COMPUTER:
 					console.log(&quot;AI&quot;);
 					if(r === &quot;blackShield&quot;){
 						defence.sum++;
 					}
 					break;
 				default:
+					console.log(&quot;default AI&quot;);
 					break;
 			}
 			defence.dice.push(r);
@@ -613,6 +624,7 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Agent.prototype.damageHealth = function(damage){
+		console.log(damage);
 		this.health.damage += damage;
 		if(this.health.damage &gt;= this.health.max){
 			this.state = state.DEAD;

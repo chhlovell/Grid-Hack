@@ -36,6 +36,13 @@
             "fors": {},
             "namespaces": {}
         },
+        "GH\\armour.js": {
+            "name": "GH\\armour.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "GH\\assets.js": {
             "name": "GH\\assets.js",
             "modules": {},
@@ -650,6 +657,11 @@
                     "name": "ptrSprite",
                     "description": "The name of the floor sprite which should be drawn.",
                     "type": "graphics.Sprite"
+                },
+                {
+                    "name": "rotation",
+                    "description": "The degrees to which the image of the cell should be \nrotated when drawn. For the purposes of use within a grid system this should be\nlimited to a factor of 90 degrees.",
+                    "type": "Float"
                 }
             ],
             "return": {
@@ -729,7 +741,74 @@
             "module": "gh",
             "namespace": "",
             "file": "GH\\item.js",
-            "line": 11
+            "line": 11,
+            "description": "Items are cosmetic features on a board which a player might potentially interract with.\nItems are 2 dimensional constructs with a width and height, with the x,y coordinate indicating\nthe upper left coordinate of the item on the board.  Each board cell has an item queue,\neach element of which is a pointer to the Item object.  Thus multiple cells may point to a\nsingle Item.\n\nIt is expected in future to add a 'mask' parameter which indicates which parts of the 2\ndimensional space are actually taken up by the item.  This will allow for irregularly shaped\nitems in design.",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The descriptive name of this item.",
+                    "type": "String"
+                },
+                {
+                    "name": "uniqueID",
+                    "description": "The unique identifier of this Item.",
+                    "type": "String"
+                },
+                {
+                    "name": "templateRef",
+                    "description": "The reference string of the Item in the Item template file.",
+                    "type": "String"
+                },
+                {
+                    "name": "description",
+                    "description": "A description of the item.",
+                    "type": "String"
+                },
+                {
+                    "name": "spriteID",
+                    "description": "The identifier of the items display sprite in the sprite data set.",
+                    "type": "String"
+                },
+                {
+                    "name": "x",
+                    "description": "The x coordinate of the upper left corner of the Item on the board.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The y coordinate of the upper left corner of the Item on the board.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "width",
+                    "description": "The width of the item (cells) on the board.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "height",
+                    "description": "The height of the item (cells) on the board.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "rotation",
+                    "description": "The rotation of the object in degrees.",
+                    "type": "Integer"
+                },
+                {
+                    "name": "obstacle",
+                    "description": "Identifies whether or not the item is an obstacle for the purposes of agent movement.",
+                    "type": "Bool"
+                },
+                {
+                    "name": "usable",
+                    "description": "Identifies whether or not an agent can interract with the item.",
+                    "type": "Bool"
+                },
+                {
+                    "name": "mask",
+                    "description": ""
+                }
+            ]
         },
         "json": {
             "name": "json",
@@ -1424,7 +1503,7 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 162,
+            "line": 160,
             "description": "Handle any graphical updates to the hud which require drawing.",
             "itemtype": "method",
             "name": "render",
@@ -1433,7 +1512,7 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 182,
+            "line": 180,
             "itemtype": "method",
             "name": "setupInput",
             "class": "gh",
@@ -1441,7 +1520,7 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 193,
+            "line": 191,
             "itemtype": "method",
             "name": "onEndTurn",
             "class": "gh",
@@ -1449,28 +1528,28 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 197,
+            "line": 198,
             "description": "Setup the next players turn",
             "class": "gh",
             "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 204,
+            "line": 214,
             "description": "Hud maintenance re new turn",
             "class": "gh",
             "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 209,
+            "line": 219,
             "description": "Center board view onto new agent",
             "class": "gh",
             "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 215,
+            "line": 225,
             "itemtype": "method",
             "name": "onActionStateButton",
             "class": "gh",
@@ -1478,21 +1557,21 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 219,
+            "line": 229,
             "description": "Handle the cosmetic changs of the actions state buttons",
             "class": "gh",
             "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 230,
+            "line": 240,
             "description": "Update the current player/agents action state",
             "class": "gh",
             "module": "gh"
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 253,
+            "line": 263,
             "itemtype": "method",
             "name": "clearActionStateButtons",
             "class": "gh",
@@ -1500,7 +1579,7 @@
         },
         {
             "file": "GH\\Interface\\hud.js",
-            "line": 264,
+            "line": 274,
             "itemtype": "method",
             "name": "displayAttack",
             "params": [
@@ -1643,7 +1722,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 292,
+            "line": 302,
             "itemtype": "method",
             "name": "move",
             "params": [
@@ -1663,7 +1742,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 345,
+            "line": 355,
             "itemtype": "method",
             "name": "draw",
             "params": [
@@ -1696,7 +1775,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 364,
+            "line": 374,
             "itemtype": "method",
             "name": "isClicked",
             "params": [
@@ -1728,7 +1807,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 378,
+            "line": 388,
             "description": "Determines whether or not the target is hostile to the agent",
             "itemtype": "method",
             "name": "isHostile",
@@ -1748,7 +1827,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 395,
+            "line": 405,
             "itemtype": "method",
             "name": "getDefenceDice",
             "return": {
@@ -1759,7 +1838,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 419,
+            "line": 429,
             "description": "A human agent successfully defends on a 1 or 2.\nA computer agent successfully defends on a 1.",
             "itemtype": "method",
             "name": "getDefence",
@@ -1768,7 +1847,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 452,
+            "line": 463,
             "itemtype": "method",
             "name": "canAttack",
             "params": [
@@ -1786,7 +1865,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 470,
+            "line": 481,
             "itemtype": "method",
             "name": "attack",
             "params": [
@@ -1804,7 +1883,7 @@
         },
         {
             "file": "GH\\agent.js",
-            "line": 493,
+            "line": 504,
             "itemtype": "method",
             "name": "damageHealth",
             "params": [
@@ -1880,7 +1959,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 52,
+            "line": 56,
             "itemtype": "method",
             "name": "drawFloor",
             "params": [
@@ -1917,7 +1996,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 82,
+            "line": 87,
             "itemtype": "method",
             "name": "drawBorder",
             "params": [
@@ -1951,7 +2030,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 107,
+            "line": 112,
             "itemtype": "method",
             "name": "drawAgents",
             "class": "Cell",
@@ -1959,7 +2038,39 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 130,
+            "line": 135,
+            "itemtype": "method",
+            "name": "drawItems",
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "tileSize",
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "scale",
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "offset",
+                    "description": ""
+                },
+                {
+                    "name": "team",
+                    "description": ""
+                }
+            ],
+            "class": "Cell",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\cell.js",
+            "line": 159,
             "itemtype": "method",
             "name": "setMouseFocus",
             "params": [
@@ -2000,7 +2111,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 168,
+            "line": 197,
             "itemtype": "method",
             "name": "removeAgent",
             "params": [
@@ -2015,7 +2126,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 182,
+            "line": 211,
             "itemtype": "method",
             "name": "onClick",
             "class": "Cell",
@@ -2023,7 +2134,7 @@
         },
         {
             "file": "GH\\cell.js",
-            "line": 242,
+            "line": 271,
             "itemtype": "method",
             "name": "getClicked",
             "params": [
@@ -2264,7 +2375,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 190,
+            "line": 191,
             "description": "Initialize the games display.  This includes creating canvas objects for both the hud and the\ngame board.",
             "itemtype": "method",
             "name": "setupDisplay",
@@ -2293,7 +2404,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 216,
+            "line": 217,
             "description": "Setup the mouse and keyboard input for processing.",
             "itemtype": "method",
             "name": "setupInput",
@@ -2305,7 +2416,7 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 233,
+            "line": 234,
             "itemtype": "method",
             "name": "buildImageData",
             "class": "gh",
@@ -2313,13 +2424,58 @@
         },
         {
             "file": "GH\\gh.js",
-            "line": 248,
+            "line": 249,
             "itemtype": "method",
             "name": "start",
             "return": {
                 "description": ""
             },
             "class": "gh",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\item.js",
+            "line": 52,
+            "description": "Draw the item to the given canvas.  Rotation is allowed for, rotaton not around the\ncenter of an image, preserves the upper left corner of the item on the map.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Canvas.context"
+                }
+            ],
+            "class": "Item",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\item.js",
+            "line": 102,
+            "description": "This method returns a list of items in a item list that are located at a\nparticular (x,y) position on the board.",
+            "itemtype": "method",
+            "name": "getItemsAt",
+            "params": [
+                {
+                    "name": "items",
+                    "description": "",
+                    "type": "[gh.Item]"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Item",
             "module": "gh"
         },
         {
@@ -2346,7 +2502,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 51,
+            "line": 53,
             "itemtype": "method",
             "name": "getData",
             "params": [
@@ -2364,7 +2520,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 63,
+            "line": 65,
             "itemtype": "method",
             "name": "loadLevel",
             "params": [
@@ -2380,7 +2536,23 @@
                 },
                 {
                     "name": "jsonAgentTemplates",
-                    "description": ""
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonWeaponTemplates",
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonItemTemplates",
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonArmourTemplates",
+                    "description": "",
+                    "type": "JSON"
                 }
             ],
             "class": "json",
@@ -2388,7 +2560,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 89,
+            "line": 94,
             "itemtype": "method",
             "name": "getHeroes",
             "params": [
@@ -2406,18 +2578,29 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 104,
+            "line": 109,
             "itemtype": "method",
             "name": "getPlayers",
             "params": [
                 {
                     "name": "jsonPlayers",
                     "description": "",
-                    "type": "[Player]"
+                    "type": "[gh.Player]"
                 },
                 {
                     "name": "jsonAgentTemplates",
-                    "description": ""
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonWeaponTemplates",
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonArmourTemplates",
+                    "description": "",
+                    "type": "JSON"
                 }
             ],
             "return": {
@@ -2428,7 +2611,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 134,
+            "line": 141,
             "itemtype": "method",
             "name": "getWeapon",
             "params": [
@@ -2439,7 +2622,8 @@
                 },
                 {
                     "name": "jsonWeaponTemplates",
-                    "description": ""
+                    "description": "",
+                    "type": "JSON"
                 }
             ],
             "class": "json",
@@ -2447,18 +2631,32 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 155,
+            "line": 162,
+            "itemtype": "method",
+            "name": "getArmour",
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 179,
             "itemtype": "method",
             "name": "getRoster",
             "params": [
                 {
                     "name": "jsonRoster",
                     "description": "",
-                    "type": "[Agent]"
+                    "type": "[gh.Agent]"
                 },
                 {
                     "name": "jsonAgentTemplates",
-                    "description": ""
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "jsonWeaponTemplates",
+                    "description": "",
+                    "type": "JSON"
                 }
             ],
             "return": {
@@ -2469,9 +2667,22 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 202,
+            "line": 235,
+            "description": "This method builds the digital map data for a particular campaign level.\nThe map data consists of a board, which is a 2d array of cells.  The cells\ncontain all the relevant information about its content, including pointers to\nitems, agents and trigger objects located on any particular cell.",
             "itemtype": "method",
             "name": "getMapData",
+            "params": [
+                {
+                    "name": "jsonMapData",
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "players",
+                    "description": "",
+                    "type": "[gh.Player]"
+                }
+            ],
             "return": {
                 "description": ""
             },
@@ -2480,7 +2691,33 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 260,
+            "line": 288,
+            "description": "This method parses through a list of player's rosters and returns a list of all those\nagents determined to be at a given (x,y) location on the board.",
+            "itemtype": "method",
+            "name": "getAgentsAt",
+            "params": [
+                {
+                    "name": "players",
+                    "description": "",
+                    "type": "[gh.Player]"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ],
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 310,
             "itemtype": "method",
             "name": "getTriggers",
             "params": [
@@ -2495,7 +2732,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 282,
+            "line": 332,
             "itemtype": "method",
             "name": "findTrigger",
             "params": [
@@ -2518,7 +2755,26 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 300,
+            "line": 350,
+            "description": "Given a list of JSON items create a list of items for the mapData data structure.",
+            "itemtype": "method",
+            "name": "getItems",
+            "params": [
+                {
+                    "name": "items",
+                    "description": "",
+                    "type": "JSON"
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 383,
             "itemtype": "method",
             "name": "getBorder",
             "params": [
@@ -2542,7 +2798,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 336,
+            "line": 419,
             "itemtype": "method",
             "name": "fillBorders",
             "params": [
@@ -2556,7 +2812,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 359,
+            "line": 442,
             "itemtype": "method",
             "name": "loadAssets",
             "params": [
@@ -2583,7 +2839,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 379,
+            "line": 465,
             "itemtype": "method",
             "name": "getMapSpriteList",
             "params": [
@@ -2610,7 +2866,7 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 400,
+            "line": 486,
             "itemtype": "method",
             "name": "getBorderSprites",
             "params": [
@@ -2638,9 +2894,35 @@
         },
         {
             "file": "GH\\json.js",
-            "line": 416,
+            "line": 502,
             "itemtype": "method",
             "name": "getAgentSprites",
+            "class": "json",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\json.js",
+            "line": 528,
+            "description": "This method loads the item sprites into the gh.assets.sprites list.",
+            "itemtype": "method",
+            "name": "getItemSprites",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "jsonItemTemplates",
+                    "description": "",
+                    "type": "JSON"
+                },
+                {
+                    "name": "sprites",
+                    "description": "",
+                    "type": "gh.assets.sprites"
+                }
+            ],
             "class": "json",
             "module": "gh"
         },
@@ -2866,7 +3148,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 85,
+            "line": 90,
             "itemtype": "method",
             "name": "drawAgents",
             "params": [
@@ -2883,7 +3165,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 99,
+            "line": 104,
             "itemtype": "method",
             "name": "drawTriggers",
             "params": [
@@ -2900,7 +3182,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 110,
+            "line": 115,
             "description": "Set the map visibility for all cells to the given visibility for all factions.",
             "itemtype": "method",
             "name": "clearVisibility",
@@ -2919,7 +3201,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 127,
+            "line": 132,
             "itemtype": "method",
             "name": "updateAgentVisibility",
             "params": [
@@ -2934,7 +3216,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 150,
+            "line": 155,
             "itemtype": "method",
             "name": "setRayVisibility",
             "params": [
@@ -2961,7 +3243,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 197,
+            "line": 202,
             "itemtype": "method",
             "name": "getLine",
             "params": [
@@ -2994,7 +3276,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 268,
+            "line": 271,
             "description": "This method is depreciated albeit it may be of some future use.\nThis method returns the cells adjacent to a point on the map, or if given\nan agent, those adjacent cells which an agen can move into (not accounting for\nhow much remaining movement an agent currently has).",
             "itemtype": "method",
             "name": "getAdjacentCells",
@@ -3003,7 +3285,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 318,
+            "line": 321,
             "description": "A* algorithm as sourced from http://web.mit.edu/eranki/www/tutorials/search/, albeit\nmodified slighly to suit the needs of this application.\nNot necessarily optimized and differs from a prior implementation of mine.\nEg. building a path list once the destination has been reached is a minor weakness\nin optimality as the application is intersted in the 'first' move, not the last.\n\n\t\tinitialize the open list\n\t\tinitialize the closed list\n\t\tput the starting node on the open list (you can leave its f at zero)\n\n\t\twhile the open list is not empty\n\t\t    find the node with the least f on the open list, call it \"q\"\n\t\t    pop q off the open list\n\t\t    generate q's 8 successors and set their parents to q\n\t\t    for each successor\n\t\t    \tif successor is the goal, stop the search\n\t\t        successor.g = q.g + distance between successor and q\n\t\t        successor.h = distance from goal to successor\n\t\t        successor.f = successor.g + successor.h\n\n\t\t        if a node with the same position as successor is in the OPEN list \\\n\t\t            which has a lower f than successor, skip this successor\n\t\t        if a node with the same position as successor is in the CLOSED list \\ \n\t\t            which has a lower f than successor, skip this successor\n\t\t        otherwise, add the node to the open list\n\t\t    end\n\t\t    push q on the closed list\n\t\tend",
             "itemtype": "method",
             "name": "aStar",
@@ -3022,7 +3304,7 @@
         },
         {
             "file": "GH\\map.js",
-            "line": 392,
+            "line": 395,
             "itemtype": "method",
             "name": "canMove",
             "params": [
@@ -3090,7 +3372,16 @@
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 33,
+            "line": 23,
+            "description": "This method loads the next agent's turn.  This is done by first looking for\nthe next agent in the current players roster, or if the last agent has \nfinished its turn, change to the next players turn with the fist agent in\nthat players roster being the next one to proceed.\n\nAt this juncture it is also necessary to clear the active agent display\ninventory list and load the new articles.",
+            "itemtype": "method",
+            "name": "endTurn",
+            "class": "stateGame",
+            "module": "gh"
+        },
+        {
+            "file": "GH\\stateGame.js",
+            "line": 59,
             "itemtype": "method",
             "name": "update",
             "class": "stateGame",
@@ -3098,35 +3389,35 @@
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 47,
+            "line": 73,
             "description": "The AI\n\nMOVE THIS TO EITHER AGENT OR AN INDEPENDENT CLASS/OBJECT STRUCTURE\n\nAttack the target if in range\nDetermine the most suitable target\nMove to within range of target",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 96,
+            "line": 122,
             "description": "handle agent input",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 101,
+            "line": 127,
             "description": "Spacebar to center on active agent",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 109,
+            "line": 135,
             "description": "Handle agent movement",
             "class": "stateGame",
             "module": "gh"
         },
         {
             "file": "GH\\stateGame.js",
-            "line": 188,
+            "line": 214,
             "itemtype": "method",
             "name": "render",
             "class": "stateGame",
@@ -3366,6 +3657,21 @@
             "module": "stdlib"
         },
         {
+            "file": "StdLib\\dom.js",
+            "line": 31,
+            "description": "This method removes all the children of a specified node.",
+            "itemtype": "method",
+            "name": "removeChildren",
+            "params": [
+                {
+                    "name": "node",
+                    "description": ""
+                }
+            ],
+            "class": "dom",
+            "module": "stdlib"
+        },
+        {
             "file": "StdLib\\keyboard.js",
             "line": 18,
             "description": "global constants",
@@ -3548,23 +3854,33 @@
             "params": [
                 {
                     "name": "context",
-                    "description": ""
+                    "description": "",
+                    "type": "Canvas.context"
                 },
                 {
                     "name": "x",
-                    "description": ""
+                    "description": "",
+                    "type": "Float"
                 },
                 {
                     "name": "y",
-                    "description": ""
+                    "description": "",
+                    "type": "Float"
                 },
                 {
                     "name": "w",
-                    "description": ""
+                    "description": "",
+                    "type": "Float"
                 },
                 {
                     "name": "h",
-                    "description": ""
+                    "description": "",
+                    "type": "Float"
+                },
+                {
+                    "name": "rotation",
+                    "description": "The ammount an image should be rotated when drawn in degrees.\nthe function itself converts this to radians when the drawing to the canvas takes place.",
+                    "type": "Float"
                 }
             ],
             "return": {
@@ -3621,11 +3937,15 @@
         },
         {
             "message": "param name missing: {Canvas.context}",
-            "line": " GH\\agent.js:345"
+            "line": " GH\\agent.js:355"
         },
         {
             "message": "replacing incorrect tag: parma with param",
-            "line": " GH\\map.js:127"
+            "line": " GH\\json.js:528"
+        },
+        {
+            "message": "replacing incorrect tag: parma with param",
+            "line": " GH\\map.js:132"
         },
         {
             "message": "param name missing: {[Agent]}",
@@ -3638,6 +3958,10 @@
         {
             "message": "replacing incorrect tag: depreciated with deprecated",
             "line": " StdLib\\animation.js:13"
+        },
+        {
+            "message": "replacing incorrect tag: parma with param",
+            "line": " StdLib\\sprite.js:87"
         },
         {
             "message": "Missing item type\nPrivate globals",
@@ -3669,23 +3993,23 @@
         },
         {
             "message": "Missing item type\nSetup the next players turn",
-            "line": " GH\\Interface\\hud.js:197"
+            "line": " GH\\Interface\\hud.js:198"
         },
         {
             "message": "Missing item type\nHud maintenance re new turn",
-            "line": " GH\\Interface\\hud.js:204"
+            "line": " GH\\Interface\\hud.js:214"
         },
         {
             "message": "Missing item type\nCenter board view onto new agent",
-            "line": " GH\\Interface\\hud.js:209"
-        },
-        {
-            "message": "Missing item type\nHandle the cosmetic changs of the actions state buttons",
             "line": " GH\\Interface\\hud.js:219"
         },
         {
+            "message": "Missing item type\nHandle the cosmetic changs of the actions state buttons",
+            "line": " GH\\Interface\\hud.js:229"
+        },
+        {
             "message": "Missing item type\nUpdate the current player/agents action state",
-            "line": " GH\\Interface\\hud.js:230"
+            "line": " GH\\Interface\\hud.js:240"
         },
         {
             "message": "Missing item type",
@@ -3709,19 +4033,19 @@
         },
         {
             "message": "Missing item type\nThe AI\n\nMOVE THIS TO EITHER AGENT OR AN INDEPENDENT CLASS/OBJECT STRUCTURE\n\nAttack the target if in range\nDetermine the most suitable target\nMove to within range of target",
-            "line": " GH\\stateGame.js:47"
+            "line": " GH\\stateGame.js:73"
         },
         {
             "message": "Missing item type\nhandle agent input",
-            "line": " GH\\stateGame.js:96"
+            "line": " GH\\stateGame.js:122"
         },
         {
             "message": "Missing item type\nSpacebar to center on active agent",
-            "line": " GH\\stateGame.js:101"
+            "line": " GH\\stateGame.js:127"
         },
         {
             "message": "Missing item type\nHandle agent movement",
-            "line": " GH\\stateGame.js:109"
+            "line": " GH\\stateGame.js:135"
         },
         {
             "message": "Missing item type\nProceed to stateGame.\nInitialize the game hud and stateGame objects.",

@@ -149,9 +149,12 @@ var gh = (function(gh){
 	 * @param {[Item]} items A list of items on the cell.
 	 * @param {[Trigger]} triggers A list of triggers on the cell.
 	 * @param {graphics.Sprite} ptrSprite The name of the floor sprite which should be drawn.
+	 * @param {float} rotation The degrees to which the image of the cell should be 
+	 * rotated when drawn. For the purposes of use within a grid system this should be
+	 * limited to a factor of 90 degrees.
 	 * @return
 	 */
-	function Cell(x, y, border, agents, items, triggers, visible, spriteId){
+	function Cell(x, y, border, agents, items, triggers, visible, spriteId, rotation){
 		this.x 			= x || null;
 		this.y 			= y || null;
 		this.border 	= border || {};
@@ -160,6 +163,7 @@ var gh = (function(gh){
 		this.triggers	= triggers || [];
 		this.visible 	= visible || {};
 		this.spriteId	= spriteId || null;
+		this.rotation	= rotation || 0;
 
 		this.focus 		= false; // Is the mouse over the cell.
 
@@ -186,7 +190,8 @@ var gh = (function(gh){
 					this.x * tileSize * scale + offset.x,
 					this.y * tileSize * scale + offset.y,
 					tileSize * scale,
-					tileSize * scale
+					tileSize * scale,
+					this.rotation
 				);
 			}
 
@@ -243,6 +248,30 @@ var gh = (function(gh){
 				context.restore();
 		}
 	};
+
+	/**
+	 * @method drawItems
+	 * @param {} context
+	 * @param {float} tileSize
+	 * @param {float} scale
+	 * @param {} offset
+	 * @param {} team
+	 */
+	Cell.prototype.drawItems = function(context, tileSize, scale, offset, team){
+		if(!this.items || (this.items.length === 0)){
+			return;
+		}
+
+		if(this.visible &amp;&amp; this.visible[team] === true){
+			context.save();
+
+			this.items[this.items.length-1].draw(context, tileSize, scale, offset, team);
+
+			context.restore();
+		}
+
+		return true;
+	}
 
 	/**
 	 * @method setMouseFocus

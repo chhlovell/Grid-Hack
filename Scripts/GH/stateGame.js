@@ -109,7 +109,13 @@ var gh = (function(gh){
 						// Display the attack splash screen
 						if(atk !== null){
 							gh.hud.displayAttack(activeAgent.mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
+
+							// If the target has died remove it from the game.
+							// Add a death blood/corpse splatter effect to the board.
+							// Drop any loot.
 							if(target.damageHealth(atk.damage) === "dead"){
+								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].effects.push(gh.assets.sprites["blood-splatter.gif"]);
+								console.log(gh.ptrActiveLevel.mapData.map.board[target.y][target.x]);
 								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].removeAgent(target);
 							}
 						}

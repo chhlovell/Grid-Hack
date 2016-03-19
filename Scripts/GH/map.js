@@ -87,6 +87,14 @@ var gh = (function(gh){
 		return true;
 	};
 
+	Map.prototype.drawEffects = function(context, tileSize, scale, offset, team){
+		for(var y = 0; y < this.board.length; y++){
+			for(var x = 0; x < this.board[y].length; x++){
+				this.board[y][x].drawEffects(context, tileSize, scale, offset, team);
+			}
+		}
+	}
+
 	/**
 	 * @method drawAgents
 	 * @param {} context

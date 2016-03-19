@@ -148,11 +148,13 @@ var gh = (function(gh){
 			var jsonData = json.getData(path);
 			var jsonAgentTemplates = json.getData(PATH + name + &quot;/Data/creatures.json&quot;);
 			var jsonWeaponTemplates = json.getData(PATH + name + &quot;/Data/weapons.json&quot;);
+			var jsonItemTemplates = json.getData(PATH + name + &quot;/Data/items.json&quot;);
+			var jsonArmourTemplates = json.getData(PATH + name + &quot;/Data/armor.json&quot;);
 
 			var levels = [];
 			for(var it = 0; it &lt; jsonData.levels.length; it++){
 				if(jsonData.levels[it]){
-					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates));
+					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates));
 				}
 			}
 
@@ -181,14 +183,17 @@ var gh = (function(gh){
 		 * @method loadLevel
 		 * @param {string} campaignName
 		 * @param {string} levelName
-		 * @param {} jsonAgentTemplates
+		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
+		 * @param {JSON} jsonItemTemplates
+		 * @param {JSON} jsonArmourTemplates
 		 */
-		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates){
+		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates){
 			var path = PATH + campaignName + &quot;/Data/&quot; + levelName + &quot;.json&quot;;
 			var jsonData = getAJAX(path);
 			jsonData = JSON.parse(jsonData);
 
-			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates);
+			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates);
 
 			var level = new gh.Level(
 				jsonData.name,
@@ -197,7 +202,7 @@ var gh = (function(gh){
 				json.getAvailableHeroes(jsonData.availableHeroes), // availableHeroes
 				players, // players
 				jsonData.teams, // teams
-				json.getMapData(jsonData.mapData, players)  // mapData
+				json.getMapData(jsonData.mapData, players, jsonItemTemplates)  // mapData
 			);
 			
 			return level;
@@ -220,11 +225,13 @@ var gh = (function(gh){
 
 		/**
 		 * @method getPlayers
-		 * @param {[Player]} jsonPlayers
-		 * @param {} jsonAgentTemplates
+		 * @param {[gh.Player]} jsonPlayers
+		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
+		 * @param {JSON} jsonArmourTemplates
 		 * @return
 		 */
-		json.getPlayers = function(jsonPlayers, jsonAgentTemplates, jsonWeaponTemplates){
+		json.getPlayers = function(jsonPlayers, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates){
 			var players = [];
 			var AI;
 
@@ -239,7 +246,7 @@ var gh = (function(gh){
 						new gh.Player(
 							jsonPlayers[it].name,
 							AI,
-							json.getRoster(jsonPlayers[it].roster, jsonAgentTemplates, jsonWeaponTemplates)
+							json.getRoster(jsonPlayers[it].roster, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates)
 						)
 					);
 				}
@@ -251,7 +258,7 @@ var gh = (function(gh){
 		/**
 		 * @method getWeapon
 		 * @param {string} resRef
-		 * @param {} jsonWeaponTemplates
+		 * @param {JSON} jsonWeaponTemplates
 		 */
 		json.getWeapon = function(resRef, jsonWeaponTemplates){
 			var template = jsonWeaponTemplates[resRef];
@@ -270,12 +277,30 @@ var gh = (function(gh){
 		}
 
 		/**
+		 * @method getArmour
+		 */
+		json.getArmour = function(resRef, jsonArmourTemplates){
+			if(!resRef){
+				return null;
+			}
+
+			var template = jsonArmourTemplates[resRef];
+
+			return new gh.Armour(
+				template.name,
+				template.defence,
+				template.cost
+			);
+		};
+
+		/**
 		 * @method getRoster
-		 * @param {[Agent]} jsonRoster
-		 * @param {} jsonAgentTemplates
+		 * @param {[gh.Agent]} jsonRoster
+		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
 		 * @return
 		 */
-		json.getRoster = function(jsonRoster, jsonAgentTemplates, jsonWeaponTemplates){
+		json.getRoster = function(jsonRoster, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates){
 			var roster = [];
 
 			for(var it = 0; it &lt; jsonRoster.length; it++){
@@ -288,13 +313,21 @@ var gh = (function(gh){
 				}
 				var weapon = json.getWeapon(weaponResRef, jsonWeaponTemplates);
 
+				var resRef;
+				if(jsonRoster[it].head){
+					resRef = jsonRoster[it].head;
+				} else {
+					resRef = template.head;
+				}
+				var head = json.getArmour(resRef, jsonArmourTemplates);
+
 				roster.push(
 					new gh.Agent(
 						jsonRoster[it].name,
 						jsonRoster[it].id,
 						jsonRoster[it].position.x,
 						jsonRoster[it].position.y,
-						null,
+						null, // ptrOwner
 						jsonRoster[it].faction,
 						template.description,
 						template.body,
@@ -303,7 +336,7 @@ var gh = (function(gh){
 						weapon,
 						template.offHand,
 						template.chest,
-						template.head,
+						head,
 						template.moveDice,
 						template.baseMove,
 						template.spellList,
@@ -317,17 +350,26 @@ var gh = (function(gh){
 		};
 
 		/**
+		 * This method builds the digital map data for a particular campaign level.
+		 * The map data consists of a board, which is a 2d array of cells.  The cells
+		 * contain all the relevant information about its content, including pointers to
+		 * items, agents and trigger objects located on any particular cell.
 		 * @method getMapData
+		 * @param {JSON} jsonMapData
+		 * @param {[gh.Player]} players
 		 * @return
 		 */
-		json.getMapData = function(jsonMapData, players){
+		json.getMapData = function(jsonMapData, players, jsonItemTemplates){
 			var mapData 		= {};
 			var board 			= [];
 			var map 			= jsonMapData.map;
 			var triggers 		= jsonMapData.triggers;
-			var object 			= jsonMapData.objects;
+			var items 			= jsonMapData.items;
 
 			mapData.triggers	= json.getTriggers(triggers);
+			mapData.items		= json.getItems(items, jsonItemTemplates);
+
+			console.log(mapData.items);
 
 			// Get the raw cell data
 			if(map !== undefined){
@@ -339,10 +381,11 @@ var gh = (function(gh){
 							x, y,
 							json.getBorder(x, y, map[y][x]),
 							json.getAgentsAt(players, x, y), // agents
-							undefined, // items
+							gh.getItemsAt(mapData.items, x, y), // items
 							json.findTriggers(x, y, mapData.triggers), // triggers
 							map[y][x].visible, // visibility
-							map[y][x].img  // spriteId
+							map[y][x].img,  // spriteId
+							map[y][x].rotation
 						);
 						board[y].push(cell);
 					}
@@ -353,13 +396,20 @@ var gh = (function(gh){
 
 			mapData.map = new gh.Map(board);
 
-			// Add agent data
 			// Add item data
 			// Add trigger data
 
 			return mapData;
 		};
 
+		/**
+		 * This method parses through a list of player&#x27;s rosters and returns a list of all those
+		 * agents determined to be at a given (x,y) location on the board. 
+		 * @method getAgentsAt
+		 * @param {[gh.Player]} players
+		 * @param {integer} x
+		 * @param {integer} y
+		 */
 		json.getAgentsAt = function(players, x, y){
 			var agents = [];
 
@@ -412,6 +462,39 @@ var gh = (function(gh){
 			}
 
 			return trig;
+		};
+
+		/**
+		 * Given a list of JSON items create a list of items for the mapData data structure.
+		 * @method getItems
+		 * @param {JSON} items
+		 * @return
+		 */
+		json.getItems = function(items, jsonItemTemplates){
+			if(!items){
+				return [];
+			}
+			var itemList = [];
+			for(var it = 0; it &lt; items.length; it++){
+				var ptrItem = jsonItemTemplates[items[it].type];
+				itemList.push(new gh.Item(
+					ptrItem.name,
+					items[it].id,
+					items[it].type,
+					ptrItem.description,
+					ptrItem.sprite,
+					items[it].pos.x,
+					items[it].pos.y,
+					ptrItem.width,
+					ptrItem.height,
+					items[it].rotation,
+					ptrItem.obstacle,
+					ptrItem.usable
+					)
+				);
+			}
+
+			return itemList;
 		};
 
 		/**
@@ -485,10 +568,13 @@ var gh = (function(gh){
 			var data = json.getData(path);
 			var map = data.mapData.map;
 			var agents = json.getData(PATH + campaignName + &quot;/Data/creatures.json&quot;);
+			var items = json.getData(PATH + campaignName + &quot;/Data/items.json&quot;);
 
 			json.getMapSpriteList(PATH + campaignName + &quot;/Graphics/&quot;, map, gh.assets.sprites);
 			json.getBorderSprites(PATH + campaignName + &quot;/Graphics/Border/&quot;, data.stdGraphics, gh.assets.sprites);
 			json.getAgentSprites(PATH + campaignName + &quot;/Graphics/Creatures/&quot;, agents, gh.assets.sprites);
+			json.getItemSprites(PATH + campaignName + &quot;/Graphics/Items/&quot;, items, gh.assets.sprites);
+			json.getEffectSprites(&quot;./Data/Graphics/Effects/&quot;, gh.assets.sprites);
 
 			return true;
 		};
@@ -554,6 +640,25 @@ var gh = (function(gh){
 				}
 			}
 			return true;
+		}
+
+		/**
+		 * This method loads the item sprites into the gh.assets.sprites list.
+		 * @method getItemSprites
+		 * @parma {string} path
+		 * @param {JSON} jsonItemTemplates
+		 * @param {gh.assets.sprites} sprites
+		 */
+		json.getItemSprites = function(path, jsonItemTemplates, sprites){
+			for(var key in jsonItemTemplates){
+				if(jsonItemTemplates[key].sprite){
+					sprites[jsonItemTemplates[key].sprite] = new graphics.Sprite(path + jsonItemTemplates[key].sprite);
+				}
+			}
+		};
+
+		json.getEffectSprites = function(path, sprites){
+			sprites[&quot;blood-splatter.gif&quot;] = new graphics.Sprite(path + &quot;blood-splatter.gif&quot;);
 		}
 
 		return json;

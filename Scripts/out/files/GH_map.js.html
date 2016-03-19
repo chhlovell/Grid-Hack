@@ -195,7 +195,12 @@ var gh = (function(gh){
 	 * @param {} context
 	 * @return 
 	 */
-	Map.prototype.drawItems = function(context){
+	Map.prototype.drawItems = function(context, tileSize, scale, offset, team){
+		for(var y = 0; y &lt; this.board.length; y++){
+			for(var x = 0; x &lt; this.board[y].length; x++){
+				this.board[y][x].drawItems(context, tileSize, scale, offset, team);
+			}
+		}
 		return true;
 	};
 
@@ -320,8 +325,6 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Map.prototype.getLine = function(x0, y0, x1, y1){
-		console.log(&quot;getLine&quot;);
-
 		var dy 			= y1-y0;						// change in y
 		var dx 			= x1-x0;						// change in x
 		var m 			= dy/dx;						// slope
@@ -520,6 +523,7 @@ var gh = (function(gh){
 		if(d === &quot;down&quot;){ d = &quot;bottom&quot;; }
 
 		// Does a border block the direction of movement?
+		console.log(from);
 		var c = map[from.y][from.x];
 		if(!c){ 
 			return false; 
@@ -562,6 +566,15 @@ var gh = (function(gh){
 		// Are we within the map boundary?
 		if(!destination){
 			return false;
+		}
+
+		// Is there an item blocking movement in the destination cell?
+		if(destination.items &amp;&amp; destination.items.length &gt; 0){
+			for(var it = 0; it &lt; destination.items.length; it++){
+				if(destination.items[it].obstacle){
+					return false;
+				}
+			}
 		}
 
 		// Is the a potentially obstructive agent in the cell?

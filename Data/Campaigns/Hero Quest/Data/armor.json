@@ -1,3 +1,22 @@
 {
-	
+	"Helmet" : {
+		"name" : "helmet",
+		"defence" : 1,
+		"cost" : 125
+	},
+	"Shield" : {
+		"name" : "shield",
+		"defence" : 1,
+		"cost" : 150
+	},
+	"Chain Mail" : {
+		"name" : "chain mail",
+		"defence" : 1,
+		"cost" : 500
+	},
+	"Plate Mail" : {
+		"name" : "plate mail",
+		"defence" : 2,
+		"cost" : 850
+	}
 }

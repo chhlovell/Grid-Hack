@@ -413,15 +413,19 @@ var gh = (function(gh){
 
 		}
 		if(this.head !== null){
-
+			defenceDice += this.head.defence;
 		}
 		if(this.offHand !== null){
 
 		}
 
+/*
 		if(defenceDice === 0){
 			defenceDice = this.baseDefence;
 		}
+		*/
+
+		defenceDice += this.baseDefence;
 
 		return defenceDice;
 	}

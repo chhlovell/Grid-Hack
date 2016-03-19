@@ -90,9 +90,8 @@ var gh = (function(gh){
 
 		gh.ptrActiveLevel.mapData.map.drawFloor(context, this.tileSize, this.scale, this.offset, team);
 		gh.ptrActiveLevel.mapData.map.drawBorders(context, this.tileSize, this.scale, this.offset, team);
-		
+		gh.ptrActiveLevel.mapData.map.drawEffects(context, this.tileSize, this.scale, this.offset, team);
 		gh.ptrActiveLevel.mapData.map.drawItems(context, this.tileSize, this.scale, this.offset, team);
-		
 		gh.ptrActiveLevel.mapData.map.drawAgents(context, this.tileSize, this.scale, this.offset, team);
 		gh.ptrActiveLevel.drawTriggers(context, this.tileSize, this.scale, this.offset, team);
 

@@ -32,11 +32,12 @@ var gh = (function(gh){
 			var jsonAgentTemplates = json.getData(PATH + name + "/Data/creatures.json");
 			var jsonWeaponTemplates = json.getData(PATH + name + "/Data/weapons.json");
 			var jsonItemTemplates = json.getData(PATH + name + "/Data/items.json");
+			var jsonArmourTemplates = json.getData(PATH + name + "/Data/armor.json");
 
 			var levels = [];
 			for(var it = 0; it < jsonData.levels.length; it++){
 				if(jsonData.levels[it]){
-					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates));
+					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates));
 				}
 			}
 
@@ -66,13 +67,16 @@ var gh = (function(gh){
 		 * @param {string} campaignName
 		 * @param {string} levelName
 		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
+		 * @param {JSON} jsonItemTemplates
+		 * @param {JSON} jsonArmourTemplates
 		 */
-		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates){
+		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates){
 			var path = PATH + campaignName + "/Data/" + levelName + ".json";
 			var jsonData = getAJAX(path);
 			jsonData = JSON.parse(jsonData);
 
-			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates);
+			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates);
 
 			var level = new gh.Level(
 				jsonData.name,
@@ -106,9 +110,11 @@ var gh = (function(gh){
 		 * @method getPlayers
 		 * @param {[gh.Player]} jsonPlayers
 		 * @param {JSON} jsonAgentTemplates
+		 * @param {JSON} jsonWeaponTemplates
+		 * @param {JSON} jsonArmourTemplates
 		 * @return
 		 */
-		json.getPlayers = function(jsonPlayers, jsonAgentTemplates, jsonWeaponTemplates){
+		json.getPlayers = function(jsonPlayers, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates){
 			var players = [];
 			var AI;
 
@@ -123,7 +129,7 @@ var gh = (function(gh){
 						new gh.Player(
 							jsonPlayers[it].name,
 							AI,
-							json.getRoster(jsonPlayers[it].roster, jsonAgentTemplates, jsonWeaponTemplates)
+							json.getRoster(jsonPlayers[it].roster, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates)
 						)
 					);
 				}
@@ -154,13 +160,30 @@ var gh = (function(gh){
 		}
 
 		/**
+		 * @method getArmour
+		 */
+		json.getArmour = function(resRef, jsonArmourTemplates){
+			if(!resRef){
+				return null;
+			}
+
+			var template = jsonArmourTemplates[resRef];
+
+			return new gh.Armour(
+				template.name,
+				template.defence,
+				template.cost
+			);
+		};
+
+		/**
 		 * @method getRoster
 		 * @param {[gh.Agent]} jsonRoster
 		 * @param {JSON} jsonAgentTemplates
 		 * @param {JSON} jsonWeaponTemplates
 		 * @return
 		 */
-		json.getRoster = function(jsonRoster, jsonAgentTemplates, jsonWeaponTemplates){
+		json.getRoster = function(jsonRoster, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates){
 			var roster = [];
 
 			for(var it = 0; it < jsonRoster.length; it++){
@@ -172,6 +195,14 @@ var gh = (function(gh){
 					weaponResRef = template.mainHand;
 				}
 				var weapon = json.getWeapon(weaponResRef, jsonWeaponTemplates);
+
+				var resRef;
+				if(jsonRoster[it].head){
+					resRef = jsonRoster[it].head;
+				} else {
+					resRef = template.head;
+				}
+				var head = json.getArmour(resRef, jsonArmourTemplates);
 
 				roster.push(
 					new gh.Agent(
@@ -188,7 +219,7 @@ var gh = (function(gh){
 						weapon,
 						template.offHand,
 						template.chest,
-						template.head,
+						head,
 						template.moveDice,
 						template.baseMove,
 						template.spellList,
@@ -426,6 +457,7 @@ var gh = (function(gh){
 			json.getBorderSprites(PATH + campaignName + "/Graphics/Border/", data.stdGraphics, gh.assets.sprites);
 			json.getAgentSprites(PATH + campaignName + "/Graphics/Creatures/", agents, gh.assets.sprites);
 			json.getItemSprites(PATH + campaignName + "/Graphics/Items/", items, gh.assets.sprites);
+			json.getEffectSprites("./Data/Graphics/Effects/", gh.assets.sprites);
 
 			return true;
 		};
@@ -507,6 +539,10 @@ var gh = (function(gh){
 				}
 			}
 		};
+
+		json.getEffectSprites = function(path, sprites){
+			sprites["blood-splatter.gif"] = new graphics.Sprite(path + "blood-splatter.gif");
+		}
 
 		return json;
 	})(json || {});

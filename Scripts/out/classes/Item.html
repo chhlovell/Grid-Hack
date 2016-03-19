@@ -125,7 +125,15 @@
 
 
 <div class="box intro">
-    
+    <p>Items are cosmetic features on a board which a player might potentially interract with.
+Items are 2 dimensional constructs with a width and height, with the x,y coordinate indicating
+the upper left coordinate of the item on the board.  Each board cell has an item queue,
+each element of which is a pointer to the Item object.  Thus multiple cells may point to a
+single Item.</p>
+<p>It is expected in future to add a 'mask' parameter which indicates which parts of the 2
+dimensional space are actually taken up by the item.  This will allow for irregularly shaped
+items in design.</p>
+
 </div>
 
 
@@ -133,17 +141,179 @@
     <ul class="api-class-tabs">
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
     </ul>
 
     <div>
         <div id="index" class="api-class-tabpanel index">
             <h2 class="off-left">Item Index</h2>
 
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                            <li class="index-item method">
+                                <a href="#method_draw">draw</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_getItemsAt">getItemsAt</a>
+
+                            </li>
+                    </ul>
+                </div>
 
 
 
         </div>
 
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_draw" class="method item">
+    <h3 class="name"><code>draw</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>context</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_item.js.html#l52"><code>GH\item.js:52</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw the item to the given canvas.  Rotation is allowed for, rotaton not around the
+center of an image, preserves the upper left corner of the item on the map.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">context</code>
+                        <span class="type">Canvas.context</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getItemsAt" class="method item">
+    <h3 class="name"><code>getItemsAt</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>items</code>
+                </li>
+                <li class="arg">
+                        <code>x</code>
+                </li>
+                <li class="arg">
+                        <code>y</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/GH_item.js.html#l102"><code>GH\item.js:102</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>This method returns a list of items in a item list that are located at a
+particular (x,y) position on the board.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">items</code>
+                        <span class="type">gh.Item</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">x</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">y</code>
+                        <span class="type">Integer</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+            </div>
+        </div>
+
+
+</div>
+            </div>
 
 
 
