@@ -52,7 +52,7 @@ var gh = (function(gh){
 		// counte how many agents in the roster have been placed
 		var placed = 0;
 		for(var n = 0; n < roster.length; n++){
-			if(roster[n].x !== -1 && roster[n].y !== -1){
+			if(roster[n].x !== null && roster[n].y !== null){
 				placed++;
 			}
 		}
@@ -62,7 +62,7 @@ var gh = (function(gh){
 
 		// get the first unplaced hero in the player's roster.
 		var it = 0;
-		while(it < roster.length && roster[it].x !== -1 && roster[it].y !== -1){
+		while(it < roster.length && roster[it].x !== null && roster[it].y !== null){
 			it++;
 		}
 
@@ -74,8 +74,8 @@ var gh = (function(gh){
 		if(cell.agents){
 			if(cell.agents.length > 0){
 				while(cell.agents.length > 0){
-					cell.agents[0].x = -1;
-					cell.agents[0].y = -1;
+					cell.agents[0].x = null;
+					cell.agents[0].y = null;
 					cell.agents.shift();
 					placed--;
 				}

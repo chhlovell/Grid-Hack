@@ -329,7 +329,6 @@ var gh = (function(gh){
 			var itemList = [];
 			for(var it = 0; it < items.length; it++){
 				var ptrItem = jsonItemTemplates[items[it].type];
-				console.log(ptrItem);
 				itemList.push(new gh.Item(
 					ptrItem.name,
 					items[it].id,

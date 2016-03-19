@@ -33,8 +33,12 @@
 				{"name" : "Mummy", "id" : "Mummy01", "position" : {"x" :  6, "y" :  1}, "faction" : "Zargon"},
 
 				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 13, "y" : 10}, "faction" : "Zargon"},
-				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 14, "y" : 15}, "faction" : "Zargon"},
-				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 15, "y" : 14}, "faction" : "Zargon"}
+				{"name" : "ChaosWarrior", "id" : "ChaosWarrior02", "position" : {"x" : 14, "y" : 15}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "id" : "ChaosWarrior03", "position" : {"x" : 15, "y" : 14}, "faction" : "Zargon"},
+
+				{"name" : "Fimir" , "id" : "Fimir01", "position" : {"x" : 10, "y" : 15}, "faction" : "Zargon"},
+
+				{"name" : "Gargoyle", "id" : "Gargoyle01", "position" : {"x" : 12, "y" : 7}, "faction" : "Zargon"}
 			]
 		}
 	],

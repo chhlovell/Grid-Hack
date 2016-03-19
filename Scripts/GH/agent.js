@@ -45,8 +45,8 @@ var gh = (function(gh){
 	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellList, inventory, sprites, animations){
 		this.templateID 		= templateID;
 		this.uniqueID 			= uniqueID;
-		this.x 					= x || -1;
-		this.y 					= y || -1;
+		this.x 					= x;
+		this.y 					= y;
 		this.ptrOwner			= owner || null;
 		this.team				= team || "";
 		this.description		= description || "";
