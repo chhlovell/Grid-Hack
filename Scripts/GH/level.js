@@ -16,7 +16,7 @@ var gh = (function(gh){
 	 * @param {string} name
 	 * @param {string} introText
 	 */
-	function Level(name, introText, maxHeroes, availableHeroes, players, teams, mapData){
+	function Level(name, introText, maxHeroes, availableHeroes, players, teams, mapData, treasure){
 		this.name 				= name || "";
 		this.introText 			= introText || "";
 		this.maxHeroes 			= maxHeroes || 1;
@@ -24,6 +24,7 @@ var gh = (function(gh){
 		this.manager 			= new gh.Manager(players);
 		this.teams 				= teams || {};
 		this.mapData 			= mapData || null;
+		this.treasure			= treasure || {};
 	}
 
 	/**

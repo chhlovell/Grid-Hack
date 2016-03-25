@@ -47,9 +47,10 @@ var gh = (function(gh){
 		stateGame.update = function(){
 			gh.board.handleInput();
 
-			var manager = gh.ptrActiveLevel.manager;
-			var activePlayer = manager.getActivePlayer();
-			var activeAgent = activePlayer.getActiveAgent();
+			var state 			= "stateGame";
+			var manager 		= gh.ptrActiveLevel.manager;
+			var activePlayer 	= manager.getActivePlayer();
+			var activeAgent 	= activePlayer.getActiveAgent();
 
 			if(activePlayer.AI){
 				if(activeAgent.active){
@@ -182,7 +183,7 @@ var gh = (function(gh){
 					if(map[pt.y][pt.x]){
 						var cell = map[pt.y][pt.x];
 						if(cell.visible){
-							cell.onClick(
+							state = cell.onClick(
 								input.mouse.x,
 								input.mouse.y,
 								gh.board.tileSize,
@@ -198,7 +199,7 @@ var gh = (function(gh){
 
 			gh.hud.update();
 
-			return "stateGame";
+			return state;
 		};
 
 		/**

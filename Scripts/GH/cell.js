@@ -260,11 +260,15 @@ var gh = (function(gh){
 					}
 				}
 			}
+			return "stateGame";
 		}
 
 		if(obj instanceof gh.Item){
 			if(obj.canReach(activeAgent)){
 				console.log("can reach");
+				var treasure = gh.ptrActiveLevel.treasure.getCard();
+				gh.stateTreasure.load(treasure);
+				return "stateTreasure";
 			}
 		}
 
@@ -281,11 +285,16 @@ var gh = (function(gh){
 					gh.ptrActiveLevel.mapData.map.updateAgentVisibility(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
 				}
 			}
+			return "stateGame";
 		}
 
 		if(obj instanceof gh.Wall){
 			console.log("wall click");
+
+			return "stateGame";
 		}
+
+		return "stateGame";
 	}
 
 	/**

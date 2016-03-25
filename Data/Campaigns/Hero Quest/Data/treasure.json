@@ -1,0 +1,151 @@
+{
+	"The Trial" : {
+		"deck" : [
+			{
+				"name" 				: "Gem",
+				"function"			: {"key" : "gem", "attribute" : 35},
+				"description"		: "Tucked into the toe of an old boot you find a small gem worth 35 gold coins.",
+				"image"				: "gem.gif"
+			},
+			{
+				"name" 				: "Gem",
+				"function"			: {"key" : "gem", "attribute" : 35},
+				"description"		: "Tucked inot the toe of an old boot you find a small gem worth 35 gold coins.",
+				"image"				: "gem.gif"
+			},
+			{
+				"name" 				: "Gold",
+				"function"			: {"key" : "gold", "attribute" : 15},
+				"description"		: "Amidst old rags, tattered fur robes and soiled blankets, you find a collection of 15 god coins.",
+				"image"				: "gold.gif"
+			},
+			{
+				"name" 				: "Gold",
+				"function"			: {"key" : "gold", "attribute" : 15},
+				"description"		: "Amidst old rags, tattered fur robes and soiled blankets, you find a collection of 15 god coins.",
+				"image"				: "gold.gif"
+			},
+			{
+				"name" 				: "Gold",
+				"function"			: {"key" : "gold", "attribute" : 25},
+				"description"		: "You find a loose stone and tear it from the wall. Behind it you discover a small leather pouch wrapped in an old rag. Peering inside you find 25 gold coins.",
+				"image"				: "gold.gif"
+			},
+			{
+				"name" 				: "Gold",
+				"function"			: {"key" : "gold", "attribute" : 25},
+				"description"		: "Tucked inot the toe of an old boot you find 25 gold coins.",
+				"image"				: "gold.gif"
+			},
+			{
+				"name"				: "Hazard",
+				"function"			: {"key" : "trap", "attribute" : 1},
+				"description"		: "While you are searching, a hidden arrow shoots from the wall striking you. You loose 1 Body Point.",
+				"image"				: "arrow.gif"
+			},
+			{
+				"name"				: "Hazard",
+				"function"			: {"key" : "trap", "attribute" : 1},
+				"description"		: "While you are searching, a hidden arrow shoots from the wall striking you. You loose 1 Body Point.",
+				"image"				: "arrow.gif"
+			},
+			{
+				"name"				: "Hazard",
+				"function"			: {"key" : "trap", "attribute" : 1},
+				"description"		: "Suddenly, the stone beneath your feet gives way. You fall into a shallow hole and loose 1 Body Point.",
+				"image"				: "pit.gif"
+			},
+			{
+				"name"				: "Hazard",
+				"function"			: {"key" : "trap", "attribute" : 1},
+				"description"		: "Suddenly, the stone beneath your feet gives way. You fall into a shallow hole and loose 1 Body Point.",
+				"image"				: "pit.gif"
+			},
+			{
+				"name"				: "Heroic Brew",
+				"item"				: "Heroic Brew",
+				"description"		: "You are surprised to find a leather bag hanging on the wall. If you drink its contents before you attack, you can make two attacks instead of one. This may only be used once.",
+				"image"				: "heroicBrew.gif"
+			},
+			{
+				"name"				: "Jewels",
+				"function"			: {"key" : "jewels", "attribute" : 50},
+				"description"		: "You find a small wooden box. It is simple-looking and very old. Within you discover that it is lined with velvet and contains very small jewels worth 50 gold coins.",
+				"image"				: "jewels.gif"
+			},
+			{
+				"name"				: "Jewels",
+				"function"			: {"key" : "jewels", "attribute" : 50},
+				"description"		: "You find a small wooden box. It is simple-looking and very old. Within you discover that it is lined with velvet and contains very small jewels worth 50 gold coins.",
+				"image"				: "jewels.gif"
+			},
+			{
+				"name"				: "Potion of Healing",
+				"function"			: {"key" : "potion", "attribute" : "Potion of Healing"},
+				"description"		: "In a bundle of rags, you find a small bottle of bluish liquid. You can drink this healing potion at any time, restoring the number of Body Points equal to a roll of one red die. You cannot, however, exceed your starting number of Body Points.",
+				"image"				: "healingPotion.gif"
+			},
+			{
+				"name"				: "Potion of Healing",
+				"function"			: {"key" : "potion", "attribute" : "Potion of Healing"},
+				"description"		: "In a bundle of rags, you find a small bottle of bluish liquid. You can drink this healing potion at any time, restoring the number of Body Points equal to a roll of one red die. You cannot, however, exceed your starting number of Body Points.",
+				"image"				: "healingPotion.gif"
+			},
+			{
+				"name"				: "Potion of Healing",
+				"function"			: {"key" : "potion", "attribute" : "Potion of Healing"},
+				"description"		: "In a bundle of rags, you find a small bottle of bluish liquid. You can drink this healing potion at any time, restoring the number of Body Points equal to a roll of one red die. You cannot, however, exceed your starting number of Body Points.",
+				"image"				: "healingPotion.gif"
+			},
+			{
+				"name"				: "Potion of Defence",
+				"function"			: {"key" : "potion", "attribute" : "Potion of Defence"},
+				"description"		: "Amids a collection of old bottles, you find a small vial containing a clear liquid. You can drink this potion at any time, giving you two extra combat dice the next time you defend. This may only be used once.",
+				"image"				: "potionDefence.gif"
+			},
+			{
+				"name"				: "Potion of Strength",
+				"function"			: {"key" : "potion", "attribute" : "Potion of Strength"},
+				"description"		: "You find a small purple flask. You can drink this strange smelling liquid at any time, enabling you to roll two extra combat dice the next time you attack. This may only be used once.",
+				"image"				: "potionStrength.gif"
+			},
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			},		
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			},		
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			},		
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			},		
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			},		
+			{
+				"name"				: "Wandering Monster",
+				"function"			: {"key" : "monster", "attribute" : "Wandering Monster"},
+				"description"		: "As you are searching, a monster stalks you and attacks!",
+				"image"				: "wanderingMonster.gif"
+			}
+		],
+		"Wandering Monster" : "Orc"
+	}
+}

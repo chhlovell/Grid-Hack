@@ -33,11 +33,12 @@ var gh = (function(gh){
 			var jsonWeaponTemplates = json.getData(PATH + name + "/Data/weapons.json");
 			var jsonItemTemplates = json.getData(PATH + name + "/Data/items.json");
 			var jsonArmourTemplates = json.getData(PATH + name + "/Data/armor.json");
+			var jsonTreasureTemplates = json.getData(PATH + name + "/Data/treasure.json");
 
 			var levels = [];
 			for(var it = 0; it < jsonData.levels.length; it++){
 				if(jsonData.levels[it]){
-					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates));
+					levels.push(json.loadLevel(name, jsonData.levels[it], jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates, jsonTreasureTemplates[jsonData.levels[it]]));
 				}
 			}
 
@@ -71,10 +72,12 @@ var gh = (function(gh){
 		 * @param {JSON} jsonItemTemplates
 		 * @param {JSON} jsonArmourTemplates
 		 */
-		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates){
+		json.loadLevel = function(campaignName, levelName, jsonAgentTemplates, jsonWeaponTemplates, jsonItemTemplates, jsonArmourTemplates, jsonTreasure){
 			var path = PATH + campaignName + "/Data/" + levelName + ".json";
 			var jsonData = getAJAX(path);
 			jsonData = JSON.parse(jsonData);
+
+			console.log(jsonTreasure);
 
 			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates);
 
@@ -85,10 +88,29 @@ var gh = (function(gh){
 				json.getAvailableHeroes(jsonData.availableHeroes), // availableHeroes
 				players, // players
 				jsonData.teams, // teams
-				json.getMapData(jsonData.mapData, players, jsonItemTemplates)  // mapData
+				json.getMapData(jsonData.mapData, players, jsonItemTemplates),  // mapData
+				json.getTreasure(jsonTreasure)
 			);
 			
 			return level;
+		};
+
+		/**
+		 * @method getTreasure
+		 */
+		json.getTreasure = function(jsonTreasure){
+			if(!jsonTreasure){
+				return null;
+			}
+			var cards = jsonTreasure.deck;
+			var deck = [];
+			console.log(cards);
+			for(var it = 0; it < cards.length; it++){
+				deck.push(new gh.Card(cards[it].name, cards[it].description, cards[it].function, cards[it].image));
+			}
+			var treasure = new gh.Treasure(deck, jsonTreasure["Wandering Monster"]);
+
+			return treasure;
 		};
 
 		/**
@@ -169,10 +191,15 @@ var gh = (function(gh){
 
 			var template = jsonArmourTemplates[resRef];
 
+			if(!template){
+				return null;
+			}
+
 			return new gh.Armour(
 				template.name,
 				template.defence,
-				template.cost
+				template.cost,
+				template.slot
 			);
 		};
 
@@ -215,7 +242,8 @@ var gh = (function(gh){
 						template.description,
 						template.body,
 						template.mind,
-						template.baseDefence,
+						//template.baseDefence,
+						json.getArmour(template.baseDefence, jsonArmourTemplates),
 						weapon,
 						template.offHand,
 						template.chest,
@@ -249,11 +277,14 @@ var gh = (function(gh){
 			for(var it = 0; it < inventory.length; it++){
 				switch(inventory[it].type){
 					case "weapon":
-						var wTemp = jsonWeaponTemplates[inventory[it].resRef]
+						var wTemp = jsonWeaponTemplates[inventory[it].resRef];
 						var w = new gh.Weapon(wTemp.name, inventory[it].resRef, wTemp.size, wTemp.attack, wTemp.hands, wTemp.range, wTemp.diagonal, wTemp.cost, wTemp.actionPoints);
 						ivt.push(w);
 						break;
 					case "armour":
+						var aTemp = jsonArmourTemplates[inventory[it].resRef];
+						var a = new gh.Armour(aTemp.name, aTemp.defence, aTemp.cost);
+						ivt.push(a);
 						break;
 					default:
 						brak;
@@ -475,19 +506,40 @@ var gh = (function(gh){
 		 * @return
 		 */
 		json.loadAssets = function(assets, campaignName, levelName){
-			var path = PATH + campaignName + "/Data/" + levelName + ".json";
-			var data = json.getData(path);
-			var map = data.mapData.map;
-			var agents = json.getData(PATH + campaignName + "/Data/creatures.json");
-			var items = json.getData(PATH + campaignName + "/Data/items.json");
+			var path 			= PATH + campaignName + "/Data/" + levelName + ".json";
+			var data 			= json.getData(path);
+			var map 			= data.mapData.map;
+			var agents 			= json.getData(PATH + campaignName + "/Data/creatures.json");
+			var items 			= json.getData(PATH + campaignName + "/Data/items.json");
+			var treasure 		= json.getData(PATH + campaignName + "/Data/treasure.json");
+
+			console.log(treasure);
 
 			json.getMapSpriteList(PATH + campaignName + "/Graphics/", map, gh.assets.sprites);
 			json.getBorderSprites(PATH + campaignName + "/Graphics/Border/", data.stdGraphics, gh.assets.sprites);
 			json.getAgentSprites(PATH + campaignName + "/Graphics/Creatures/", agents, gh.assets.sprites);
 			json.getItemSprites(PATH + campaignName + "/Graphics/Items/", items, gh.assets.sprites);
 			json.getEffectSprites("./Data/Graphics/Effects/", gh.assets.sprites);
+			json.getTreasureSprites("./Data/Graphics/Interface/Treasure/", treasure, gh.assets.sprites);
 
 			return true;
+		};
+
+		/**
+		 * @method getTreasureSprites
+		 * @param {string} path
+		 * @param {JSON} jsonTreasure
+		 * @param {} sprites
+		 */
+		json.getTreasureSprites = function(path, jsonTreasure, sprites){
+			for(var key in jsonTreasure){
+				var deck = jsonTreasure[key].deck;
+				for(var it = 0; it < deck.length; it++){
+					if(deck[it].image && (deck[it].image !== "")){
+						sprites[deck[it].image] = new graphics.Sprite(path + deck[it].image);
+					}
+				}
+			}
 		};
 
 		/**

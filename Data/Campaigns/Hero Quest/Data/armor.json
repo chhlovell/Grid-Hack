@@ -2,21 +2,81 @@
 	"Helmet" : {
 		"name" : "helmet",
 		"defence" : 1,
-		"cost" : 125
+		"cost" : 125,
+		"slot" : "head"
 	},
 	"Shield" : {
 		"name" : "shield",
 		"defence" : 1,
-		"cost" : 150
+		"cost" : 150,
+		"slot" : "offHand"
 	},
 	"Chain Mail" : {
 		"name" : "chainmail",
 		"defence" : 1,
-		"cost" : 500
+		"cost" : 500,
+		"slot" : "chest"
 	},
 	"Plate Mail" : {
 		"name" : "plate mail",
 		"defence" : 2,
-		"cost" : 850
+		"cost" : 850,
+		"slot" : "chest"
+	},
+	"Human Natural" : {
+		"name" : "natural",
+		"defence" : 2,
+		"slot" : "baseDefence"
+	},
+	"Elf Natural" : {
+		"name" : "natural",
+		"defence" : 2,
+		"slot" : "baseDefence"
+	},
+	"Dwarf Natural" : {
+		"name" : "natural",
+		"defence" : 2,
+		"slot" : "baseDefence"
+	},
+	"Orc Natural" : {
+		"name" : "natural",
+		"defence" : 2,
+		"slot" : "baseDefence"
+	},
+	"Goblin Natural" : {
+		"name" : "natural",
+		"defence" : 1,
+		"slot" : "baseDefence"
+	},
+	"Skeleton Natural" : {
+		"name" : "natural",
+		"defence" : 2,
+		"slot" : "baseDefence"
+	},
+	"Zombie Natural" : {
+		"name" : "natural",
+		"defence" : 3,
+		"slot" : "baseDefence"
+	},
+	"Mummy Natural" : {
+		"name" : "natural",
+		"defence" : 4,
+		"slot" : "baseDefence"
+	},
+	"Chaos Warrior Natural" : {
+		"name" : "natural",
+		"defence" : 4,
+		"slot" : "baseDefence"
+	},
+	"Fimir Natural" : {
+		"name" : "natural",
+		"defence" : 3,
+		"slot" : "baseDefence"
+	},
+	"Gargoyle Natural" : {
+		"name" : "natural",
+		"defence" : 5,
+		"slot" : "baseDefence"
 	}
+
 }

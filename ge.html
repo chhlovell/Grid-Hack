@@ -7,6 +7,7 @@
 
 	<!-- fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
 
 	<!-- stylesheets -->
 	<link rel="stylesheet" type="text/css" href="Styles/ge.css">
@@ -17,15 +18,29 @@
 	<link rel="stylesheet" type="text/css" href="Styles/actionButtons.css">
 	<link rel="stylesheet" type="text/css" href="Styles/moveDice.css">
 	<link rel="stylesheet" type="text/css" href="Styles/endTurnButton.css">
+	<link rel="stylesheet" type="text/css" href="Styles/levelIntro.css">
+	<link rel="stylesheet" type="text/css" href="Styles/stateTreasure.css">
 
 	<title>Game Engine</title>
 </head>
 
 <body>
+	<!--
+	The level introduction screen
+	-->
+	<div id="levelIntro">
+		<div id="liContainer">
+			<h1 id="liTitle"></h1>
+			<p id="liText"></p>
+			<div id="liContinue">
+				Continue
+			</div>
+		</div>
+	</div>
+
 	<!-- 
 	The active agent hud display component 
 	-->
-
 	<div id="hud">
 		<div id="aaDisplay">
 			<h2 class="aaHeading" id="aaName"></h2>
@@ -33,29 +48,21 @@
 				<p id="aaDescription"></p>
 				<canvas id="aaImage"></canvas>
 				<div id="diceContainer">
-					<div id="move">
-						<h3 id="moveText">Movement</h3>
-					</div>
-					<canvas class="dice" id="d1" width="40" height="40"></canvas>
-					<canvas class="dice" id="d2" width="40" height="40"></canvas>
-					<table>
+					<table id="aaTable">
 						<tr>
 							<th>Body</th>
 							<th>Mind</th>
 						</tr>
 						<tr>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>Attack</th>
-							<th>Defence</th>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
+							<td class="aaTD" id="aaBody"></td>
+							<td class="aaTD" id="aaMind"></td>
 						</tr>
 					</table>
+					<div id="move">
+						<h3 id="moveText">Movement</h3>
+					</div>
+					<canvas class="dice" id="d1" width="40" height="40"></canvas>
+					<canvas class="dice" id="d2" width="40" height="40"></canvas>
 				</div>
 
 			</div>
@@ -64,10 +71,10 @@
 				<image class="aaIcon" src="./Data/Graphics/Interface/grab.gif"></image>
 				<image class="aaIcon" src="./Data/Graphics/Interface/search.gif"></image>
 			</div>
-			<h2 class="aaHeading">Weapons</h2>
+			<h2 class="aaHeading" id="aaWeaponsHeading">Weapons</h2>
 			<div class="aaTab" id="aaWeapons">
 			</div>
-			<h2 class="aaHeading">Armour</h2>
+			<h2 class="aaHeading" id="aaArmourHeading">Armour</h2>
 			<div class="aaTab" id="aaArmour">
 			</div>
 			<h2 class="aaHeading">Spells</h2>
@@ -95,77 +102,8 @@
 		</div>
 	</div>
 
-	<!--
-	<div id="hud">
-		<div id="activeAgent">
-			<h2 id="aaName">Barbarian</h2>
-			<h3 class="aaTab" id="aaTabOverview">Overview</h2>
-			<h3 class="aaTab" id="aaTabInventory">Inventory</h2>
-			<div id="aaOverview">
-				<div id="aaDescription"></div>
-				<canvas id="aaImage"></canvas>
-						<table id="aaTable" border="1">
-							<tr >
-								<td rowspan="2">Attack Dice</td>
-								<td rowspan="2">Defend Dice</td>
-								<td colspan="2" style="text-align: center;">Current Health</td>
-							</tr>
-							<tr>
-								<td>Body</td>
-								<td>Mind</td>
-							</tr>
-							<tr>
-								<td class="aaData" id="aadAttackDice"></td>
-								<td class="aaData" id="aadDefendDice"></td>
-								<td class="aaData" id="aaBody"></td>
-								<td class="aaData" id="aaMind"></td>
-							</tr>
-						</table>
-			</div>
-			<div id="aaInventory">
-				<p class="aaInventoryItem">Long Sword</p>
-			</div>
-		</div>
-
-		<div id="lowerHud">
-			<div id="actionButtons">
-				<div id="abBackground">
-					<div class="actionButton" id="attack">
-						<p id="attackState">ATTACK</p>
-					</div>
-					<div class="actionButton" id="search">
-						<p id="searchDoors">SEARCH</p>
-					</div>
-					<div class="actionButton" id="item">
-						<p id="useItem">USE AN ITEM</p>
-					</div>
-
-					<div class="actionButton" id="traps">
-						<p id="searchTraps">SEARCH FOR TRAPS</p>
-					</div>
-					<div class="actionButton" id="spell">
-						<p id="useSpell">SPELL</p>
-					</div>
-				</div>
-			</div>
-
-			<div id="diceContainer">
-				<canvas class="dice" id="d1" width="100" height="100"></canvas>
-				<canvas class="dice" id="d2" width="100" height="100"></canvas>
-			</div>
-
-			<div id="endTurnContainer">
-				<div id="endTurnButton">
-					<p id="endTurnText">End Turn</p>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
-
 	<!-- 
-	-The Game Board display which sits beneath all other visual components
+	The Game Board display which sits beneath all other visual components
 	-->
 	<div id="gameSpace">
 		<p id="performance">PERFORMANCE</p>
@@ -177,6 +115,15 @@
 		</div>
 
 		<div id="defendDice">
+		</div>
+	</div>
+
+	<div id="stateTreasure">
+		<div id="stBackdrop"></div>
+		<div class="card">
+			<h2 id="stTitle"></h2>
+			<canvas id="stImage" width="240" height="200"></canvas>
+			<p id="stText">Dummy text for card</p>
 		</div>
 	</div>
 
@@ -227,10 +174,16 @@
 	<script type="text/javascript" src="./Scripts/GH/player.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/manager.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/json.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/treasure.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/campaign.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/level.js"></script>
+
+	<!-- Load Game State Files -->
+	<script type="text/javascript" src="./Scripts/GH/stateLevelIntro.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/stateSetup.js"></script>
 	<script type="text/javascript" src="./Scripts/GH/stateGame.js"></script>
+	<script type="text/javascript" src="./Scripts/GH/stateTreasure.js"></script>
+
 	<script type="text/javascript" src="./Scripts/GH/gh.js"></script>
 
 	<script type="text/javascript">

@@ -18,7 +18,6 @@ var gh = (function(gh){
 	state.FOCUS 		= "focus";
 	state.ACTIVE 		= "active";
 	
-
 	/**
 	 * @class Agent
 	 * @constructor
@@ -69,9 +68,17 @@ var gh = (function(gh){
 
 		this.active 			= false;	// The default state is false.  This should change to active when the agent becomes 'visible' on the board to other players.
 		this.protagonist		= false;
-		this.state 				= state.INACTIVE;
-		this.actionState 		= "inactive";
 
+		// Agent.actionState
+		// action states can be:
+		//		"default" 		-> the neutral action state for an agent.
+		//		"searchItem" 	-> search an item state
+		//		"searchTraps" 	-> search for traps state
+		this.actionState 		= "default";
+
+		// Agnet.state
+		// This identifies which animation state the agent is in.
+		this.state 				= state.INACTIVE;
 		this.sprites			= sprites;
 		if(animations){
 			this.actionStates 	= this.loadActionStates(animations)
@@ -174,6 +181,86 @@ var gh = (function(gh){
 
 		return false;
 	};
+
+	/**
+	 * @method unequip
+	 * @parma {} item
+	 * @param {string} location
+	 */
+	Agent.prototype.unequip = function(item, location){
+		if(location){
+			// Check the specified location
+			if(this[location] === item){
+				this[location] = null;
+			}
+		} else {
+			// Check every body location
+			if(this.head === item){
+				this.head = null;
+			}
+
+			if(this.chest === item){
+				this.chest = null;
+			}
+
+			if(this.mainHand === item){
+				this.mainHand = null;
+			}
+
+			if(this.offHand === item){
+				this.offHand = null;
+			}
+		}
+	}
+
+	/**
+	 * @method equip
+	 * @parma {} item
+	 * @param {string} location
+	 */
+	Agent.prototype.equip = function(item, location){
+		if(item instanceof gh.Weapon){
+			if(this.mainHand !== null){
+				this.unequip(this.mainHand, "mainHand");
+			}
+			if(item.hands === 2 && this.offHand !== null){
+				this.unequip(this.offHand, "offHand");
+			}
+
+			this.mainHand = item;
+		}
+
+		if(item instanceof gh.Armour){
+			console.log(item);
+			if(this[item.slot] !== null){
+				this.unequip(this[item.slot], item.slot);
+			}
+			this[item.slot] = item;
+		}
+	};
+
+	/**
+	 * Find an item in the agents inventory given a uniqueID reference for the item. 
+	 * @method findItem
+	 * @parma {string} uid The uniqueID of the item being looked for.
+	 */
+	Agent.prototype.findItem = function(uid){
+		for(var it = 0; it < this.inventory.length && this.inventory[it].uniqueID !== uid; it++){
+
+		}
+
+		var item = this.inventory[it];
+
+		// If the item is not found in the inventory check the natural armour (baseDefence).
+		if(!item){
+			if(this.baseDefence.uniqueID === uid){
+				item = this.baseDefence;
+			}
+		}
+
+		return item;
+	};
+
 
 	/**
 	 * @method getOpponents
@@ -404,7 +491,7 @@ var gh = (function(gh){
 			tileSize * scale,
 			tileSize * scale
 		);
-	}
+	};
 
 	/**
 	 * @method isClicked
@@ -454,7 +541,7 @@ var gh = (function(gh){
 			defenceDice += this.offHand.defence;
 		}
 
-		defenceDice += this.baseDefence;
+		defenceDice += this.baseDefence.defence;
 
 		return defenceDice;
 	}
@@ -509,6 +596,17 @@ var gh = (function(gh){
 		if(gh.getMapDist(this.x, this.y, target.x, target.y) > this.mainHand.range) return false;
 
 		return true;
+	};
+
+	/**
+	 * @method getAttackDice
+	 */
+	Agent.prototype.getAttackDice = function(){
+		if(this.mainHand){
+			return this.mainHand.attackDice;
+		} else {
+			return 0;
+		}
 	};
 
 	/**

@@ -61,8 +61,6 @@ TO DO
 -	AI: game sometimes locks down during AI movement. Need to isolate reason for problem and debug.
 
 
--	ACTIVE AGENT DISPLAY: when adjusting screen size height can enter a loop where it
-		increases without stopping and exceeds screen height.
 -	ACTIVE AGENT DISPLAY: improve graphics
 -	ACTIVE AGENT DISPLAY: Change the aaName value to the agent's 'name' attribute rather than
 		the 'uniqueID' value.
@@ -87,9 +85,10 @@ TO DO
 -	monsters with an inital y coordinate of 0 are being placed at a y coordinate of -1
 
 -	ARMOUR: movement effect of plate mail
--	ARMOUR: add to defence value?
 
 -	json.getInventory: Expand to include all item types.
+
+-	Door: diagonal use of door should be stoped.
 
 
 
@@ -135,5 +134,7 @@ COMPLETED
 -	Items: need to implement this
 
 -	Agent: add blood splatter on death.
+
+-	ARMOUR: add to defence value?
 
 

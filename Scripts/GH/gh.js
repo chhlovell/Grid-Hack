@@ -12,7 +12,7 @@ var gh = (function(gh){
 
 	gh.divDisplay 			= null; // div element wich contains the display canvases.
 	gh.display 				= null; // A display object which contains the canvases.
-	gh.ptrGameState     	= "stateSetup";
+	gh.ptrGameState     	= "stateLevelIntro";
 	gh.ptrActiveCampaign	= null;
 	gh.ptrActiveLevel 		= null;
 
@@ -85,7 +85,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
-			jsonAgentTemplates[type].baseDefence,
+			gh.json.getArmour(jsonAgentTemplates[type].baseDefence, jsonArmourTemplates),
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			gh.json.getArmour("Chain Mail", jsonArmourTemplates),
@@ -113,7 +113,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
-			jsonAgentTemplates[type].baseDefence,
+			gh.json.getArmour(jsonAgentTemplates[type].baseDefence, jsonArmourTemplates),
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			gh.json.getArmour("Chain Mail", jsonArmourTemplates),
@@ -140,7 +140,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
-			jsonAgentTemplates[type].baseDefence,
+			gh.json.getArmour(jsonAgentTemplates[type].baseDefence, jsonArmourTemplates),
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
@@ -167,7 +167,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].description,
 			jsonAgentTemplates[type].body,
 			jsonAgentTemplates[type].mind,
-			jsonAgentTemplates[type].baseDefence,
+			gh.json.getArmour(jsonAgentTemplates[type].baseDefence, jsonArmourTemplates),
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
 			jsonAgentTemplates[type].chest,
@@ -243,6 +243,8 @@ var gh = (function(gh){
 			for(var key in gh.assets.sprites){
 				gh.assets.sprites[key].buildImageData();
 			}
+
+			gh.stateLevelIntro.setup();
 
 			gh.run();
 		}
