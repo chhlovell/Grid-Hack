@@ -42,12 +42,10 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Weapon.prototype.attack = function(){
-		console.log(this);
 		var attack = {"sum" : 0, "dice" : []};
 		
 		for(var it = 0; it < this.attackDice; it++){
 			var roll = gh.hqDice.roll();
-			console.log(roll);
 			if(roll === "skull"){
 				attack.sum++;
 			}

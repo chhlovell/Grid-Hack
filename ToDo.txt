@@ -78,7 +78,6 @@ TO DO
 -	Agent: add 'name' attribute.  There should be a default value for each template resRef
 		which can be altered for players who whish to provide a different name for their
 		heroes.
--	Agent: add blood splatter on death.
 
 -	GAME: win/loose condition on all monsters/players heroes dead.
 
@@ -89,6 +88,8 @@ TO DO
 
 -	ARMOUR: movement effect of plate mail
 -	ARMOUR: add to defence value?
+
+-	json.getInventory: Expand to include all item types.
 
 
 
@@ -133,5 +134,6 @@ COMPLETED
 
 -	Items: need to implement this
 
+-	Agent: add blood splatter on death.
 
 

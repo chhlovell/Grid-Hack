@@ -1,18 +1,37 @@
 #diceContainer{
 	position: relative;
 	float: left;
+	width: 100%;
 
-	border-radius: 10px;
-	border-style: ridge;
-	border-width: 5px;
-
-	background-image: url("../Data/Graphics/Interface/Ashy Sandstone.jpg");
+	box-sizing: border-box;
 
 	z-index: 100;
 }
 
+#move{
+	display: inline-block;
+	position: relative;
+	float: left;
+	width: 35%;
+	height: 60px;
+	margin: 0;
+}
+
+#moveText{
+	display: inline-block;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	top: 50%;
+	margin: 0px;
+	padding: 0.5em;
+	transform: translateY(-50%);
+
+	font-family: 'Architects Daughter', cursive;
+}
+
 .dice{
-	margin: 6px;
+	margin: 2px;
 
 	border-radius: 10px;
 	border-style: ridge;

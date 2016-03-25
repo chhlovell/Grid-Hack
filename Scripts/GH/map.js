@@ -414,7 +414,6 @@ var gh = (function(gh){
 		if(d === "down"){ d = "bottom"; }
 
 		// Does a border block the direction of movement?
-		console.log(from);
 		var c = map[from.y][from.x];
 		if(!c){ 
 			return false; 

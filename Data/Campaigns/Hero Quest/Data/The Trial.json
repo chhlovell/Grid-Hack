@@ -55,7 +55,7 @@
 		},
 	    "tokenHighlight" : "tokenHighlight.gif"
 	},
-	"mapData"				:{
+	"mapData" : {
 		"map" : [
 			[
 				{},

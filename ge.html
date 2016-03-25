@@ -4,6 +4,11 @@
 
 <head>
 	<meta charset="utf-8">
+
+	<!-- fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
+	<!-- stylesheets -->
 	<link rel="stylesheet" type="text/css" href="Styles/ge.css">
 	<link rel="stylesheet" type="text/css" href="Styles/hud.css">
 	<link rel="stylesheet" type="text/css" href="Styles/diceSplashScreen.css">
@@ -12,6 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="Styles/actionButtons.css">
 	<link rel="stylesheet" type="text/css" href="Styles/moveDice.css">
 	<link rel="stylesheet" type="text/css" href="Styles/endTurnButton.css">
+
 	<title>Game Engine</title>
 </head>
 
@@ -19,6 +25,77 @@
 	<!-- 
 	The active agent hud display component 
 	-->
+
+	<div id="hud">
+		<div id="aaDisplay">
+			<h2 class="aaHeading" id="aaName"></h2>
+			<div class="aaTab">
+				<p id="aaDescription"></p>
+				<canvas id="aaImage"></canvas>
+				<div id="diceContainer">
+					<div id="move">
+						<h3 id="moveText">Movement</h3>
+					</div>
+					<canvas class="dice" id="d1" width="40" height="40"></canvas>
+					<canvas class="dice" id="d2" width="40" height="40"></canvas>
+					<table>
+						<tr>
+							<th>Body</th>
+							<th>Mind</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<th>Attack</th>
+							<th>Defence</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
+			<h2 class="aaHeading">Abilities</h2>
+			<div class="aaTab">
+				<image class="aaIcon" src="./Data/Graphics/Interface/grab.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/search.gif"></image>
+			</div>
+			<h2 class="aaHeading">Weapons</h2>
+			<div class="aaTab" id="aaWeapons">
+			</div>
+			<h2 class="aaHeading">Armour</h2>
+			<div class="aaTab" id="aaArmour">
+			</div>
+			<h2 class="aaHeading">Spells</h2>
+			<div class="aaTab" id="aaSpells">
+				<image class="aaIcon" src="./Data/Graphics/Interface/fire-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/fire-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/fire-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/water-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/water-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/water-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/earth-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/earth-spell.gif"></image>
+				<image class="aaIcon" src="./Data/Graphics/Interface/earth-spell.gif"></image>
+			</div>
+			<h2 class="aaHeading">Equipment</h2>
+			<div class="aaTab" id="aaEquipment">
+			</div>
+			<h2 class="aaHeading">Statistics</h2>
+			<div class="aaTab" id="aaStats">
+			</div>
+		</div>
+
+		<div id="endTurn">
+			<p id="endTurnText">End Turn</p>
+		</div>
+	</div>
+
+	<!--
 	<div id="hud">
 		<div id="activeAgent">
 			<h2 id="aaName">Barbarian</h2>
@@ -78,7 +155,6 @@
 			</div>
 
 			<div id="endTurnContainer">
-				<!-- <button id="endTurn"><p>END TURN</p></button> -->
 				<div id="endTurnButton">
 					<p id="endTurnText">End Turn</p>
 
@@ -86,6 +162,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 
 	<!-- 
 	-The Game Board display which sits beneath all other visual components

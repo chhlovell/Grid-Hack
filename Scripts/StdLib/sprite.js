@@ -51,6 +51,10 @@ var graphics = (function(graphics){
 	 * @return 
 	 */
 	Sprite.prototype.buildImageData = function(){
+		// Adjust the canvas dimensions to those of the image for processing.
+		this.canvas.width = this.img.width;
+		this.canvas.height = this.img.height;
+
 		this.context.drawImage(
 			this.img,
 			0, 0, this.img.width, this.img.height,
@@ -73,7 +77,7 @@ var graphics = (function(graphics){
         }
         
         // Ensure that the input is a round number.
-        var it = Math.floor(y*this.img.width * 4 + (x * 4));
+        var it = Math.floor((y * this.img.width * 4) + (x * 4));
 
 		var pixel = new graphics.Pixel(
 			this.data[it + RED],

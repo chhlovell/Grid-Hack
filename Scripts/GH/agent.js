@@ -42,7 +42,7 @@ var gh = (function(gh){
 	 * @param {} sprites
 	 * @param {} animations
 	 */
-	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellList, inventory, sprites, animations){
+	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellDomains, inventory, sprites, animations){
 		this.templateID 		= templateID;
 		this.uniqueID 			= uniqueID;
 		this.x 					= x;
@@ -60,7 +60,7 @@ var gh = (function(gh){
 		this.moveDice			= moveDice || 0;
 		this.baseMove			= baseMove || 0;
 		this.moved 				= 0;
-		this.spellList			= spellList || null;
+		this.spellDomains		= spellDomains || null;
 		this.inventory			= inventory || [];
 		loadInventory(this);	// Load the equiped items into the agents inventory.
 
@@ -139,6 +139,41 @@ var gh = (function(gh){
 	Agent.prototype.getCurrentMind = function(){
 		return this.mind.max - this.mind.damage;
 	}
+
+	/**
+	 * This method returns true if an item is equiped by the agent. A specific location can also be given as a parameter to expediate the search.
+	 * @method isEquiped
+	 * @param {} item
+	 * @param {} location
+	 * @return
+	 */
+	Agent.prototype.isEquiped = function(item, location){
+		if(location){
+			// Check the specified location
+			if(this[location] === item){
+				return true;
+			}
+		} else {
+			// Check every body location
+			if(this.head === item){
+				return true;
+			}
+
+			if(this.chest === item){
+				return true;
+			}
+
+			if(this.mainHand === item){
+				return true;
+			}
+
+			if(this.offHand === item){
+				return true;
+			}
+		}
+
+		return false;
+	};
 
 	/**
 	 * @method getOpponents
@@ -410,20 +445,14 @@ var gh = (function(gh){
 		var defenceDice = 0;
 		
 		if(this.chest !== null){
-
+			defenceDice += this.chest.defence;
 		}
 		if(this.head !== null){
 			defenceDice += this.head.defence;
 		}
-		if(this.offHand !== null){
-
+		if(this.offHand !== null && this.offHand instanceof gh.Armour){
+			defenceDice += this.offHand.defence;
 		}
-
-/*
-		if(defenceDice === 0){
-			defenceDice = this.baseDefence;
-		}
-		*/
 
 		defenceDice += this.baseDefence;
 
@@ -511,7 +540,6 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Agent.prototype.damageHealth = function(damage){
-		console.log(damage);
 		this.health.damage += damage;
 		if(this.health.damage >= this.health.max){
 			this.state = state.DEAD;

@@ -10,21 +10,25 @@ var gh = (function(gh){
 		 */
 		//var HUD 				= "hud";
 		var HUD 				= document.getElementById("hud");
-		var LOWER_HUD 			= "lowerHud";
 
 		var DICE1 				= "d1";
 		var DICE2 				= "d2";
 
-		var END_TURN_BUTTTON 	= "endTurnButton";
+		var END_TURN_BUTTON 	= document.getElementById("endTurn");
 
-		var AAD 				= "activeAgent"
+		var AAD 				= document.getElementById("aaDisplay");
+		var AAD_HEADINGS		= document.getElementsByClassName("aaHeading");
+		var AAD_NAME 			= document.getElementById("aaName");
+		var AAD_DESCRIPTION 	= document.getElementById("aaDescription");
+		var AAD_IMAGE			= document.getElementById("aaImage");
+
+		var AAD_WEAPONS			= document.getElementById("aaWeapons");
+		var AAD_ARMOUR			= document.getElementById("aaArmour");
+		var AAD_SPELLS			= document.getElementById("aaSpells");
+		var AAD_EQUIPMENT		= document.getElementById("aaEquipment");
+
 		var AAD_ATTACK_DICE 	= "aadAttackDice";
 		var AAD_DEFEND_DICE 	= "aadDefendDice";
-		var AAD_BODY			= "aaBody";
-		var AAD_MIND			= "aaMind";
-		var AAD_IMAGE			= document.getElementById("aaImage");
-		var AAD_OVERVIEW		= document.getElementById("aaOverview");
-		var AAD_INVENTORY		= document.getElementById("aaInventory");
 
 		/**
 		 * Private globals
@@ -63,6 +67,7 @@ var gh = (function(gh){
 			stdlib.dom.setNodeTreeStyle(HUD, "visibility", "visible");
 			
 			//Create the dice
+			
 			hud.d1 = new gh.Dice(
 				6, 
 				new graphics.SpriteStrip("./Data/Graphics/dice1.png", 6, 100, {"1" : 0, "2" : 1, "3" : 2, "4" : 3, "5" : 4, "6" : 5}),
@@ -76,11 +81,30 @@ var gh = (function(gh){
 				document.getElementById(DICE2),
 				document.getElementById(DICE2).getContext("2d")
 			);
+			
 
 			hud.setupAAD();
 
 			hud.setupInput();
 		}
+
+		/**
+		 * Preload the canvas and audio files for the hud.
+		 * This function should be called prior to the game running to ensure the appropriate graphics
+		 * are loaded.
+		 * @method loadAssets
+		 */
+		hud.loadAssets = function(){
+			// Load the AAD canvas graphics
+			gh.assets.sprites["dagger"]			= new graphics.Sprite("./Data/Graphics/Interface/dagger.gif");
+			gh.assets.sprites["longsword"] 		= new graphics.Sprite("./Data/Graphics/Interface/longsword.gif");
+			gh.assets.sprites["shortsword"] 	= new graphics.Sprite("./Data/Graphics/Interface/shortsword.gif");
+			gh.assets.sprites["unarmed"]		= new graphics.Sprite("./Data/Graphics/Interface/unarmed.gif");
+
+			gh.assets.sprites["chainmail"]		= new graphics.Sprite("./Data/Graphics/Interface/chainmail.gif");
+			gh.assets.sprites["helmet"]			= new graphics.Sprite("./Data/Graphics/Interface/helmet.gif");
+			gh.assets.sprites["shield"]			= new graphics.Sprite("./Data/Graphics/Interface/shield.gif");
+		};
 
 		/**
 		 * Active Agent Display
@@ -92,53 +116,75 @@ var gh = (function(gh){
 		 * @method setupAAD
 		 */
 		hud.setupAAD = function(){
-			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "100%");
-			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "0px");
+			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+			console.log(agent);
 
-			var aaTabs = document.getElementsByClassName("aaTab");
-			for(var it = 0; it < aaTabs.length; it++){
-				aaTabs[it].onclick = aadTabOnClick;
-			}		
-		};
-
-		/**
-		 * This method responds to a click event on the active agent tabs and allowing the user
-		 * to view different sets of information via the tabs.
-		 * @method aaTabOnClick
-		 */
-		function aadTabOnClick(){
-			// Set all the tabbed pages to a height of 0px.
-			stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "0px");
-			stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "0px");
-
-			// Set the height of the currently selected tab page's height to 100%.
-			// Could potentially remove this switch statement if a standardized string
-			// selector is utilized.
-			switch(this.id){
-				case "aaTabOverview":
-					stdlib.dom.setNodeTreeStyle(AAD_OVERVIEW, "height", "100%");
-					break;
-				case "aaTabInventory":
-					stdlib.dom.setNodeTreeStyle(AAD_INVENTORY, "height", "100%");
-					break;
-				default:
-					break;
+			// Setup the AAD agent heading tabs input events
+			for(var it = 0; it < AAD_HEADINGS.length; it++){
+				AAD_HEADINGS[it].onclick = hud.onAADClick;
 			}
-		}
+
+			// Setup the AAD agent descriptive overview
+			AAD_NAME.innerHTML = agent.uniqueID;
+			AAD_DESCRIPTION.innerHTML = agent.description;
+
+			// Remove and child icons in the action tab
+			stdlib.dom.removeChildren(AAD_WEAPONS);
+			stdlib.dom.removeChildren(AAD_ARMOUR);
+			//stdlib.dom.removeChildren(AAD_SPELLS);
+			stdlib.dom.removeChildren(AAD_EQUIPMENT)
+
+
+			// Setup the inventory tabs (weaopns, armour, equipment)
+			for(var it = 0; it < agent.inventory.length; it++){
+				var w = document.createElement("canvas");
+
+				if(agent.isEquiped(agent.inventory[it])){
+					//console.log("equiped");
+					w.style.borderColor = "yellow";
+				}
+
+				if(agent.inventory[it] instanceof gh.Weapon){
+					AAD_WEAPONS.appendChild(w);
+				} else if(agent.inventory[it] instanceof gh.Armour){
+					AAD_ARMOUR.appendChild(w);
+				} else {
+					AAD_EQUIPMENT.appendChild(w);
+				}
+
+				w.className = "aaIcon";
+				w.width = w.clientWidth;
+				w.height = w.clientHeight;
+				var ctx = w.getContext("2d");
+
+				if(gh.assets.sprites[agent.inventory[it].name]){
+					gh.assets.sprites[agent.inventory[it].name].draw(ctx, 0, 0, w.width, w.height);
+				} else {
+					// draw some default icon if we don't have graphics.
+				}
+
+				w.style.maxHeight = w.parentNode.style.maxHeight;
+			}
+		};
 
 		/**
 		 * @method update
 		 */
 		hud.update = function(){
 			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+
+
+			// Update the active image display.
+			AAD_IMAGE.width = AAD_IMAGE.clientWidth;
+			AAD_IMAGE.height = AAD_IMAGE.clientWidth;
 			
 			// Update the Active Agent display
+
+			/*
 			document.getElementById("aaName").innerHTML = agent.uniqueID;
 			document.getElementById("aaDescription").innerHTML = agent.description;
 
 			var context = AAD_IMAGE.getContext("2d");
-			AAD_IMAGE.width = aaImage.clientWidth;
-			AAD_IMAGE.height = aaImage.clientWidth;
 			
 			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
 			aadAtkDice.innerHTML = agent.mainHand.attackDice;
@@ -148,13 +194,17 @@ var gh = (function(gh){
 
 			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
 			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
+			*/
 
 			// Draw the image of the current agent
+
+			/*
 			context.save();
 
 			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, aaImage.width,aaImage.height);
 
 			context.restore();
+			*/
 		}
 
 		/**
@@ -162,39 +212,46 @@ var gh = (function(gh){
 		 * @method render
 		 */
 		hud.render = function(){
+			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+			var context = AAD_IMAGE.getContext("2d");
+
+/*
+			console.log(AAD_IMAGE.width);
+			console.log(AAD_IMAGE.clientWidth);
+*/
+
+			gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, AAD_IMAGE.width, AAD_IMAGE.height);
+
+			//gh.assets.sprites[agent.sprites.display].draw(context, 0, 0, 150, 150);
+			
 			var moved = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().moved;
 			if(moved > 6){
 				var diff = moved - 6;
-				hud.d2.draw(diff - 1, 0, 0, 100, 100);
+				hud.d2.draw(diff - 1, 0, 0, 40, 40);
 				moved = moved - diff;
 			} else {
 				hud.d2.clear();
 			}
 			if(moved > 0){
-				hud.d1.draw(moved - 1, 0, 0, 100, 100)
+				hud.d1.draw(moved - 1, 0, 0, 40, 40)
 			} else {
 				hud.d1.clear();
 			}
+			
 		};
 
 		/**
 		 * @method setupInput
 		 */
 		hud.setupInput = function(){
-			document.getElementById(END_TURN_BUTTTON).onclick = hud.onEndTurn;
-			var actionButtons = document.getElementsByClassName("actionButton");
-			for(var it=0; it < actionButtons.length; it++){
-				actionButtons[it].onclick = hud.onActionStateButton;				
-			}
+			END_TURN_BUTTON.onclick = hud.onEndTurn;
 		};
 
 		/**
+		 * This event fires when the 'end turn' button has been clicked by a user.
 		 * @method onEndTurn
 		 */
 		hud.onEndTurn = function(){
-			// Clear the aad inventory
-			stdlib.dom.removeChildren(AAD_INVENTORY);
-
 			/**
 			 * Setup the next players turn
 			 */
@@ -202,19 +259,10 @@ var gh = (function(gh){
 			gh.ptrActiveLevel.manager.setNextTurn();
 			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
 
-			// Load the current agent's inventory to the aad
-			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
-			for(var it = 0; it < agent.inventory.length; it++){
-				var p = document.createElement("p");
-				p.innerHTML = agent.inventory[it].name;
-				p.className = "aaInventoryItem";
-				AAD_INVENTORY.appendChild(p);
-			}
-
 			/**
-			 * Hud maintenance re new turn
+			 * Update the active agent display data
 			 */
-			hud.clearActionStateButtons();
+			hud.setupAAD();
 
 			/**
 			 * Center board view onto new agent
@@ -223,53 +271,20 @@ var gh = (function(gh){
 		};
 
 		/**
-		 * @method onActionStateButton
+		 * This event is called when an active agent display heading is clicked. When clicked,
+		 * the content of the heading is either hidden or displayed, depending on its prior
+		 * state.
+		 * @method onAADClick
 		 */
-		hud.onActionStateButton = function(){
-			/**
-			 * Handle the cosmetic changs of the actions state buttons
-			 */
-			var actionButtons = document.getElementsByClassName("actionButton");
-			for(var it = 0; it < actionButtons.length; it++){
-				actionButtons[it].style.backgroundColor = "rgba(163, 155, 138, 0.8)";
-				actionButtons[it].style.borderStyle = "ridge";
-			}
-			this.style.borderStyle = "groove";
-			this.style.backgroundColor = "rgba(78, 74, 67, 0.8)";
+		hud.onAADClick = function(){
+			var tab = this.nextElementSibling;
 
-			/**
-			 * Update the current player/agents action state
-			 */
-			switch(this.id){
-				case "attack":
-					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = "attack";
-					break;
-				case "search":
-					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = "search";
-					break;
-				case "item":
-					break;
-				case "traps":
-					gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().actionState = "traps";
-					break;
-				case "spell":
-					break;
-				default:
-					console.log("invalid action button id value");
-					break;
-			};
+			if(tab.style.maxHeight === ""){
+				stdlib.dom.setNodeTreeStyle(tab, "maxHeight", "0px");
+			} else {
+				stdlib.dom.setNodeTreeStyle(tab, "maxHeight", "");
+			}
 		};
-
-		/**
-		 * @method clearActionStateButtons
-		 */
-		hud.clearActionStateButtons = function(){
-			var actionButtons = document.getElementsByClassName("actionButton");
-			for(var it = 0; it < actionButtons.length; it++){
-				actionButtons[it].style.backgroundColor = "rgba(163, 155, 138, 0.8)";
-				actionButtons[it].style.borderStyle = "ridge";
-			}
-		}
 
 		/**
 		 * @method displayAttack
@@ -278,15 +293,6 @@ var gh = (function(gh){
 		hud.displayAttack = function(numHitDice, hits, numDefenceDice, defence, defender){
 			gh.dss.update(numHitDice, hits, numDefenceDice, defence, defender);
 			gh.dss.setVisible(true);
-			/*
-			setTimeout(
-				function(){
-					gh.dss.setVisible(false);
-					gh.dss.clear();
-				},
-				1000
-			);
-			*/
 		};
 
 

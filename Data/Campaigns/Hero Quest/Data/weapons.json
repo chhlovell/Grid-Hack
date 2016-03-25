@@ -61,5 +61,32 @@
 		"diagonal"		: false,
 		"cost"			: 500,
 		"actionPoints"	: 1
+	},
+	"Human Unarmed" : {
+		"name"			: "unarmed",
+		"size"			: "small",
+		"attack"		: 1,
+		"hands"			: 1,
+		"range" 		: 1,
+		"diagonal"		: false,
+		"actionPoints"	: 1
+	},
+	"Dwarf Unarmed" : {
+		"name"			: "unarmed",
+		"size"			: "small",
+		"attack"		: 1,
+		"hands"			: 1,
+		"range" 		: 1,
+		"diagonal"		: false,
+		"actionPoints"	: 1
+	},
+	"Elf Unarmed" : {
+		"name"			: "unarmed",
+		"size"			: "small",
+		"attack"		: 1,
+		"hands"			: 1,
+		"range" 		: 1,
+		"diagonal"		: false,
+		"actionPoints"	: 1
 	}
 }

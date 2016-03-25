@@ -21,6 +21,7 @@ var gh = (function(gh){
 		var ptrFocus;
 
 		/**
+		 * This function is called at the end of and AI agent's turn.
 		 * This method loads the next agent's turn.  This is done by first looking for
 		 * the next agent in the current players roster, or if the last agent has 
 		 * finished its turn, change to the next players turn with the fist agent in
@@ -32,23 +33,7 @@ var gh = (function(gh){
 		 * @method endTurn
 		 */
 		function endTurn(){
-			// Clear the active agent display inventory list.
-			console.log("endTurn");
-			stdlib.dom.removeChildren(document.getElementById("aaInventory"));
-
-			// Set the game to the next agent's/player's turn.
-			gh.ptrActiveLevel.manager.setNextTurn();
-			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
-			gh.board.centerOn(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
-
-			// Load the current agent's inventory to the aad
-			var agent = gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
-			for(var it = 0; it < agent.inventory.length; it++){
-				var p = document.createElement("p");
-				p.innerHTML = agent.inventory[it].name;
-				p.className = "aaInventoryItem";
-				document.getElementById("aaInventory").appendChild(p);
-			}
+			gh.hud.onEndTurn();
 
 			if(gh.ptrActiveLevel.manager.getActivePlayer().AI){
 				timeStamp = Date.now();
@@ -93,7 +78,6 @@ var gh = (function(gh){
 						}
 					} else if(path.length > 1 || activeAgent.moved === 1){
 						if(!(path[0].cell.agents && path[0].cell.agents.length > 0)){
-							console.log(dt);
 							dt = Date.now() - timeStamp;
 							if(dt > 500){
 								activeAgent.move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);

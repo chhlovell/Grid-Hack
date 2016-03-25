@@ -98,8 +98,6 @@ var gh = (function(gh){
 		 * @param {} defence
 		 */
 		dss.update = function(numHitDice, hits, numDefenceDice, defence, defender){
-			console.log(arguments);
-
 			var n = 0;
 
 			// Add the hit dice rolled to the splash screen.

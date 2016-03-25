@@ -223,13 +223,43 @@ var gh = (function(gh){
 						template.moveDice,
 						template.baseMove,
 						template.spellList,
-						template.inventory,
+						json.getInventory(template.inventory, jsonWeaponTemplates, jsonArmourTemplates),
 						template.sprites,
 						template.animations
 					)
 				);
 			}
 			return roster;
+		};
+
+		/** 
+		 * This method builds an agent inventory from a json inventory list.
+		 * @method getInventory
+		 * @param {JSON} inventory
+		 * @param {JSON} jsonWeaponTemplates
+		 * @param {JSON} jsonArmourTemplates
+		 * @return
+		 */
+		json.getInventory = function(inventory, jsonWeaponTemplates, jsonArmourTemplates){
+			if(!inventory){
+				return [];
+			}
+
+			var ivt = [];
+			for(var it = 0; it < inventory.length; it++){
+				switch(inventory[it].type){
+					case "weapon":
+						var wTemp = jsonWeaponTemplates[inventory[it].resRef]
+						var w = new gh.Weapon(wTemp.name, inventory[it].resRef, wTemp.size, wTemp.attack, wTemp.hands, wTemp.range, wTemp.diagonal, wTemp.cost, wTemp.actionPoints);
+						ivt.push(w);
+						break;
+					case "armour":
+						break;
+					default:
+						brak;
+				}
+			}
+			return ivt;
 		};
 
 		/**
@@ -251,8 +281,6 @@ var gh = (function(gh){
 
 			mapData.triggers	= json.getTriggers(triggers);
 			mapData.items		= json.getItems(items, jsonItemTemplates);
-
-			console.log(mapData.items);
 
 			// Get the raw cell data
 			if(map !== undefined){

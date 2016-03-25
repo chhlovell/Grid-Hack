@@ -34,7 +34,6 @@ var stdlib = (function(stdlib){
 		 * @param {} node
 		 */
 		dom.removeChildren = function(node){
-			console.log("removeChildren");
 			while(node.children.length > 0){
 				node.removeChild(node.children[0]);
 			}

@@ -50,6 +50,7 @@ var gh = (function(gh){
 
 		// Load the graphics assets
 		gh.json.loadAssets(gh.assets, "Hero Quest", "The Trial");
+		gh.hud.loadAssets();
 
 		// Setup the hud and input interface
 		gh.setupDisplay(gh.divDisplay, canvasHud, canvasBoard);
@@ -87,17 +88,18 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].baseDefence,
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
-			jsonAgentTemplates[type].chest,
+			gh.json.getArmour("Chain Mail", jsonArmourTemplates),
 			gh.json.getArmour(jsonAgentTemplates[type].head, jsonArmourTemplates),
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
-			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory,
+			jsonAgentTemplates[type].spellDomains,
+			gh.json.getInventory(jsonAgentTemplates[type].inventory, jsonWeaponTemplates, jsonArmourTemplates),
 			jsonAgentTemplates[type].sprites,
 			jsonAgentTemplates[type].animations
 		);
 		agent.active = true;
 		agent.protagonist = true;
+		agent.inventory.push(gh.json.getArmour("Shield", jsonArmourTemplates));
 		roster.push(agent);
 
 		type = "Elf";
@@ -114,7 +116,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].baseDefence,
 			gh.json.getWeapon(jsonAgentTemplates[type].mainHand, jsonWeaponTemplates),
 			jsonAgentTemplates[type].offHand,
-			jsonAgentTemplates[type].chest,
+			gh.json.getArmour("Chain Mail", jsonArmourTemplates),
 			jsonAgentTemplates[type].head,
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,

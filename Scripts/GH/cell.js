@@ -222,12 +222,14 @@ var gh = (function(gh){
 	 * @param {gh.Agent} agent
 	 */
 	Cell.prototype.removeAgent = function(agent){
+		// Find the location of the agent in the cell's agent list.
 		for(var it = 0; it < this.agents.length && this.agents[it] !== agent; it++){
 
 		}
+
+		// Remove the agent from the list.
 		if(it < this.agents.length){
 			this.agents.splice(it, 1);
-			console.log(this.agents);
 		}
 	};
 
@@ -238,39 +240,32 @@ var gh = (function(gh){
 
 		var obj = this.getClicked(mouseX, mouseY, tileSize, scale, offset, sprites);
 
-		if(obj !== activeAgent){
-			switch(activeAgent.actionState){
-				case "attack":
-					if(obj instanceof gh.Agent){
-						if(activeAgent.isHostile(obj, gh.ptrActiveLevel.teams)){
-							var attack = activeAgent.attack(obj);
+		if(obj !== activeAgent && obj instanceof gh.Agent){
+			// The selected object is a hostile agent.
+			// Investigate the possiblity of attacking the agent.
+			if(activeAgent.isHostile(obj, gh.ptrActiveLevel.teams)){
+				var w = activeAgent.mainHand;
+				if(activeAgent.canAttack(obj)){
+					var attack = activeAgent.attack(obj);
 
-							if(attack !== null){
-								gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
+					if(attack !== null){
+						gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
 
-								// If the target agent has been killed remove it from the game (board and its owner's roster)
-								// and add a corpse/blood splatter effect to the board.
-								if(obj.damageHealth(attack.damage) === "dead"){
-									this.effects.push(gh.assets.sprites["blood-splatter.gif"]);
-									this.removeAgent(obj);
-								}
-							}
-						} else {
-							console.log("invalid target");
+						// If the target agent has been killed remove it from the game (board and its owner's roster)
+						// and add a corpse/blood splatter effect to the board.
+						if(obj.damageHealth(attack.damage) === "dead"){
+							this.effects.push(gh.assets.sprites["blood-splatter.gif"]);
+							this.removeAgent(obj);
 						}
 					}
-					break;
-				case "search":
-					break;
-				case "item":
-					break;
-				case "traps":
-					break;
-				case "spell":
-					break;
-				default:
-					break;
-			};
+				}
+			}
+		}
+
+		if(obj instanceof gh.Item){
+			if(obj.canReach(activeAgent)){
+				console.log("can reach");
+			}
 		}
 
 		if(obj instanceof gh.Door){
@@ -305,10 +300,10 @@ var gh = (function(gh){
 	 */
 	Cell.prototype.getClicked = function(mouseX, mouseY, tileSize, scale, offset, sprites){
 		// 1st get the relative position of the mouse coordinates with respect to the cell
-		// Account for the image scale
 		var relx = (mouseX - offset.x) - (this.x * tileSize * scale);
 		var rely = (mouseY - offset.y) - (this.y * tileSize * scale);
 
+		// Account for the image scale
 		relx = relx / scale;
 		rely = rely / scale;
 
@@ -324,6 +319,13 @@ var gh = (function(gh){
 			var agent = this.agents[this.agents.length-1];
 			if(agent.isClicked(relx, rely, tileSize, sprites)){
 				return agent;
+			}
+		}
+
+		if(this.items && this.items.length > 0){
+			var item = this.items[this.items.length -1];
+			if(item.isClicked(this.x, this.y, mouseX, mouseY, tileSize, scale, offset, sprites)){
+				return item;
 			}
 		}
 

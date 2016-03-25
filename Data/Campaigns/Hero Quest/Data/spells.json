@@ -1,0 +1,61 @@
+{
+	"earth" : [
+		{
+			"name" : "Heal Body",
+			"description" : ""
+		},
+		{
+			"name" : "Pass through Rock",
+			"description" : ""
+		},
+		{
+			"name" : "Rock Skin",
+			"description" : ""
+		}
+	],
+	"fire" : [
+		{
+			"name" : "Ball of Flame",
+			"description" : ""
+		},
+		{
+			"name" : "Courage",
+			"description" : ""
+		},
+		{
+			"name" : "Fire of Wrath",
+			"description" : ""
+		}
+	],
+	"water" : [
+		{
+			"name" : "Sleep",
+			"description" : "This spell puts a monster into a deep sleep so it cannot move, attack, or defend itself. The spell can be broken at once or on a future turn by a monster rolling one red die for each of its Mind Points. If a 6 is rolled, the spell is broken. May not be used agianst monsters with 0 mind points."
+		},
+		{
+			"name" : "Water of Healing",
+			"description" : "This spell may be cast on any one Hero, including yourself. Contact with this revitalizing water will restore up to 4 lost Body Points, but will not give a Hero more than his starting number."
+		},
+		{
+			"name" : "Veil of Mist",
+			"description" : "This spell may be cast on any one Hero, including yourself. On the Hero's next move, he may move unseen through spaces that are occupied by monsters."
+		}
+	],
+	"air" : [
+		{
+			"name" : "Genie",
+			"description" : "This spell conjures up a Genie who will do one of the following: open any door on the board (revealing what lies beyond), OR use 5 combat dice to attack any monster within your line of sight."
+		},
+		{
+			"name" : "Tempest",
+			"description" : "This spell creates a small whirlwind that envelops one monster of your choice. That monster will then miss its next turn."
+		},
+		{
+			"name" : "Swift Wind",
+			"description" : "This spell may be cast on any one Hero, including yourself. Its powerful burst of energy enables that Hero to roll twice as many red dice as normal the next time he moves."
+		}
+	],
+	"chaos" : {
+
+	}
+}

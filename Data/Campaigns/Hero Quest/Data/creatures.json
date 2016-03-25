@@ -16,6 +16,9 @@
 		"moveDice" 					: 2,
 		"spellList" 				: [],
 		"weaponsRestricted" 		: [],
+		"inventory"					: [
+			{"type" : "weapon", "resRef" : "Human Unarmed"}
+		],
 		"animations"				: {
 										"inactive"	: {
 											"path" : "barbarian.png", 
@@ -52,6 +55,9 @@
 		"moveDice" 					: 2,
 		"spellList" 				: [],
 		"weaponsRestricted" 		: [],
+		"inventory"					: [
+			{"type" : "weapon", "resRef" : "Elf Unarmed"}
+		],
 		"animations"				: {
 										"inactive"	: {
 											"path" : "elf.png", 
@@ -88,6 +94,9 @@
 		"moveDice" 					: 2,
 		"spellList" 				: [],
 		"weaponsRestricted" 		: [],
+		"inventory"					: [
+			{"type" : "weapon", "resRef" : "Dwarf Unarmed"}
+		],
 		"animations"				: {
 										"inactive"	: {
 											"path" : "dwarf.png", 
@@ -123,7 +132,7 @@
 		"head" 						: null,
 		"moveDice" 					: 2,
 		"baseMove" 					: 0,
-		"spellList" 				: [],
+		"spellDomains" 				: ["earth", "fire", "wind", "water"],
 		"restrictions" 				: [
 										{
 											"key" 		: "weaponTemplates", 
@@ -132,6 +141,9 @@
 											"category" 	: ["medium", "large"]
 										}
 									],
+		"inventory"					: [
+			{"type" : "weapon", "resRef" : "Human Unarmed"}
+		],
 		"animations"				: {
 										"inactive"	: {
 											"path" : "wizard.png", 

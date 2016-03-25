@@ -24,7 +24,7 @@ var gh = (function(gh){
 	 */
 	function Board(canvasId, width, height){
 		this.canvas2d 	= new graphics.Canvas2D(canvasId, "0px", "0px", width, height);
-		this.scale		= .8;
+		this.scale		= 1;
 		this.tileSize	= 64;
 		this.offset 	= {	"x" : 0, "y" : 0 };
 	}
