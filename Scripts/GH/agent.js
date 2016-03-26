@@ -11,6 +11,8 @@ var gh = (function(gh){
 
 	console.log("agent.js loaded");
 
+	// The state object is used to identify which animation state an agent is in.
+	// It is utilized by this.actionStates when drawing the agent to the game board.
 	var state = {};
 	state.INACTIVE 		= "inactive";
 	state.MOVE 			= "move";
@@ -76,12 +78,16 @@ var gh = (function(gh){
 		//		"searchTraps" 	-> search for traps state
 		this.actionState 		= "default";
 
-		// Agnet.state
-		// This identifies which animation state the agent is in.
-		this.state 				= state.INACTIVE;
-		this.sprites			= sprites;
-		if(animations){
-			this.actionStates 	= this.loadActionStates(animations)
+		// Agent.state
+
+		this.sprites			= sprites; 	// Contains static image references for user interface 
+											//elements such as the gh.hud
+
+		this.state 				= state.INACTIVE; // This identifies which animation state the agent is in.
+		if(animations){	
+			this.actionStates 	= this.loadActionStates(animations) // actionStates contains the graphic
+																	// data - gh.Animation - for use on the
+																	// canvas board.
 		}
 
 		return true;
