@@ -65,8 +65,26 @@ var gh = (function(gh){
 		this.inventory			= inventory || [];
 		loadInventory(this);	// Load the equiped items into the agents inventory.
 
-		this.actionPoints		= 0;
-		this.maxActionPoints	= 1;
+		this.actions 			= {
+			"max"		: 1,
+			"attack"	: 0,
+			"search"	: 0,
+			"traps"		: 0,
+			"reset"		: function(){
+				this.attack = 0;
+				this.search = 0;
+				this.traps = 0;
+			},
+			"get"		: function(){
+				return this.attack + this.search + this.traps;
+			},
+			"used"		: function(){
+				if(this.get() >= this.max){
+					return true;
+				} 
+				return false;
+			}
+		}
 
 		this.active 			= false;	// The default state is false.  This should change to active when the agent becomes 'visible' on the board to other players.
 		this.protagonist		= false;
@@ -117,6 +135,33 @@ var gh = (function(gh){
 
 		return;
 	}
+
+	Agent.prototype.addToInventory= function(item){
+		if(item instanceof gh.Gold){
+			console.log("add gold");
+			this.inventory.push(item);
+			return;
+		}
+
+		if(item instanceof gh.Gem){
+			console.log("add gem");
+			this.inventory.push(item);
+			return;
+		}
+
+		if(item instanceof gh.Jewel){
+			console.log("add jewel");
+			this.inventory.push(item);
+			return;
+		}
+
+		if(item instanceof gh.Potion){
+			console.log("add potion");
+			this.inventory.push(item);
+			return;
+		}
+
+	};
 
 	/**
 	 * @method loadActionStates
@@ -342,7 +387,7 @@ var gh = (function(gh){
 			this.moved += new gh.Dice(6).roll();
 		}
 
-		this.actionPoints = 0;
+		this.actions.reset();
 	};
 
 	/**
@@ -561,8 +606,6 @@ var gh = (function(gh){
 		var defence 		= {"sum" : 0, "dice" : []};
 		var defenceDice 	= this.getDefenceDice();
 
-		console.log(this);
-
 		for(var it = 0; it < defenceDice; it++){
 			var r = gh.hqDice.roll();
 			switch(this.ptrOwner.AI){
@@ -592,7 +635,7 @@ var gh = (function(gh){
 	 * @return
 	 */
 	Agent.prototype.canAttack = function(target){
-		if(this.actionPoints >= 1) return false;
+		if(this.actions.used()) return false;
 		if(!this.isHostile(target, gh.ptrActiveLevel.teams)) return false;
 		if(this.mainHand.diagonal){
 			if(gh.isDiagonal(this.x, this.y, target.x, target.y)){
@@ -625,7 +668,7 @@ var gh = (function(gh){
 			return null;
 		}
 
-		this.actionPoints++;
+		this.actions.attack++;
 
 		var hits = this.mainHand.attack();
 		var defence = target.getDefence();
