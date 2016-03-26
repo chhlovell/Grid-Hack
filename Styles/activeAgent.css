@@ -1,10 +1,15 @@
 #aaDisplay{
 	z-index: 200;
 	position: absolute;
+	box-sizing: border-box;
 	left: 0px;
 	top: 0px;
 	width: 300px;
-	max-height: 80%;
+	max-height: 100%;
+
+	overflow: auto;
+
+	border: 10px solid #9c2129;
 
 	background-image: url("../Data/Graphics/Interface/aged paper.jpg");
 }
@@ -75,4 +80,29 @@
 
 	border: 6px ridge grey;
 	border-radius: 5px;
+}
+
+.aaIconEquiped{
+	position: relative;
+	float: left;
+	margin: 5px;
+	width: 60px;
+	height: 60px;
+
+	background-color: black;
+
+	border: 6px ridge yellow;
+	border-radius: 5px;
+}
+
+#aaTable{
+	width: 100%;
+	font-size: 1.5em;
+	font-family: 'Architects Daughter', cursive;
+}
+
+.aaTD{
+	text-align: center;
+	font-size: 1em;
+	font-family: 'Architects Daughter', cursive;
 }

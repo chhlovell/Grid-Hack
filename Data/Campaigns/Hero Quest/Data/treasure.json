@@ -63,7 +63,7 @@
 			},
 			{
 				"name"				: "Heroic Brew",
-				"item"				: "Heroic Brew",
+				"function"			: {"key" : "potion", "attribute" : "Heroic Brew"},
 				"description"		: "You are surprised to find a leather bag hanging on the wall. If you drink its contents before you attack, you can make two attacks instead of one. This may only be used once.",
 				"image"				: "heroicBrew.gif"
 			},

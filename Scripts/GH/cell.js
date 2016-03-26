@@ -264,12 +264,17 @@ var gh = (function(gh){
 		}
 
 		if(obj instanceof gh.Item){
-			if(obj.canReach(activeAgent)){
-				console.log("can reach");
-				var treasure = gh.ptrActiveLevel.treasure.getCard();
-				gh.stateTreasure.load(treasure);
+			if(obj.onSearch(activeAgent)){
 				return "stateTreasure";
+			} else {
+				return "stateGame";
 			}
+			/*
+			activeAgent.actions.search++;
+			var treasure = gh.ptrActiveLevel.treasure.getCard();
+			gh.stateTreasure.load(treasure);
+			return "stateTreasure";
+			*/
 		}
 
 		if(obj instanceof gh.Door){

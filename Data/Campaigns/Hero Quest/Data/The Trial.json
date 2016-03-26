@@ -529,20 +529,77 @@
 		],
 
 		"items" 	: [
-			{"type" : "Chest", 			"id" : "chest02", 		"pos" : {"x" : 10, "y" :  4}},
-			{"type" : "Chest", 			"id" : "chest01", 		"pos" : {"x" : 11, "y" :  6}},
-			{"type" : "Chest", 			"id" : "chest03", 		"pos" : {"x" : 17, "y" : 15}, 	"rotation" : 90},
+			{
+				"type" 		: "Chest", 			
+				"id" 		: "chest02", 		
+				"pos" 		: {"x" : 10, "y" :  4},
+				"inventory" : [
+					{
+						"fn"	: "treasure",
+						"args"	: {
+							"name" 			: "Gold",
+							"function"		: {"key" : "gold", "attribute" : 84},
+							"description"	: "This chest is packed with gleaming gold coins, a quick count of which totals to 120 gold coins.",
+							"image"			: "gold.gif"
+						}
+					}
+				]
+			},
+			{
+				"type" 		: "Chest", 			
+				"id" 		: "chest01", 		
+				"pos" 		: {"x" : 11, "y" :  6},
+				"inventory" : [
+					{
+						"fn" : "treasure", 
+						"args" : {
+							"name" : "Gold", 
+							"function" : {"key" : "gold", "attribute" : 120},
+							"description" : "This chest is packed with gleaming gold coins, a quick count of which totals to 120 gold coins.",
+							"image" : "gold.gif"
+						}
+					}
+				]
+			},
+			{
+				"type" 		: "Chest", 			
+				"id" 		: "chest03", 		
+				"pos" 		: {"x" : 17, "y" : 15}, 	
+				"rotation" 	: 90,
+				"inventory" : [
+					{"fn" 	: "empty", "args" : "This chest is empty."}
+				]
+			},
 
-			{"type" : "Chair", 			"id" : "chair01", 		"pos" : {"x" : 10, "y" :  7}},
+			{
+				"type" : "Chair", 			
+				"id" : "chair01", 		
+				"pos" : {"x" : 10, "y" :  7}
+			},
 
-			{"type" : "Desk", 			"id" : "desk01", 		"pos" : {"x" :  5, "y" : 14}, 	"rotation" : 270},
+			{
+				"type" 		: "Desk", 			
+				"id" 		: "desk01", 		
+				"pos" 		: {"x" :  5, "y" : 14}, 	
+				"rotation" 	: 270,
+				"inventory" : [
+					{"fn" : "random"}
+				]
+			},
 
 			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" :  5, "y" : 12}},
 			{"type" : "Bookshelf", 		"id" : "bookshelf01", 	"pos" : {"x" : 15, "y" : 16}, 	"rotation" : 180},
 
 			{"type" : "Cupboard", 		"id" : "cupboard01", 	"pos" : {"x" : 15, "y" : 12}},
 
-			{"type" : "Table", 			"id" : "table01", 		"pos" : {"x" : 11, "y" :  8}},
+			{
+				"type" 		: "Table", 			
+				"id" 		: "table01", 		
+				"pos" 		: {"x" : 11, "y" :  8},
+				"inventory" : [
+					{"fn" : "random"}
+				]
+			},
 			{"type" : "Table", 			"id" : "table02", 		"pos" : {"x" :  6, "y" :  4}},
 
 			{"type" : "Tome",			"id" : "tome01",		"pos" : {"x" :  1, "y" :  4},	"rotation" : 90},
@@ -551,7 +608,15 @@
 
 			{"type" : "Toomb",			"id" : "toomb01",		"pos" : {"x" : 10, "y" :  0},	"rotation" : 90},
 
-			{"type" : "WeaponRack",		"id" : "weaponRack01",	"pos" : {"x" : 11, "y" : 14},	"rotation" : 90},
+			{
+				"type" 		: "WeaponRack",		
+				"id" 		: "weaponRack01",	
+				"pos" 		: {"x" : 11, "y" : 14},	
+				"rotation" 	: 90,
+				"inventory" : [
+					{"fn" : "empty", "args" : "The weapons on this rack are chiped, rusted and broken. There is nothing here of value."}
+				]
+			},
 
 			{"type" : "TortureRack",	"id" : "tortureRack01",	"pos" : {"x" :  3, "y" :  9},	"rotation" : 270},
 

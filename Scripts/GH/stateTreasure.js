@@ -41,6 +41,7 @@ var gh = (function(gh){
 			var context = ST_IMAGE.getContext("2d");
 			if(gh.assets.sprites[card.image]){
 				console.log("draw " + card.image);
+				context.clearRect(0, 0, ST_IMAGE.width, ST_IMAGE.height);
 				gh.assets.sprites[card.image].draw(context, 0, 0, ST_IMAGE.width, ST_IMAGE.height);
 			}
 		};

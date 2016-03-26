@@ -8,7 +8,6 @@ var gh = (function(gh){
 		/**
 		 * Private constants
 		 */
-		//var HUD 				= "hud";
 		var HUD 				= document.getElementById("hud");
 
 		var DICE1 				= "d1";
@@ -91,15 +90,22 @@ var gh = (function(gh){
 		 */
 		hud.loadAssets = function(){
 			// Load the AAD canvas graphics
-			gh.assets.sprites["dagger"]			= new graphics.Sprite("./Data/Graphics/Interface/dagger.gif");
-			gh.assets.sprites["longsword"] 		= new graphics.Sprite("./Data/Graphics/Interface/longsword.gif");
-			gh.assets.sprites["shortsword"] 	= new graphics.Sprite("./Data/Graphics/Interface/shortsword.gif");
-			gh.assets.sprites["unarmed"]		= new graphics.Sprite("./Data/Graphics/Interface/unarmed.gif");
+			gh.assets.sprites["dagger"]					= new graphics.Sprite("./Data/Graphics/Interface/dagger.gif");
+			gh.assets.sprites["longsword"] 				= new graphics.Sprite("./Data/Graphics/Interface/longsword.gif");
+			gh.assets.sprites["shortsword"] 			= new graphics.Sprite("./Data/Graphics/Interface/shortsword.gif");
+			gh.assets.sprites["unarmed"]				= new graphics.Sprite("./Data/Graphics/Interface/unarmed.gif");
 
-			gh.assets.sprites["chainmail"]		= new graphics.Sprite("./Data/Graphics/Interface/chainmail.gif");
-			gh.assets.sprites["helmet"]			= new graphics.Sprite("./Data/Graphics/Interface/helmet.gif");
-			gh.assets.sprites["natural"] 		= new graphics.Sprite("./Data/Graphics/Interface/natural.gif");
-			gh.assets.sprites["shield"]			= new graphics.Sprite("./Data/Graphics/Interface/shield.gif");
+			gh.assets.sprites["chainmail"]				= new graphics.Sprite("./Data/Graphics/Interface/chainmail.gif");
+			gh.assets.sprites["helmet"]					= new graphics.Sprite("./Data/Graphics/Interface/helmet.gif");
+			gh.assets.sprites["natural"] 				= new graphics.Sprite("./Data/Graphics/Interface/natural.gif");
+			gh.assets.sprites["shield"]					= new graphics.Sprite("./Data/Graphics/Interface/shield.gif");
+
+			gh.assets.sprites["Gem"]					= new graphics.Sprite("./Data/Graphics/Interface/Gem.gif");
+			gh.assets.sprites["Gold"]					= new graphics.Sprite("./Data/Graphics/Interface/Gold.gif");
+			gh.assets.sprites["Jewels"]					= new graphics.Sprite("./Data/Graphics/Interface/Jewels.gif");	
+			gh.assets.sprites["Potion of Healing"] 		= new graphics.Sprite("./Data/Graphics/Interface/Potion of Healing.gif");
+			gh.assets.sprites["Heroic Brew"] 			= new graphics.Sprite("./Data/Graphics/Interface/Heroic Brew.gif");
+			gh.assets.sprites["Potion of Defence"] 		= new graphics.Sprite("./Data/Graphics/Interface/Potion of Defence.gif");
 		};
 
 		/**
@@ -118,25 +124,7 @@ var gh = (function(gh){
 
 			AAD_BODY.innerHTML = agent.getCurrentHealth();
 			AAD_MIND.innerHTML = agent.getCurrentMind();
-			
-			// Update the Active Agent display
-
-			/*
-			document.getElementById("aaName").innerHTML = agent.uniqueID;
-			document.getElementById("aaDescription").innerHTML = agent.description;
-
-			var context = AAD_IMAGE.getContext("2d");
-			
-			var aadAtkDice = document.getElementById(AAD_ATTACK_DICE);
-			aadAtkDice.innerHTML = agent.mainHand.attackDice;
-
-			var aadDefDice = document.getElementById(AAD_DEFEND_DICE);
-			aadDefDice.innerHTML = agent.getDefenceDice();
-
-			document.getElementById(AAD_BODY).innerHTML = agent.getCurrentHealth();
-			document.getElementById(AAD_MIND).innerHTML = agent.getCurrentMind();
-			*/
-		}
+		};
 
 		/**
 		 * Handle any graphical updates to the hud which require drawing.
@@ -205,7 +193,7 @@ var gh = (function(gh){
 			// Remove and child icons in the action tab
 			stdlib.dom.removeChildren(AAD_WEAPONS);
 			stdlib.dom.removeChildren(AAD_ARMOUR);
-			//stdlib.dom.removeChildren(AAD_SPELLS);
+			stdlib.dom.removeChildren(AAD_SPELLS);
 			stdlib.dom.removeChildren(AAD_EQUIPMENT)
 
 			// Load the natural armour into the armour tab prior to loading the genral inventory.
@@ -243,6 +231,7 @@ var gh = (function(gh){
 				w.height 		= w.clientHeight;
 				var ctx 		= w.getContext("2d");
 
+				console.log(gh.assets.sprites[agent.inventory[it].name]);
 				if(gh.assets.sprites[agent.inventory[it].name]){
 					gh.assets.sprites[agent.inventory[it].name].draw(ctx, 0, 0, w.width, w.height);
 				} else {
@@ -326,6 +315,9 @@ var gh = (function(gh){
 
 		}
 
+		/**
+		 * @method onAADClick
+		 */
 		hud.onAADClick = function(){
 			var tab = this.nextElementSibling;
 			if(tab.style.maxHeight === ""){
@@ -333,7 +325,7 @@ var gh = (function(gh){
 			} else {
 				stdlib.dom.setNodeTreeStyle(tab, "maxHeight", "");
 			}
-		}
+		};
 
 
 		/**************************************************************************************************************

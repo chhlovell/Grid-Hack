@@ -17,12 +17,44 @@ var gh = (function(gh){
 	 * @param {string} description The descriptive text of the treasure card event.
 	 * @param {} attribute A key and value object containing the relevant data for extrapolating what the card functionally does.
 	 */
-	function Card(name, description, attribute, image){
+	function Card(name, description, fn, image){
 		this.name 				= name;
 		this.description 		= description;
-		this.attribute 			= attribute;
+		this.fn 				= fn;
 		this.image				= image;
+
+		console.log(this);
+		console.log(this.fn);
+
+		console.log(fn.attribute);
 	}
+
+	Card.prototype.onFind = function(agent){
+		console.log(agent);
+		console.log(this);
+
+		switch(this.fn.key){
+			case "gold":
+				var item = new gh.Gold(this.fn.attribute);
+				agent.addToInventory(item);
+				break;
+			case "gem":
+				var item = new gh.Gem(this.fn.attribute);
+				agent.addToInventory(item);
+				break;
+			case "jewels":
+				var item = new gh.Jewel(this.fn.attribute);
+				agent.addToInventory(item);
+				break;
+			case "potion":
+				var item = new gh.Potion(this.fn.attribute);
+				agent.addToInventory(item);
+				break;
+			default:
+				break;
+		}
+		gh.hud.setupAAD();
+	};
 
 	/**
 	 * @class Treasure
@@ -51,6 +83,7 @@ var gh = (function(gh){
 
 		return card;
 	};
+
 
 	gh.Card 		= Card;
 	gh.Treasure 	= Treasure;

@@ -1,0 +1,31 @@
+{
+	"gold" : {
+		"value" 			: 1,
+		"onUse"				: null,
+		"img"				: ""
+	},
+	"gem" : {
+		"onUse"				: null,
+		"img"				: ""
+	},
+	"jewel" : {
+		"onUse"				: null,
+		"img"				: ""
+	},
+	"potion of healing" : {
+		"img"				: "",
+		"onUse"				: ""
+	},
+	"potion of strength" : {
+		"img"				: "",
+		"onUse"				: ""
+	},
+	"potion of defence" : {
+		"img"				: "",
+		"onUse"				: ""
+	},
+	"heroic brew" : {
+		"img"				: "",
+		"onUse"				: ""
+	}
+}

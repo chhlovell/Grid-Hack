@@ -47,10 +47,11 @@ TO DO
 		already occupied by agents.  This should prevent AI from finishing a move in a square with
 		an allied agent.
 
--	Search for traps: implement funcitonality
--	Search for secret doors: implement functionality
--	Search for treasure: implement functionality
--	Search: custom cursor
+-	SEARCH for traps: implement funcitonality
+-	SEARCH for secret doors: implement functionality
+-	SEARCH: custom cursor
+-	SEARCH: add check for visible monsters
+-	SEARCH: add some feedback when search not possible
 
 -	Cell.setMouseFocus: add a check for agent focus and animation (probably an overlay effect)
 -	Cell.setMouseFocus: include check for items/objects
@@ -88,7 +89,7 @@ TO DO
 
 -	json.getInventory: Expand to include all item types.
 
--	Door: diagonal use of door should be stoped.
+-	DOOR: diagonal use of door should be stoped.
 
 
 
@@ -136,5 +137,8 @@ COMPLETED
 -	Agent: add blood splatter on death.
 
 -	ARMOUR: add to defence value?
+
+-	Search for treasure: implement functionality
+
 
 

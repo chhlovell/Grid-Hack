@@ -33,7 +33,7 @@ var gh = (function(gh){
 	 * @param {bool} usable Identifies whether or not an agent can interract with the item.
 	 * @param {} mask
 	 */
-	function Item(name, uniqueID, templateRef, description, spriteID, x, y, width, height, rotation, obstacle, usable, mask){
+	function Item(name, uniqueID, templateRef, description, spriteID, x, y, width, height, rotation, obstacle, usable, inventory, mask){
 		this.name 				= name || "defaultName";
 		this.uniqueID 			= uniqueID || "uniqueID";
 		this.templateRef 		= templateRef || "templateRef";
@@ -47,6 +47,18 @@ var gh = (function(gh){
 		this.rotation 			= rotation || 0;
 		this.obstacle			= obstacle || false;
 		this.usable				= usable || false;
+		this.inventory 			= inventory || [];
+
+		// By default all items that are not explicitly empty of content should contain one
+		// random search treasure item which is sourced from the level treasure deck.
+		if(this.inventory.length === 0){
+			this.inventory.push({"fn" : "random"});
+		}
+
+		// This.searched is likely to become redundant.
+		this.searched			= []; 	// This is a list of all agents which have already search the item.
+										// An agent is added to the list the first time it is searched.
+										// An agent in the list may not search the item again.
 	}
 
 	/**
@@ -185,6 +197,81 @@ var gh = (function(gh){
 
 		return false;
 	}
+
+	/**
+	 * @method hasSearched
+	 * @param {gh.Agent} agent
+	 */
+	Item.prototype.hasSearched = function(agent){
+		for(var it = 0; it < this.searched.length; it++){
+			if(agent === this.searched[it]) return true;
+		}
+
+		return false;
+	};
+
+	/**
+	 * @method onSearch
+	 * @param {gh.Agent} agent
+	 */
+	Item.prototype.onSearch = function(agent){
+		if(!this.canReach(agent)) return false;
+		if(agent.actions.used()) return false;
+
+		agent.actions.search++;
+		this.searched.push(agent);
+
+		// If the item has nothign in its inventory list generate
+		// an 'empty' treasure card event.
+		if(this.inventory.length <= 0){
+			gh.stateTreasure.load(new gh.Card("Empty", "You fail to find anything of value.", "", ""));
+			return true;
+		} 
+		//if(this.hasSearched(agent))	return false;
+
+		// While the Item has contents, the hero reveals the content.
+		for(var it = 0; it < this.inventory.length;){
+			switch (this.inventory[it].fn){
+
+				// The item is specifically empty.
+				// Generate an appropriate 'empty' treasure card for the event.
+				case "empty":
+					gh.stateTreasure.load(new gh.Card("Empty", "You fail to find anything of value.", "", ""));
+					break;
+
+				// The item contains a specific treasure item.
+				// Generate a treasure card/cards for those items and display them via
+				// the stateTreasure screen.
+				case "treasure":
+					var treasure = new gh.Card(
+						this.inventory[it].args.name,
+						this.inventory[it].args.description,
+						"",
+						this.inventory[it].args.image
+					);
+					gh.stateTreasure.load(treasure);
+					treasure.onFind(agent);
+					break;
+
+				// The item contains a random tresure.
+				// Generate a random treasure from the level treasure deck.
+				case "random":
+					var treasure = gh.ptrActiveLevel.treasure.getCard();
+					gh.stateTreasure.load(treasure);
+					treasure.onFind(agent);
+					break;
+
+				case "trap":
+					break;
+				default:
+					break;
+			}
+			this.inventory.shift(0, 1);
+		}
+
+
+		return true;
+	};
 
 	gh.Item = Item;
 

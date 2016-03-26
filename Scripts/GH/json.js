@@ -419,6 +419,7 @@ var gh = (function(gh){
 			var itemList = [];
 			for(var it = 0; it < items.length; it++){
 				var ptrItem = jsonItemTemplates[items[it].type];
+				console.log(items[it]);
 				itemList.push(new gh.Item(
 					ptrItem.name,
 					items[it].id,
@@ -431,7 +432,8 @@ var gh = (function(gh){
 					ptrItem.height,
 					items[it].rotation,
 					ptrItem.obstacle,
-					ptrItem.usable
+					ptrItem.usable,
+					items[it].inventory
 					)
 				);
 			}
