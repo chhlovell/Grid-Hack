@@ -71,14 +71,6 @@ var gh = (function(gh){
 		}
 	};
 
-	/**
-	 * @method update
-	 * @return
-	 */
-	Player.prototype.update = function(){
-
-	};
-
 	gh.Player = Player;
 	return gh;
 })(gh || {});

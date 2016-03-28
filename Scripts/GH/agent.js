@@ -19,6 +19,15 @@ var gh = (function(gh){
 	state.DEAD 			= "dead";
 	state.FOCUS 		= "focus";
 	state.ACTIVE 		= "active";
+
+	var _uid			= 0;
+
+	function getUID(){
+		var uid = "Agent" + _uid;
+		_uid++;
+
+		return uid;
+	}
 	
 	/**
 	 * @class Agent
@@ -43,9 +52,10 @@ var gh = (function(gh){
 	 * @param {} sprites
 	 * @param {} animations
 	 */
-	function Agent(templateID,uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellDomains, inventory, sprites, animations){
-		this.templateID 		= templateID;
-		this.uniqueID 			= uniqueID;
+	function Agent(name, resRef, uniqueID, x, y, owner, team, description, body, mind, baseDefence, mainHand, offHand, chest, head, moveDice, baseMove, spellDomains, inventory, sprites, animations){
+		this.name 				= name;
+		this.resRef 			= resRef;
+		this.uniqueID 			= uniqueID || getUID();
 		this.x 					= x;
 		this.y 					= y;
 		this.ptrOwner			= owner || null;
@@ -615,7 +625,6 @@ var gh = (function(gh){
 					}
 					break;
 				case gh.AI.COMPUTER:
-					console.log("AI");
 					if(r === "blackShield"){
 						defence.sum++;
 					}

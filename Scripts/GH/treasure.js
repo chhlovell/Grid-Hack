@@ -22,17 +22,9 @@ var gh = (function(gh){
 		this.description 		= description;
 		this.fn 				= fn;
 		this.image				= image;
-
-		console.log(this);
-		console.log(this.fn);
-
-		console.log(fn.attribute);
 	}
 
 	Card.prototype.onFind = function(agent){
-		console.log(agent);
-		console.log(this);
-
 		switch(this.fn.key){
 			case "gold":
 				var item = new gh.Gold(this.fn.attribute);
@@ -49,6 +41,11 @@ var gh = (function(gh){
 			case "potion":
 				var item = new gh.Potion(this.fn.attribute);
 				agent.addToInventory(item);
+				break;
+			case "trap":
+				gh.trap[this.fn.f](agent, this.fn.attribute);
+				break;
+			case "empty":
 				break;
 			default:
 				break;

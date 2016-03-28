@@ -1,6 +1,7 @@
 {
 	"Barbarian" : {
 		"name" 						: "Barbarian",
+		"resRef"					: "Barbarian",
 		"sprites" 					: {
 										"display" 	: "Barbarian.gif",
 										"token"		: "barbarian.png"
@@ -40,6 +41,7 @@
 	},
 	"Elf" : {
 		"name" 						: "Elf",
+		"resRef"					: "Elf",
 		"sprites"					: {
 										"display" 	: "Elf.gif",
 										"token"		: "elfToken.gif"
@@ -79,6 +81,7 @@
 	},
 	"Dwarf" : {
 		"name" 						: "Dwarf",
+		"resRef"					: "Dwarf",
 		"sprites"					: {
 										"display" 	: "Dwarf.gif",
 										"token"		: "dwarfToken.gif"
@@ -118,6 +121,7 @@
 	},
 	"Wizard" : {
 		"name" 						: "Wizard",
+		"resRef"					: "Wizard",
 		"sprites"					: {
 										"display" 	: "Wizard.gif",
 										"token"		: "wizardToken.gif"

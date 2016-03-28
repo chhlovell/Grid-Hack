@@ -83,7 +83,35 @@ var gh = (function(gh){
 		}
 
 		return agents;
-	}
+	};
+
+	/**
+	 * @method isAgentAlive
+	 * @param {string} idKey This can be a value of "name", "resRef", or "uniqueID" and is used to determine if an agent is allive.
+	 * @param {string} arg This is a string value that corresponds with the idKey compared with.
+	 * @return
+	 */
+	Manager.prototype.isAgentAlive = function(idKey, arg){
+		var agents = this.getAllAgents();
+
+		for(var it = 0; it < agents.length && agents[it][idKey] !== arg; it++){
+
+		}
+
+		if(it < agents.length){
+			return true;
+		}
+
+		return false;
+	};
+
+	Manager.prototype.endTurn = function(){
+		this.getActivePlayer().getActiveAgent().state = "inactive";
+		this.setNextTurn();
+		if(this.getActivePlayer().getActiveAgent()){
+			this.getActivePlayer().getActiveAgent().startTurn();
+		}
+	};
 
 	gh.Manager = Manager;
 	return gh;

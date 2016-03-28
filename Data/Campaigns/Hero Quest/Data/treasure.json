@@ -39,25 +39,25 @@
 			},
 			{
 				"name"				: "Hazard",
-				"function"			: {"key" : "trap", "attribute" : 1},
+				"function"			: {"key" : "trap", "f" : "arrow", "attribute" : 1},
 				"description"		: "While you are searching, a hidden arrow shoots from the wall striking you. You loose 1 Body Point.",
 				"image"				: "arrow.gif"
 			},
 			{
 				"name"				: "Hazard",
-				"function"			: {"key" : "trap", "attribute" : 1},
+				"function"			: {"key" : "trap", "f" : "arrow", "attribute" : 1},
 				"description"		: "While you are searching, a hidden arrow shoots from the wall striking you. You loose 1 Body Point.",
 				"image"				: "arrow.gif"
 			},
 			{
 				"name"				: "Hazard",
-				"function"			: {"key" : "trap", "attribute" : 1},
+				"function"			: {"key" : "trap", "f" : "pit", "attribute" : 1},
 				"description"		: "Suddenly, the stone beneath your feet gives way. You fall into a shallow hole and loose 1 Body Point.",
 				"image"				: "pit.gif"
 			},
 			{
 				"name"				: "Hazard",
-				"function"			: {"key" : "trap", "attribute" : 1},
+				"function"			: {"key" : "trap", "f" : "pit", "attribute" : 1},
 				"description"		: "Suddenly, the stone beneath your feet gives way. You fall into a shallow hole and loose 1 Body Point.",
 				"image"				: "pit.gif"
 			},

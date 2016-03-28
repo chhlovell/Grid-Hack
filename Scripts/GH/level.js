@@ -28,6 +28,49 @@ var gh = (function(gh){
 	}
 
 	/**
+	 * @method isVictory
+	 * @param {string} team The name of the team in question.
+	 * @return
+	 */
+	Level.prototype.isVictory = function(team){
+		var vConditions = this.teams[team].victory;
+
+		for(var it = 0; it < vConditions.length; it++){
+			switch(vConditions[it].goal){
+				case "kill":
+					console.log(vConditions[it].target);
+					switch(vConditions[it].target){
+						case "agent":
+							for(var hl = 0; hl < vConditions[it].hitList.length; hl++){
+								if(!gh.ptrActiveLevel.manager.isAgentAlive("name", vConditions[it].hitList[hl])){
+									vConditions[it].hitList.splice(hl, 1);
+									hl--;
+								}
+							}
+							if(vConditions[it].hitList.length <= 0){
+								return true;
+							}
+							break;
+						case "team":
+							var agents = gh.ptrActiveLevel.manager.getAllAgents();
+							for(var a = 0; (a < agents.length) && (agents[a].team !== vConditions[it].team); a++){}
+							if(a >= agents.length){
+								return true;
+							}
+							break;
+						default:
+							break;
+					}
+					break;
+				default:
+					break;
+			}
+		}
+
+		return false;
+	};
+
+	/**
 	 * @method drawTriggers
 	 * @param {Canvas.context} context
 	 * @param {integer} tileSize

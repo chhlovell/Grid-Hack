@@ -77,8 +77,6 @@ var gh = (function(gh){
 			var jsonData = getAJAX(path);
 			jsonData = JSON.parse(jsonData);
 
-			console.log(jsonTreasure);
-
 			var players = json.getPlayers(jsonData.players, jsonAgentTemplates, jsonWeaponTemplates, jsonArmourTemplates);
 
 			var level = new gh.Level(
@@ -104,7 +102,7 @@ var gh = (function(gh){
 			}
 			var cards = jsonTreasure.deck;
 			var deck = [];
-			console.log(cards);
+
 			for(var it = 0; it < cards.length; it++){
 				deck.push(new gh.Card(cards[it].name, cards[it].description, cards[it].function, cards[it].image));
 			}
@@ -214,7 +212,7 @@ var gh = (function(gh){
 			var roster = [];
 
 			for(var it = 0; it < jsonRoster.length; it++){
-				var template = jsonAgentTemplates[jsonRoster[it].name];
+				var template = jsonAgentTemplates[jsonRoster[it].resRef];
 				var weaponResRef;
 				if(jsonRoster[it].mainHand){
 					weaponResRef = jsonRoser[it].mainHand;
@@ -234,6 +232,7 @@ var gh = (function(gh){
 				roster.push(
 					new gh.Agent(
 						jsonRoster[it].name,
+						template.resRef,
 						jsonRoster[it].id,
 						jsonRoster[it].position.x,
 						jsonRoster[it].position.y,
@@ -419,7 +418,6 @@ var gh = (function(gh){
 			var itemList = [];
 			for(var it = 0; it < items.length; it++){
 				var ptrItem = jsonItemTemplates[items[it].type];
-				console.log(items[it]);
 				itemList.push(new gh.Item(
 					ptrItem.name,
 					items[it].id,

@@ -246,7 +246,7 @@ var gh = (function(gh){
 					var treasure = new gh.Card(
 						this.inventory[it].args.name,
 						this.inventory[it].args.description,
-						"",
+						this.inventory[it].args.function,
 						this.inventory[it].args.image
 					);
 					gh.stateTreasure.load(treasure);
@@ -262,6 +262,14 @@ var gh = (function(gh){
 					break;
 
 				case "trap":
+					var treasure = new gh.Card(
+						this.inventory[it].args.name,
+						this.inventory[it].args.description,
+						this.inventory[it].args.function,
+						this.inventory[it].args.image
+					);
+					gh.stateTreasure.load(treasure);
+					treasure.onFind(agent);
 					break;
 				default:
 					break;

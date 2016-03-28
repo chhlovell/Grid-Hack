@@ -78,6 +78,7 @@ var gh = (function(gh){
 		var agent = new gh.Agent(
 			type,
 			type,
+			undefined,
 			null,
 			null,
 			null,
@@ -106,6 +107,7 @@ var gh = (function(gh){
 		agent = new gh.Agent(
 			type,
 			type,
+			undefined,
 			null,
 			null,
 			null,
@@ -121,7 +123,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory,
+			gh.json.getInventory(jsonAgentTemplates[type].inventory, jsonWeaponTemplates, jsonArmourTemplates),
 			jsonAgentTemplates[type].sprites,
 			jsonAgentTemplates[type].animations
 		);
@@ -133,6 +135,7 @@ var gh = (function(gh){
 		agent = new gh.Agent(
 			type,
 			type,
+			undefined,
 			null,
 			null,
 			null,
@@ -148,7 +151,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory,
+			gh.json.getInventory(jsonAgentTemplates[type].inventory, jsonWeaponTemplates, jsonArmourTemplates),
 			jsonAgentTemplates[type].sprites,
 			jsonAgentTemplates[type].animations
 		);
@@ -160,6 +163,7 @@ var gh = (function(gh){
 		agent = new gh.Agent(
 			type,
 			type,
+			undefined,
 			null,
 			null,
 			null,
@@ -175,7 +179,7 @@ var gh = (function(gh){
 			jsonAgentTemplates[type].moveDice,
 			jsonAgentTemplates[type].baseMove,
 			jsonAgentTemplates[type].spellList,
-			jsonAgentTemplates[type].inventory,
+			gh.json.getInventory(jsonAgentTemplates[type].inventory, jsonWeaponTemplates, jsonArmourTemplates),
 			jsonAgentTemplates[type].sprites,
 			jsonAgentTemplates[type].animations
 		);
@@ -228,7 +232,8 @@ var gh = (function(gh){
 		window.onkeydown			= input.keyboard.keyDown;
 		window.onkeyup				= input.keyboard.keyUp;
 
-		gh.dss.setupInput();
+		//gh.dss.setupInput();
+		gh.stateSplashScreen.setup();
 
 		return true;
 	};

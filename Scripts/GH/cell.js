@@ -249,14 +249,15 @@ var gh = (function(gh){
 					var attack = activeAgent.attack(obj);
 
 					if(attack !== null){
-						gh.hud.displayAttack(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
-
 						// If the target agent has been killed remove it from the game (board and its owner's roster)
 						// and add a corpse/blood splatter effect to the board.
 						if(obj.damageHealth(attack.damage) === "dead"){
 							this.effects.push(gh.assets.sprites["blood-splatter.gif"]);
 							this.removeAgent(obj);
 						}
+
+						gh.stateSplashScreen.load(activeAgent.mainHand.attackDice, attack.hits, obj.getDefenceDice(), attack.defence, obj);
+						return "stateSplashScreen";
 					}
 				}
 			}

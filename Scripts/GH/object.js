@@ -4,16 +4,19 @@ var gh = (function(gh){
 	console.log("object.js loaded");
 
 	function Gold(value){
+		this.name = "Gold";
 		this.value = value || 0;
 		this.img = "";
 	}
 
 	function Gem(value){
+		this.name = "Gem";
 		this.value = value || 0;
 		this.img = "";
 	}
 
 	function Jewel(value){
+		this.name = "Jewel";
 		this.value = value || 0;
 		this.img = "";
 	}

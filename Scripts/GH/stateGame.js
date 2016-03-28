@@ -20,6 +20,10 @@ var gh = (function(gh){
 		var dt;
 		var ptrFocus;
 
+		function activeAgent(){
+			return gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+		}
+
 		/**
 		 * This function is called at the end of and AI agent's turn.
 		 * This method loads the next agent's turn.  This is done by first looking for
@@ -33,7 +37,16 @@ var gh = (function(gh){
 		 * @method endTurn
 		 */
 		function endTurn(){
-			gh.hud.onEndTurn();
+			//gh.hud.onEndTurn();
+
+			//Setup the next players turn
+			gh.ptrActiveLevel.manager.endTurn();
+
+			// Update the active agent display data
+			gh.hud.setupAAD();
+
+			// Center board view onto new agent
+			gh.board.centerOn(gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent());
 
 			if(gh.ptrActiveLevel.manager.getActivePlayer().AI){
 				timeStamp = Date.now();
@@ -48,106 +61,110 @@ var gh = (function(gh){
 			gh.board.handleInput();
 
 			var state 			= "stateGame";
-			var manager 		= gh.ptrActiveLevel.manager;
-			var activePlayer 	= manager.getActivePlayer();
-			var activeAgent 	= activePlayer.getActiveAgent();
 
-			if(activePlayer.AI){
-				if(activeAgent.active){
-					console.log(activeAgent);
+			if(gh.ptrActiveLevel.isVictory(activeAgent().team)){
+				console.log("victory");
+				return "stateEnd";
+			}
 
-					/**
-					 * The AI
-					 *
-					 * MOVE THIS TO EITHER AGENT OR AN INDEPENDENT CLASS/OBJECT STRUCTURE
-					 *
-					 * Attack the target if in range
-					 * Determine the most suitable target
-					 * Move to within range of target
-					 *
-					 */
+			if(gh.ptrActiveLevel.manager.getActivePlayer().AI){
+				state = this.handleAITurn();
+			} else {
+				state = this.handlePlayerInput();
+			}
 
-					var opponents 	= activeAgent.getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
-					var target 		= activeAgent.getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
-					var path 		= gh.ptrActiveLevel.mapData.map.aStar(activeAgent, target);
+			gh.hud.update();
 
-					if(path.length > 2 && activeAgent.moved > 1){
+			return state;
+		};
+
+		stateGame.handleAITurn = function(){
+			var state = "stateGame";
+
+			if(activeAgent().active){
+				console.log(activeAgent);
+
+				var opponents 	= activeAgent().getOpponents(gh.ptrActiveLevel.teams, gh.ptrActiveLevel.manager.getAllAgents());
+				var target 		= activeAgent().getClosestOpponent(gh.ptrActiveLevel.teams, opponents);
+				var path 		= gh.ptrActiveLevel.mapData.map.aStar(activeAgent(), target);
+
+				if(path.length > 2 && activeAgent().moved > 1){
+					dt = Date.now() - timeStamp;
+					if(dt > 500){
+						activeAgent().move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
+						timeStamp = Date.now();
+					}
+				} else if(path.length > 1 || activeAgent().moved === 1){
+					if(!(path[0].cell.agents && path[0].cell.agents.length > 0)){
 						dt = Date.now() - timeStamp;
 						if(dt > 500){
-							activeAgent.move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
+							activeAgent().move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
 							timeStamp = Date.now();
 						}
-					} else if(path.length > 1 || activeAgent.moved === 1){
-						if(!(path[0].cell.agents && path[0].cell.agents.length > 0)){
-							dt = Date.now() - timeStamp;
-							if(dt > 500){
-								activeAgent.move(path[0].direction, gh.ptrActiveLevel.mapData.map.board);
-								timeStamp = Date.now();
-							}
-						} else {
-							endTurn();
-						}
 					} else {
-						// Try to attack the target.
-						var atk = activeAgent.attack(target);
-
-						// Display the attack splash screen
-						if(atk !== null){
-							gh.hud.displayAttack(activeAgent.mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
-
-							// If the target has died remove it from the game.
-							// Add a death blood/corpse splatter effect to the board.
-							// Drop any loot.
-							if(target.damageHealth(atk.damage) === "dead"){
-								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].effects.push(gh.assets.sprites["blood-splatter.gif"]);
-								console.log(gh.ptrActiveLevel.mapData.map.board[target.y][target.x]);
-								gh.ptrActiveLevel.mapData.map.board[target.y][target.x].removeAgent(target);
-							}
-						}
 						endTurn();
 					}
 				} else {
+					// Try to attack the target.
+					var atk = activeAgent().attack(target);
+
+					// Display the attack splash screen
+					if(atk !== null){
+						// If the target has died remove it from the game.
+						// Add a death blood/corpse splatter effect to the board.
+						// Drop any loot.
+						if(target.damageHealth(atk.damage) === "dead"){
+							gh.ptrActiveLevel.mapData.map.board[target.y][target.x].effects.push(gh.assets.sprites["blood-splatter.gif"]);
+							console.log(gh.ptrActiveLevel.mapData.map.board[target.y][target.x]);
+							gh.ptrActiveLevel.mapData.map.board[target.y][target.x].removeAgent(target);
+						}
+
+						//gh.hud.displayAttack(activeAgent().mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
+						gh.stateSplashScreen.load(activeAgent().mainHand.attackDice, atk.hits, target.getDefenceDice(), atk.defence, target);
+						state = "stateSplashScreen";
+					}
 					endTurn();
 				}
 			} else {
-				/**
-				 * handle agent input
-				 */
-				var key = input.keyboard.key;
-
-				/**
-				 * Spacebar to center on active agent
-				 */
-				if(key[input.keyboard.SPACE] && key[input.keyboard.SPACE].pressed){
-					var agent = activePlayer.getActiveAgent();
-					gh.board.centerOn(agent);
-				}
-
-				/**
-				 * Handle agent movement 
-				 */
-				if(input.keyboard.isPressed(input.keyboard.A) && !input.keyboard.isRepeat(input.keyboard.A)){
-					activeAgent.move("left", gh.ptrActiveLevel.mapData.map.board);
-					input.keyboard.key[input.keyboard.A].pressed = false;
-					input.keyboard.key[input.keyboard.A].repeat = false;
-				}
-				if(input.keyboard.isPressed(input.keyboard.D) && !input.keyboard.isRepeat(input.keyboard.D)){
-					activeAgent.move("right", gh.ptrActiveLevel.mapData.map.board);
-					input.keyboard.key[input.keyboard.D].pressed = false;
-					input.keyboard.key[input.keyboard.D].repeat = false;
-				}
-				if(input.keyboard.isPressed(input.keyboard.W) && !input.keyboard.isRepeat(input.keyboard.W)){
-					activeAgent.move("up", gh.ptrActiveLevel.mapData.map.board);
-					input.keyboard.key[input.keyboard.W].pressed = false;
-					input.keyboard.key[input.keyboard.W].repeat = false;
-				}
-				if(input.keyboard.isPressed(input.keyboard.S) && !input.keyboard.isRepeat(input.keyboard.S)){
-					activeAgent.move("down", gh.ptrActiveLevel.mapData.map.board);
-					input.keyboard.key[input.keyboard.S].pressed = false;
-					input.keyboard.key[input.keyboard.S].repeat = false;
-				}
-
+				endTurn();
 			}
+
+			return state;
+		};
+
+		stateGame.handlePlayerInput = function(){
+			var state = "stateGame";
+
+			// handle agent input
+			var key = input.keyboard.key;
+
+			// Spacebar to center on active agent
+			if(key[input.keyboard.SPACE] && key[input.keyboard.SPACE].pressed){
+				gh.board.centerOn(activeAgent());
+			}
+
+			//Handle agent movement 
+			if(input.keyboard.isPressed(input.keyboard.A) && !input.keyboard.isRepeat(input.keyboard.A)){
+				activeAgent().move("left", gh.ptrActiveLevel.mapData.map.board);
+				input.keyboard.key[input.keyboard.A].pressed = false;
+				input.keyboard.key[input.keyboard.A].repeat = false;
+			}
+			if(input.keyboard.isPressed(input.keyboard.D) && !input.keyboard.isRepeat(input.keyboard.D)){
+				activeAgent().move("right", gh.ptrActiveLevel.mapData.map.board);
+				input.keyboard.key[input.keyboard.D].pressed = false;
+				input.keyboard.key[input.keyboard.D].repeat = false;
+			}
+			if(input.keyboard.isPressed(input.keyboard.W) && !input.keyboard.isRepeat(input.keyboard.W)){
+				activeAgent().move("up", gh.ptrActiveLevel.mapData.map.board);
+				input.keyboard.key[input.keyboard.W].pressed = false;
+				input.keyboard.key[input.keyboard.W].repeat = false;
+			}
+			if(input.keyboard.isPressed(input.keyboard.S) && !input.keyboard.isRepeat(input.keyboard.S)){
+				activeAgent().move("down", gh.ptrActiveLevel.mapData.map.board);
+				input.keyboard.key[input.keyboard.S].pressed = false;
+				input.keyboard.key[input.keyboard.S].repeat = false;
+			}
+
 
 			// Handle mouse input.
 
@@ -183,21 +200,11 @@ var gh = (function(gh){
 					if(map[pt.y][pt.x]){
 						var cell = map[pt.y][pt.x];
 						if(cell.visible){
-							state = cell.onClick(
-								input.mouse.x,
-								input.mouse.y,
-								gh.board.tileSize,
-								gh.board.scale,
-								gh.board.offset,
-								gh.assets.sprites,
-								activePlayer.getActiveAgent()
-							);
+							state = cell.onClick(input.mouse.x, input.mouse.y, gh.board.tileSize, gh.board.scale, gh.board.offset, gh.assets.sprites, activeAgent());
 						}
 					}
 				}
 			}
-
-			gh.hud.update();
 
 			return state;
 		};

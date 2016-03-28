@@ -8,44 +8,63 @@
 			"name" 	: "Zargon",
 			"AI" 	: true, 
 			"roster" : [
-				{"name" : "Orc", "id" : "Orc01", "position" : {"x" :  2, "y" : 11}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc02", "position" : {"x" :  7, "y" : 13}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc03", "position" : {"x" :  8, "y" : 14}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc04", "position" : {"x" :  4, "y" : 16}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc05", "position" : {"x" :  4, "y" :  4}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc06", "position" : {"x" : 11, "y" : 10}, "faction" : "Zargon"},
-				{"name" : "Orc", "id" : "Orc07", "position" : {"x" : 14, "y" :  7}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc01", "position" : {"x" :  2, "y" : 11}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc02", "position" : {"x" :  7, "y" : 13}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc03", "position" : {"x" :  8, "y" : 14}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc05", "position" : {"x" :  4, "y" :  4}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc06", "position" : {"x" : 11, "y" : 10}, "faction" : "Zargon"},
+				{"name" : "Orc", "resRef" : "Orc", "id" : "Orc07", "position" : {"x" : 14, "y" :  7}, "faction" : "Zargon"},
 
-				{"name" : "Goblin", "id" : "Goblin01", "position" : {"x" : 10, "y" : 13}, "faction" : "Zargon"},
-				{"name" : "Goblin", "id" : "Goblin02", "position" : {"x" : 2,  "y" : 10}, "faction" : "Zargon"},
-				{"name" : "Goblin", "id" : "Goblin03", "position" : {"x" : 3,  "y" :  5}, "faction" : "Zargon"},
-				{"name" : "Goblin", "id" : "Goblin04", "position" : {"x" : 6,  "y" :  6}, "faction" : "Zargon"},
-				{"name" : "Goblin", "id" : "Goblin05", "position" : {"x" : 7,  "y" :  6}, "faction" : "Zargon"},
+				{"name" : "Goblin", "resRef" : "Goblin", "id" : "Goblin01", "position" : {"x" : 10, "y" : 13}, "faction" : "Zargon"},
+				{"name" : "Goblin", "resRef" : "Goblin", "id" : "Goblin02", "position" : {"x" : 2,  "y" : 10}, "faction" : "Zargon"},
+				{"name" : "Goblin", "resRef" : "Goblin", "id" : "Goblin03", "position" : {"x" : 3,  "y" :  5}, "faction" : "Zargon"},
+				{"name" : "Goblin", "resRef" : "Goblin", "id" : "Goblin04", "position" : {"x" : 6,  "y" :  6}, "faction" : "Zargon"},
+				{"name" : "Goblin", "resRef" : "Goblin", "id" : "Goblin05", "position" : {"x" : 7,  "y" :  6}, "faction" : "Zargon"},
 
-				{"name" : "Skeleton", "id" : "Skeleton01", "position" : {"x" :  2, "y" :  1}, "faction" : "Zargon"},
-				{"name" : "Skeleton", "id" : "Skeleton02", "position" : {"x" :  3, "y" :  1}, "faction" : "Zargon"},
-				{"name" : "Skeleton", "id" : "Skeleton03", "position" : {"x" :  9, "y" :  0}, "faction" : "Zargon"},
-				{"name" : "Skeleton", "id" : "Skeleton04", "position" : {"x" :  9, "y" :  2}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "resRef" : "Skeleton", "id" : "Skeleton01", "position" : {"x" :  2, "y" :  1}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "resRef" : "Skeleton", "id" : "Skeleton02", "position" : {"x" :  3, "y" :  1}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "resRef" : "Skeleton", "id" : "Skeleton03", "position" : {"x" :  9, "y" :  0}, "faction" : "Zargon"},
+				{"name" : "Skeleton", "resRef" : "Skeleton", "id" : "Skeleton04", "position" : {"x" :  9, "y" :  2}, "faction" : "Zargon"},
 
-				{"name" : "Zombie", "id" : "Zombie01", "position" : {"x" :  6, "y" :  0}, "faction" : "Zargon"},
-				{"name" : "Zombie", "id" : "Zombie02", "position" : {"x" :  6, "y" :  2}, "faction" : "Zargon"},
+				{"name" : "Zombie", "resRef" : "Zombie", "id" : "Zombie01", "position" : {"x" :  6, "y" :  0}, "faction" : "Zargon"},
+				{"name" : "Zombie", "resRef" : "Zombie", "id" : "Zombie02", "position" : {"x" :  6, "y" :  2}, "faction" : "Zargon"},
 
-				{"name" : "Mummy", "id" : "Mummy01", "position" : {"x" :  6, "y" :  1}, "faction" : "Zargon"},
+				{"name" : "Mummy", "resRef" : "Mummy", "id" : "Mummy01", "position" : {"x" :  6, "y" :  1}, "faction" : "Zargon"},
 
-				{"name" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 13, "y" : 10}, "faction" : "Zargon"},
-				{"name" : "ChaosWarrior", "id" : "ChaosWarrior02", "position" : {"x" : 14, "y" : 15}, "faction" : "Zargon"},
-				{"name" : "ChaosWarrior", "id" : "ChaosWarrior03", "position" : {"x" : 15, "y" : 14}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "resRef" : "ChaosWarrior", "id" : "ChaosWarrior01", "position" : {"x" : 13, "y" : 10}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "resRef" : "ChaosWarrior", "id" : "ChaosWarrior02", "position" : {"x" : 14, "y" : 15}, "faction" : "Zargon"},
+				{"name" : "ChaosWarrior", "resRef" : "ChaosWarrior", "id" : "ChaosWarrior03", "position" : {"x" : 15, "y" : 14}, "faction" : "Zargon"},
 
-				{"name" : "Fimir" , "id" : "Fimir01", "position" : {"x" : 10, "y" : 15}, "faction" : "Zargon"},
+				{"name" : "Fimir" , "resRef" : "Fimir", "id" : "Fimir01", "position" : {"x" : 10, "y" : 15}, "faction" : "Zargon"},
 
-				{"name" : "Gargoyle", "id" : "Gargoyle01", "position" : {"x" : 12, "y" : 7}, "faction" : "Zargon"}
+				{"name" : "Verag", "resRef" : "Gargoyle", "id" : "Gargoyle01", "position" : {"x" : 4, "y" : 15}, "faction" : "Zargon"}
 			]
 		}
 	],
 	"teams" : {
-		"Empire"			: {"hostile" : ["Zargon"], "allies" : ["Empire"]},
-		"Zargon"			: {"hostile" : ["Empire"], "allies" : ["Zargon"]}
+		"Empire" : {
+			"hostile" 			: ["Zargon"], 
+			"allies" 			: ["Empire"],
+			"victory"			: [
+				{
+					"goal"		: "kill",
+					"target" 	: "agent",
+					"hitList"	: ["Verag"]
+				}
+			]
 		},
+		"Zargon" : {
+			"hostile" 		: ["Empire"], 
+			"allies" 		: ["Zargon"],
+			"victory" 		: [
+				{
+					"goal"			: "kill",
+					"target"		: "team",
+					"team"			: "Empire"
+				}
+			]
+		}
+	},
 	"stdGraphics" : {
 		"door" : {
 			"closed" : "closedDoor.png", 
@@ -568,6 +587,23 @@
 				"rotation" 	: 90,
 				"inventory" : [
 					{"fn" 	: "empty", "args" : "This chest is empty."}
+				]
+			},
+			{
+				"type" 		: "Chest", 			
+				"id" 		: "chest03", 		
+				"pos" 		: {"x" :  4, "y" : 16}, 	
+				"rotation" 	: 90,
+				"inventory" : [
+					{
+						"fn" 	: "trap", 
+						"args" 	: {
+							"name" : "Hazard",
+							"function" : {"key" : "trap", "f" : "arrow", "attribute" : 1},
+							"description" : "While you are searching, a hidden arrow shoots from the wall striking you. You loose 1 Body Point.",
+							"image" : "arrow.gif"
+						}
+					}
 				]
 			},
 

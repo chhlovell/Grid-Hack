@@ -41,6 +41,13 @@ var gh = (function(gh){
 		hud.d2 = undefined;
 
 		/**
+		 * Private methods
+		 */
+		function activeAgent(){
+			return gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent();
+		}
+
+		/**
 		 * Public Methods
 		 */
 
@@ -102,10 +109,11 @@ var gh = (function(gh){
 
 			gh.assets.sprites["Gem"]					= new graphics.Sprite("./Data/Graphics/Interface/Gem.gif");
 			gh.assets.sprites["Gold"]					= new graphics.Sprite("./Data/Graphics/Interface/Gold.gif");
-			gh.assets.sprites["Jewels"]					= new graphics.Sprite("./Data/Graphics/Interface/Jewels.gif");	
+			gh.assets.sprites["Jewel"]					= new graphics.Sprite("./Data/Graphics/Interface/Jewels.gif");	
 			gh.assets.sprites["Potion of Healing"] 		= new graphics.Sprite("./Data/Graphics/Interface/Potion of Healing.gif");
 			gh.assets.sprites["Heroic Brew"] 			= new graphics.Sprite("./Data/Graphics/Interface/Heroic Brew.gif");
 			gh.assets.sprites["Potion of Defence"] 		= new graphics.Sprite("./Data/Graphics/Interface/Potion of Defence.gif");
+			gh.assets.sprites["Potion of Strength"]		= new graphics.Sprite("./Data/Graphics/Interface/Potion of Strength.gif");
 		};
 
 		/**
@@ -187,7 +195,7 @@ var gh = (function(gh){
 			}
 
 			// Setup the AAD agent descriptive overview
-			AAD_NAME.innerHTML 			= agent.uniqueID;
+			AAD_NAME.innerHTML 			= agent.name;
 			AAD_DESCRIPTION.innerHTML 	= agent.description;
 
 			// Remove and child icons in the action tab
@@ -231,7 +239,6 @@ var gh = (function(gh){
 				w.height 		= w.clientHeight;
 				var ctx 		= w.getContext("2d");
 
-				console.log(gh.assets.sprites[agent.inventory[it].name]);
 				if(gh.assets.sprites[agent.inventory[it].name]){
 					gh.assets.sprites[agent.inventory[it].name].draw(ctx, 0, 0, w.width, w.height);
 				} else {
@@ -337,10 +344,14 @@ var gh = (function(gh){
 		 * @method onEndTurn
 		 */
 		hud.onEndTurn = function(){
+			// Prevent the user from pressing the end turn button during a computer
+			// agent's turn.
+			if(activeAgent().AI){
+				return;
+			}
+
 			//Setup the next players turn
-			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().state = "inactive";
-			gh.ptrActiveLevel.manager.setNextTurn();
-			gh.ptrActiveLevel.manager.getActivePlayer().getActiveAgent().startTurn();
+			gh.ptrActiveLevel.manager.endTurn();
 
 			// Update the active agent display data
 			hud.setupAAD();
